@@ -1,0 +1,8 @@
+=================
+quadInterpolation
+=================
+
+.. currentmodule:: pyvsim.Utils
+
+.. autofunction:: pyvsim.Utils.quadInterpolation
+

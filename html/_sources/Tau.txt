@@ -1,0 +1,8 @@
+===
+Tau
+===
+
+.. currentmodule:: pyvsim.MieUtils
+
+.. autofunction:: pyvsim.MieUtils.Tau
+

@@ -1,0 +1,8 @@
+=================
+pyvsimJSONEncoder
+=================
+
+.. currentmodule:: pyvsim.System
+
+.. autoclass:: pyvsim.System.pyvsimJSONEncoder
+    :members: 

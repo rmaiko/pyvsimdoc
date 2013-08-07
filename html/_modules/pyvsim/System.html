@@ -1,0 +1,746 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyvsim.System &mdash; pyvsim 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="pyvsim 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">pyvsim 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyvsim.System</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">PyVSim v.1</span>
+<span class="sd">Copyright 2013 Ricardo Entz</span>
+
+<span class="sd">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="sd">you may not use this file except in compliance with the License.</span>
+<span class="sd">You may obtain a copy of the License at</span>
+
+<span class="sd">    http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="sd">Unless required by applicable law or agreed to in writing, software</span>
+<span class="sd">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="sd">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="sd">See the License for the specific language governing permissions and</span>
+<span class="sd">limitations under the License.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d.art3d</span> <span class="kn">import</span> <span class="n">Poly3DCollection</span><span class="p">,</span> <span class="n">Line3DCollection</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">Core</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">cPickle</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">vtk</span>
+    <span class="n">VTK_PRESENT</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">VTK_PRESENT</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">print</span> <span class="s">&quot;VTK not found&quot;</span>
+    
+<span class="n">VERSION</span> <span class="o">=</span> <span class="s">&quot;1.0&quot;</span>
+
+<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../plot.html#pyvsim.System.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;vtk&quot;</span><span class="p">,</span> <span class="n">displayAxes</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function to avoid the routine of creating visitor, making it</span>
+<span class="sd">    visit the part tree and ask for plotting.</span>
+<span class="sd">    </span>
+<span class="sd">    *Warning* - Due to bugs both in Matplotlib and VTK, the program execution</span>
+<span class="sd">    is paused until the window is closed. So plotting should be the last </span>
+<span class="sd">    operation in the pipeline.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    obj : Primitives.Assembly</span>
+<span class="sd">        The scenario to be displayed</span>
+<span class="sd">    mode : &quot;vtk&quot; or &quot;mpl&quot;</span>
+<span class="sd">        The library to be used in displaying the scenario, the standard option</span>
+<span class="sd">        is &quot;vtk&quot;, which is faster and supports rendering complex scenarios.</span>
+<span class="sd">        Some scenarios, however, can be plotted using Matplotlib.</span>
+<span class="sd">    displayAxes : boolean</span>
+<span class="sd">        When plotting with VTK, the axis can be hidden by setting this option</span>
+<span class="sd">        to false.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plotter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">acceptVisitor</span><span class="p">(</span><span class="n">plotter</span><span class="p">)</span>
+    <span class="n">plotter</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">displayAxes</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="save"><a class="viewcode-back" href="../../save.html#pyvsim.System.save">[docs]</a><span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&quot;pickle&quot;</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function for saving a Primitives.Assembly object.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    obj : Primitives.Assembly</span>
+<span class="sd">        The scenario to be saved. </span>
+<span class="sd">    filename : string</span>
+<span class="sd">        The name of the output file</span>
+<span class="sd">    mode : &quot;pickle&quot; or &quot;json&quot;</span>
+<span class="sd">        Specifies the file format to be used in saving. The default option is</span>
+<span class="sd">        pickle (which is fast and bug free), use JSON only if you need to edit</span>
+<span class="sd">        the file in a human-readable way.</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&quot;pickle&quot;</span><span class="p">:</span>
+        <span class="n">saver</span> <span class="o">=</span> <span class="n">Saver</span><span class="p">(</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Saver</span><span class="o">.</span><span class="n">PICKLE</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&quot;json&quot;</span><span class="p">:</span>
+        <span class="n">saver</span> <span class="o">=</span> <span class="n">Saver</span><span class="p">(</span><span class="n">mode</span> <span class="o">=</span> <span class="n">Saver</span><span class="o">.</span><span class="n">JSON</span><span class="p">)</span>
+        
+    <span class="n">obj</span><span class="o">.</span><span class="n">acceptVisitor</span><span class="p">(</span><span class="n">saver</span><span class="p">)</span>
+    <span class="n">saver</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../load.html#pyvsim.System.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function for loading a part tree. Pickle/JSON is chosen</span>
+<span class="sd">    by trial and error</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">        The name of the input file</span>
+<span class="sd">    mode : &quot;pickle&quot; or &quot;json&quot;</span>
+<span class="sd">        Specifies the file format of the input file. The default option is</span>
+<span class="sd">        None, which will make the loader first try to unpickle the file</span>
+<span class="sd">        (which is fast and bug free). Use JSON only if you need to edit</span>
+<span class="sd">        the file in a human-readable way.</span>
+<span class="sd">        </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If decoding was not possible</span>
+<span class="sd">    &quot;&quot;&quot;</span>       
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rawdata</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rawdata</span>
+    <span class="k">except</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">UnpicklingError</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Could not decode pickle, trying JSON&quot;</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rawdata</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">pyvsimJSONDecoder</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+    <span class="k">return</span> <span class="n">rawdata</span>
+
+
+        
+        
+</div>
+<div class="viewcode-block" id="Plotter"><a class="viewcode-back" href="../../Plotter.html#pyvsim.System.Plotter">[docs]</a><span class="k">def</span> <span class="nf">Plotter</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">&quot;vtk&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a factory that returns a plotter visitor.</span>
+<span class="sd">    </span>
+<span class="sd">    It uses information about the Python installation to return a </span>
+<span class="sd">    compatible plotter.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mode : &quot;vtk&quot; or &quot;mpl&quot;</span>
+<span class="sd">        &quot;vtk&quot; Uses the Python wrapping of the Visualization Toolkit (VTK) to </span>
+<span class="sd">        plot the environment, whereas &quot;mpl&quot; uses Matplotlib to plot the </span>
+<span class="sd">        environment (this option is not so efficient in plotting environments</span>
+<span class="sd">        with complex objects)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&quot;vtk&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">VTK_PRESENT</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">VTKPlotter</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Could not import VTK, returning a Matplotlib plotter&quot;</span>
+            <span class="k">return</span> <span class="n">PythonPlotter</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">&quot;mpl&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">PythonPlotter</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Could not understand input &quot;</span> <span class="o">+</span> <span class="n">mode</span><span class="p">)</span>
+    
+    <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s">&quot;Could not import a library for plotting. PyVSim&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;uses both Matplotlib and VTK&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Visitor"><a class="viewcode-back" href="../../Visitor.html#pyvsim.System.Visitor">[docs]</a><span class="k">class</span> <span class="nc">Visitor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the prototype of a class capable of traversing the parts tree while</span>
+<span class="sd">    having access to all objects, one at a time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">visit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        </div>
+<div class="viewcode-block" id="VTKPlotter"><a class="viewcode-back" href="../../VTKPlotter.html#pyvsim.System.VTKPlotter">[docs]</a><span class="k">class</span> <span class="nc">VTKPlotter</span><span class="p">(</span><span class="n">Visitor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is a Facade to VTK. It takes a snapshot of the assembly tree </span>
+<span class="sd">    and generates a VTK plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Visitor</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actorList</span> <span class="o">=</span> <span class="p">[]</span>
+        
+    <span class="k">def</span> <span class="nf">visit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>  
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">PLOTDIMS</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">PLOTDIMS</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actorList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pointsActor</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">PLOTDIMS</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actorList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lineActor</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">PLOTDIMS</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actorList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polyActor</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Attempted to plot a non pyvsim object&quot;</span><span class="p">)</span>                 
+            
+<div class="viewcode-block" id="VTKPlotter.display"><a class="viewcode-back" href="../../VTKPlotter.html#pyvsim.System.VTKPlotter.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">displayAxes</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a window and plots all the objects found during the last visit</span>
+<span class="sd">        to the parts tree.</span>
+<span class="sd">        </span>
+<span class="sd">        I.e., before running this command, you should do::</span>
+<span class="sd">        </span>
+<span class="sd">        main_assembly.acceptVisitor(plotter)</span>
+<span class="sd">        </span>
+<span class="sd">        Attention: This will stop the program execution until the</span>
+<span class="sd">        window is closed. This is a &quot;feature&quot; of matplotlib and VTK.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="c">#        print &quot;There are %i elements to be plotted&quot; % len(self.actorList)                    </span>
+        <span class="n">window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VTKWindow</span><span class="p">(</span><span class="n">displayAxes</span><span class="p">)</span>
+        <span class="n">window</span><span class="o">.</span><span class="n">addActors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actorList</span><span class="p">)</span>
+        <span class="n">window</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">window</span>
+</div>
+    <span class="k">def</span> <span class="nf">pointsActor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">npts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+         
+        <span class="n">vertices</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+        <span class="n">ptsource</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+        
+        <span class="n">ptsource</span><span class="o">.</span><span class="n">SetNumberOfPoints</span><span class="p">(</span><span class="n">npts</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">):</span>
+            <span class="n">ptsource</span><span class="o">.</span><span class="n">SetPoint</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">vertices</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">vertices</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+            
+        <span class="n">point</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+        <span class="n">point</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">ptsource</span><span class="p">)</span>
+        <span class="n">point</span><span class="o">.</span><span class="n">SetVerts</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>   
+        
+        <span class="n">mapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+        <span class="n">mapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> 
+        
+        <span class="n">actor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkLODActor</span><span class="p">()</span>
+        <span class="n">actor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">mapper</span><span class="p">)</span>
+        <span class="n">actor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetPointSize</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">actor</span>
+        
+<div class="viewcode-block" id="VTKPlotter.lineActor"><a class="viewcode-back" href="../../VTKPlotter.html#pyvsim.System.VTKPlotter.lineActor">[docs]</a>    <span class="k">def</span> <span class="nf">lineActor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an object of type vtkLODActor for rendering within a VTK </span>
+<span class="sd">        pipeline</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">me</span>  <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+        <span class="n">cts</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+            
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">)):</span>
+            <span class="n">pts</span><span class="o">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                              <span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                              <span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+            
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">)):</span>
+            <span class="n">cts</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">cts</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">cts</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+              
+        <span class="n">me</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+        <span class="n">me</span><span class="o">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">cts</span><span class="p">)</span>
+                          
+        <span class="n">dataMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+        <span class="n">dataMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">me</span><span class="p">)</span>
+
+        <span class="n">dataActor</span> <span class="o">=</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkLODActor</span><span class="p">()</span>
+        <span class="n">dataActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">dataMapper</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">dataActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                 <span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                                 <span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">carray</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnsignedCharArray</span><span class="p">()</span>
+                <span class="n">carray</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+                <span class="n">carray</span><span class="o">.</span><span class="n">SetName</span><span class="p">(</span><span class="s">&quot;Colors&quot;</span><span class="p">)</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="o">*</span><span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">color</span><span class="p">:</span>
+                    <span class="n">carray</span><span class="o">.</span><span class="n">InsertNextTupleValue</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                <span class="n">me</span><span class="o">.</span><span class="n">GetCellData</span><span class="p">()</span><span class="o">.</span><span class="n">SetScalars</span><span class="p">(</span><span class="n">carray</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">opacity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dataActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetOpacity</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">opacity</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dataActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetLineWidth</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">dataActor</span>
+    </div>
+<div class="viewcode-block" id="VTKPlotter.polyActor"><a class="viewcode-back" href="../../VTKPlotter.html#pyvsim.System.VTKPlotter.polyActor">[docs]</a>    <span class="k">def</span> <span class="nf">polyActor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">obj</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an object of type vtkLODActor for rendering within a VTK </span>
+<span class="sd">        pipeline</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">actor</span>   <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+        <span class="n">pts</span>     <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+        <span class="n">cts</span>     <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+            
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">)):</span>
+            <span class="n">pts</span><span class="o">.</span><span class="n">InsertPoint</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> 
+                              <span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                              <span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+           
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">connectivity</span><span class="p">)):</span>
+            <span class="n">cts</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">connectivity</span><span class="p">[</span><span class="n">n</span><span class="p">]:</span>
+                <span class="n">cts</span><span class="o">.</span><span class="n">InsertCellPoint</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> 
+                
+        <span class="n">actor</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+        <span class="n">actor</span><span class="o">.</span><span class="n">SetPolys</span><span class="p">(</span><span class="n">cts</span><span class="p">)</span>
+        
+        <span class="c"># If the normals of the object are specified (smooth object), this is</span>
+        <span class="c"># rendered as such</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">normals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">nrm</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDoubleArray</span><span class="p">()</span>
+            <span class="n">nrm</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">nrm</span><span class="o">.</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">)):</span>
+                <span class="n">nrm</span><span class="o">.</span><span class="n">SetTuple</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">normals</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="n">actor</span><span class="o">.</span><span class="n">GetPointData</span><span class="p">()</span><span class="o">.</span><span class="n">SetNormals</span><span class="p">(</span><span class="n">nrm</span><span class="p">)</span>
+            
+        <span class="n">dataMapper</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyDataMapper</span><span class="p">()</span>
+        <span class="n">dataMapper</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+        
+        <span class="n">dataActor</span> <span class="o">=</span><span class="n">vtk</span><span class="o">.</span><span class="n">vtkLODActor</span><span class="p">()</span>
+        <span class="n">dataActor</span><span class="o">.</span><span class="n">SetMapper</span><span class="p">(</span><span class="n">dataMapper</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dataActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetColor</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                             <span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                             <span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">opacity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dataActor</span><span class="o">.</span><span class="n">GetProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetOpacity</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">opacity</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">dataActor</span>
+    </div>
+<div class="viewcode-block" id="VTKPlotter.VTKWindow"><a class="viewcode-back" href="../../VTKPlotter.html#pyvsim.System.VTKPlotter.VTKWindow">[docs]</a>    <span class="k">class</span> <span class="nc">VTKWindow</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A window to plot objects using VTK. Even though this stays in a separate</span>
+<span class="sd">        thread, a error in VTK interface to Python makes it wait until the</span>
+<span class="sd">        window is closed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displayAxes</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+            <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>        
+            <span class="bp">self</span><span class="o">.</span><span class="n">footText</span>       <span class="o">=</span> <span class="s">&quot;PyVSim ver. &quot;</span> <span class="o">+</span> <span class="n">VERSION</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">windowTitle</span>    <span class="o">=</span> <span class="s">&quot;PyVSim Visualization window - powered by VTK&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">windowColor</span>    <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">0.40</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">windowSize</span>     <span class="o">=</span> <span class="p">[</span><span class="mi">800</span><span class="p">,</span><span class="mi">800</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actorlist</span>      <span class="o">=</span> <span class="bp">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">displayAxes</span>    <span class="o">=</span> <span class="n">displayAxes</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">rend</span>           <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderer</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span>         <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindow</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interactor</span>     <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkRenderWindowInteractor</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legend</span>         <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkTextActor</span><span class="p">()</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">rend</span><span class="o">.</span><span class="n">SetBackground</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowColor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">windowColor</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">windowColor</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">SetSize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowSize</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">windowSize</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">AddRenderer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rend</span><span class="p">)</span>
+    
+            <span class="bp">self</span><span class="o">.</span><span class="n">interactor</span><span class="o">.</span><span class="n">SetRenderWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>   
+    
+            <span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">GetTextProperty</span><span class="p">()</span><span class="o">.</span><span class="n">SetFontSize</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">SetPosition2</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">SetInput</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">footText</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rend</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="p">)</span>                  
+        
+        <span class="k">def</span> <span class="nf">addActors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">actorlist</span><span class="p">):</span>            
+            <span class="bp">self</span><span class="o">.</span><span class="n">actorlist</span> <span class="o">=</span> <span class="n">actorlist</span>
+            <span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">actorlist</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rend</span><span class="o">.</span><span class="n">AddActor</span><span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+                
+        <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">displayAxes</span><span class="p">:</span>
+                <span class="n">axesActor</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkAxesActor</span><span class="p">()</span>
+                <span class="n">axesActor</span><span class="o">.</span><span class="n">SetShaftTypeToLine</span><span class="p">()</span>
+                <span class="n">axes</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkOrientationMarkerWidget</span><span class="p">()</span>
+                <span class="n">axes</span><span class="o">.</span><span class="n">SetOrientationMarker</span><span class="p">(</span><span class="n">axesActor</span><span class="p">);</span>
+                <span class="n">axes</span><span class="o">.</span><span class="n">SetInteractor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interactor</span><span class="p">);</span>
+                <span class="n">axes</span><span class="o">.</span><span class="n">EnabledOn</span><span class="p">();</span>
+                <span class="n">axes</span><span class="o">.</span><span class="n">InteractiveOn</span><span class="p">();</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">Render</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">SetWindowName</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">windowTitle</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">interactor</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+    </div></div>
+<div class="viewcode-block" id="PythonPlotter"><a class="viewcode-back" href="../../PythonPlotter.html#pyvsim.System.PythonPlotter">[docs]</a><span class="k">class</span> <span class="nc">PythonPlotter</span><span class="p">(</span><span class="n">Visitor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This visitor class creates a plot of the assembly tree using the</span>
+<span class="sd">    Matplotlib library from python.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Visitor</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">set_window_title</span><span class="p">(</span><span class="s">&#39;PyVSim Visualization window &#39;</span> <span class="o">+</span> 
+                                         <span class="s">&#39;ver. &#39;</span> <span class="o">+</span> <span class="n">VERSION</span> <span class="o">+</span> 
+                                          <span class="s">&#39; - powered by Matplotlib&#39;</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s">&#39;3d&#39;</span><span class="p">)</span>
+        
+<div class="viewcode-block" id="PythonPlotter.visit"><a class="viewcode-back" href="../../PythonPlotter.html#pyvsim.System.PythonPlotter.visit">[docs]</a>    <span class="k">def</span> <span class="nf">visit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>  
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes a snapshot of the object and creates a elements in a Matplotlib</span>
+<span class="sd">        window.</span>
+<span class="sd">        &quot;&quot;&quot;</span>     
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">PLOTDIMS</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">PLOTDIMS</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pointsActor</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">PLOTDIMS</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lineActor</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">PLOTDIMS</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">polyActor</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Attempted to plot a non pyvsim object&quot;</span><span class="p">)</span>              
+            </div>
+<div class="viewcode-block" id="PythonPlotter.display"><a class="viewcode-back" href="../../PythonPlotter.html#pyvsim.System.PythonPlotter.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">displayAxes</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a window and plots all the objects found during the last visit</span>
+<span class="sd">        to the parts tree.</span>
+<span class="sd">        </span>
+<span class="sd">        I.e., before running this command, you should do::</span>
+<span class="sd">        </span>
+<span class="sd">        main_assembly.acceptVisitor(plotter)</span>
+<span class="sd">        </span>
+<span class="sd">        Attention: This will stop the program execution until the</span>
+<span class="sd">        window is closed. This is a &quot;feature&quot; of matplotlib and VTK.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">displayAxes</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        </div>
+    <span class="k">def</span> <span class="nf">pointsActor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span>
+ 
+<div class="viewcode-block" id="PythonPlotter.lineActor"><a class="viewcode-back" href="../../PythonPlotter.html#pyvsim.System.PythonPlotter.lineActor">[docs]</a>    <span class="k">def</span> <span class="nf">lineActor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a collection to the current axes to draw a line</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="n">Line3DCollection</span><span class="p">([</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">])</span>      
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> 
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">opacity</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">set_color</span><span class="p">([</span><span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                           <span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                           <span class="n">obj</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                           <span class="n">obj</span><span class="o">.</span><span class="n">opacity</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">add_collection</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="PythonPlotter.polyActor"><a class="viewcode-back" href="../../PythonPlotter.html#pyvsim.System.PythonPlotter.polyActor">[docs]</a>    <span class="k">def</span> <span class="nf">polyActor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">obj</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a collection to the current axes to draw a surface</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">connectivity</span><span class="p">,</span><span class="mi">0</span><span class="p">)):</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="n">Poly3DCollection</span><span class="p">([</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">connectivity</span><span class="p">]])</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="n">Poly3DCollection</span><span class="p">([</span><span class="n">obj</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">connectivity</span><span class="p">[</span><span class="n">n</span><span class="p">]]])</span>
+            
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> 
+                <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">color</span>
+                
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">opacity</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">opacity</span> <span class="o">=</span> <span class="mf">0.3</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">opacity</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">opacity</span>
+                
+            <span class="n">col</span><span class="o">.</span><span class="n">set_color</span><span class="p">([</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                           <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                           <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                           <span class="n">opacity</span><span class="p">])</span>
+            
+            <span class="n">col</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">([</span><span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                               <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                               <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                               <span class="n">opacity</span><span class="p">])</span>
+            
+            <span class="c"># color mapping</span>
+            <span class="c">#col.set_array(val)</span>
+            <span class="c">#col.set_cmap(cm.hot)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">add_collection</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="Saver"><a class="viewcode-back" href="../../Saver.html#pyvsim.System.Saver">[docs]</a><span class="k">class</span> <span class="nc">Saver</span><span class="p">(</span><span class="n">Visitor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the standard PyVSim saving routine, using python cPickle. The</span>
+<span class="sd">    performance is quite good and does not require complicated parsing and</span>
+<span class="sd">    conversion of the tree. However, the result is not human readable.</span>
+<span class="sd">    </span>
+<span class="sd">    Use when performance and reliability are desired.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">JSON</span>   <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">PICKLE</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">JSON</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topickle</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>     <span class="o">=</span> <span class="n">mode</span>
+        
+    <span class="k">def</span> <span class="nf">visit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">topickle</span> <span class="o">=</span> <span class="n">obj</span>
+            
+    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">Saver</span><span class="o">.</span><span class="n">PICKLE</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topickle</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cPickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topickle</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="n">Saver</span><span class="o">.</span><span class="n">JSON</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topickle</span><span class="p">,</span> 
+                           <span class="n">cls</span> <span class="o">=</span> <span class="n">pyvsimJSONEncoder</span><span class="p">,</span>
+                           <span class="n">indent</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topickle</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> 
+                          <span class="n">cls</span> <span class="o">=</span> <span class="n">pyvsimJSONEncoder</span><span class="p">,</span> 
+                          <span class="n">indent</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+</div>
+<div class="viewcode-block" id="pyvsimJSONEncoder"><a class="viewcode-back" href="../../pyvsimJSONEncoder.html#pyvsim.System.pyvsimJSONEncoder">[docs]</a><span class="k">class</span> <span class="nc">pyvsimJSONEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A JSON Encoder capable of dealing with a pyvsim simulation tree without</span>
+<span class="sd">    creating duplicates of objects and solving circular references (at least</span>
+<span class="sd">    the type found naturally in a pyvsim tree).</span>
+<span class="sd">    </span>
+<span class="sd">    This class is also aware of PyvsimObjects and numpy.ndarrays.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FILEMODE</span>   <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">SCREENMODE</span> <span class="o">=</span> <span class="mi">2</span> 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">skipkeys</span>          <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> 
+                 <span class="n">ensure_ascii</span>      <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                 <span class="n">check_circular</span>    <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> 
+                 <span class="n">allow_nan</span>         <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> 
+                 <span class="n">sort_keys</span>         <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                 <span class="n">indent</span>            <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> 
+                 <span class="n">separators</span>        <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> 
+                 <span class="n">encoding</span>          <span class="o">=</span> <span class="s">&#39;utf-8&#39;</span><span class="p">,</span> 
+                 <span class="n">default</span>           <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                                  <span class="n">skipkeys</span>          <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> 
+                                  <span class="n">ensure_ascii</span>      <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                                  <span class="n">check_circular</span>    <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> 
+                                  <span class="n">allow_nan</span>         <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> 
+                                  <span class="n">sort_keys</span>         <span class="o">=</span> <span class="n">sort_keys</span><span class="p">,</span>
+                                  <span class="n">indent</span>            <span class="o">=</span> <span class="n">indent</span><span class="p">,</span> 
+                                  <span class="n">separators</span>        <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> 
+                                  <span class="n">encoding</span>          <span class="o">=</span> <span class="s">&#39;utf-8&#39;</span><span class="p">,</span> 
+                                  <span class="n">default</span>           <span class="o">=</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">serializedObjects</span>  <span class="o">=</span> <span class="p">{}</span>
+        
+<div class="viewcode-block" id="pyvsimJSONEncoder.default"><a class="viewcode-back" href="../../pyvsimJSONEncoder.html#pyvsim.System.pyvsimJSONEncoder.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>      
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Objects are encoded in a special dictionary, with the magic key</span>
+<span class="sd">        &quot;object_type&quot;, which is essential for the unpacking of the object.</span>
+<span class="sd">        </span>
+<span class="sd">        It exploits the property __dict__ of the objects to pack the data </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">temp</span><span class="p">[</span><span class="s">&quot;object_module&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__module__</span><span class="p">)</span>
+            <span class="n">temp</span><span class="p">[</span><span class="s">&quot;object_type&quot;</span><span class="p">]</span>   <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+            <span class="n">temp</span><span class="p">[</span><span class="s">&quot;object_id&quot;</span><span class="p">]</span>   <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">temp</span><span class="p">[</span><span class="s">&quot;dtype&quot;</span><span class="p">]</span>       <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="n">temp</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">]</span>        <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">temp</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">serializedObjects</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">obj</span><span class="p">)):</span>
+                <span class="n">temp</span><span class="p">[</span><span class="s">&quot;object_dict&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="k">try</span><span class="p">:</span>   
+                    <span class="n">temp</span><span class="p">[</span><span class="s">&quot;object_dict&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">temp</span><span class="p">[</span><span class="s">&quot;object_dict&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">__dict__</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">serializedObjects</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">obj</span><span class="p">)]</span> <span class="o">=</span> <span class="n">temp</span>
+            <span class="k">return</span> <span class="n">temp</span>   
+        
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="pyvsimJSONDecoder"><a class="viewcode-back" href="../../pyvsimJSONDecoder.html#pyvsim.System.pyvsimJSONDecoder">[docs]</a><span class="k">class</span> <span class="nc">pyvsimJSONDecoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONDecoder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extension of the python JSONDecoder class aware of pyvsim objects (via the</span>
+<span class="sd">    PyvsimObject interface) and numpy.ndarrays</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                 <span class="n">encoding</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> 
+                 <span class="n">object_hook</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> 
+                 <span class="n">parse_float</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">parse_int</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> 
+                 <span class="n">parse_constant</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> 
+                 <span class="n">strict</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                 <span class="n">object_pairs_hook</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">JSONDecoder</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_hook</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">strict</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cornFlakes</span> <span class="o">=</span> <span class="p">{}</span>
+        
+<div class="viewcode-block" id="pyvsimJSONDecoder.default"><a class="viewcode-back" href="../../pyvsimJSONDecoder.html#pyvsim.System.pyvsimJSONDecoder.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Objects are encoded in a special-purpose dictionary with the magic</span>
+<span class="sd">        entry &quot;object_type&quot;. When this key is found, an object of the type is</span>
+<span class="sd">        instantiated and receives the data contained in the dictionary.</span>
+<span class="sd">        </span>
+<span class="sd">        Another problem is dealing with object copies. The variable cornFlakes</span>
+<span class="sd">        stores a reference to each object that was already unpacked, and when</span>
+<span class="sd">        the internal identifiers match, the pointer is reused.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Core</span><span class="o">.</span><span class="n">PyvsimObject</span><span class="p">)</span> <span class="ow">or</span> 
+            <span class="n">obj</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> 
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">obj</span>
+                        
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&quot;object_type&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cornFlakes</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;object_id&quot;</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&quot;dtype&quot;</span><span class="p">):</span>
+                    <span class="n">obj</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">treatArray</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+                    <span class="n">myobject</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;[\.</span><span class="se">\&#39;</span><span class="s">]&quot;</span><span class="p">,</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;object_module&quot;</span><span class="p">])</span>
+                    <span class="n">pkg</span>         <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">mod</span>         <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pkg</span><span class="p">,</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">myobject</span>    <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;object_type&quot;</span><span class="p">])()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cornFlakes</span><span class="p">[</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;object_id&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">myobject</span>
+                
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">obj</span><span class="p">[</span><span class="s">&quot;object_dict&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cornFlakes</span><span class="p">[</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;object_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s">&quot;object_dict&quot;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+                
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cornFlakes</span><span class="p">[</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;object_id&quot;</span><span class="p">]]</span>  
+       
+        <span class="k">return</span> <span class="n">obj</span>
+    </div>
+<div class="viewcode-block" id="pyvsimJSONDecoder.treatArray"><a class="viewcode-back" href="../../pyvsimJSONDecoder.html#pyvsim.System.pyvsimJSONDecoder.treatArray">[docs]</a>    <span class="k">def</span> <span class="nf">treatArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is a tricky method when the numpy.ndarray contains objects (for</span>
+<span class="sd">        example in the list of ray tracing intersections). </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="p">[</span><span class="s">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;object&quot;</span><span class="p">:</span>
+            <span class="n">obj</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">])</span>
+            <span class="n">iterator</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">],</span>
+                                    <span class="n">flags</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;refs_ok&#39;</span><span class="p">,</span><span class="s">&#39;multi_index&#39;</span><span class="p">])</span>
+            
+            <span class="k">while</span> <span class="ow">not</span> <span class="n">iterator</span><span class="o">.</span><span class="n">finished</span><span class="p">:</span>
+                <span class="n">obj</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">][</span><span class="n">iterator</span><span class="o">.</span><span class="n">multi_index</span><span class="p">]</span> <span class="o">=</span> \
+                            <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">][</span><span class="n">iterator</span><span class="o">.</span><span class="n">multi_index</span><span class="p">])</span>
+                <span class="n">iterator</span><span class="o">.</span><span class="n">iternext</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s">&quot;data&quot;</span><span class="p">])</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">pyvsim 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Ricardo Entz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+=============
+IdealMaterial
+=============
+
+.. currentmodule:: pyvsim.Library
+
+.. autoclass:: pyvsim.Library.IdealMaterial
+    :members: 

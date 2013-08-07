@@ -1,0 +1,8 @@
+===========
+tetraVolume
+===========
+
+.. currentmodule:: pyvsim.Utils
+
+.. autofunction:: pyvsim.Utils.tetraVolume
+

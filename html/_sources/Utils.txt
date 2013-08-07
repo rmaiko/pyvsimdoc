@@ -1,0 +1,37 @@
+=====
+Utils
+=====
+
+.. currentmodule:: pyvsim.Utils
+
+.. automodule:: pyvsim.Utils
+
+Contents
+========
+.. toctree::  
+    :maxdepth: 2  
+
+    readConfig
+    hexaInterpolation
+    tetraVolume
+    jet
+    metersToRGB
+    aeq
+    reallocateArray
+    rotateVector
+    rotatePoints
+    normalize
+    norm
+    barycentricCoordinates
+    triangleArea
+    KQ
+    pointSegmentDistance
+    linesIntersection
+    readSTL
+    DLT
+    DLTnormalization
+    pointInHexa
+    quadInterpolation
+    Tictoc
+    quadArea
+    displayProfile

@@ -1,0 +1,8 @@
+======
+Tictoc
+======
+
+.. currentmodule:: pyvsim.Utils
+
+.. autoclass:: pyvsim.Utils.Tictoc
+    :members: 
