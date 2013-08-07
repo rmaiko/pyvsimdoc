@@ -1,8 +1,0 @@
-=====
-Plane
-=====
-
-.. currentmodule:: pyvsim.Primitives
-
-.. autoclass:: pyvsim.Primitives.Plane
-    :members: 

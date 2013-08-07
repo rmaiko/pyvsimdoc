@@ -1,6 +1,0 @@
-============
-TimeoutError
-============
-
-.. autoclass:: TimeoutError
-

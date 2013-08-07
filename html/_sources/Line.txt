@@ -1,8 +1,0 @@
-====
-Line
-====
-
-.. currentmodule:: pyvsim.Primitives
-
-.. autoclass:: pyvsim.Primitives.Line
-    :members: 

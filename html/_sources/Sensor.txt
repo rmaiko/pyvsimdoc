@@ -1,8 +1,0 @@
-======
-Sensor
-======
-
-.. currentmodule:: pyvsim.Toolbox
-
-.. autoclass:: pyvsim.Toolbox.Sensor
-    :members: 

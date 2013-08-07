@@ -1,8 +1,0 @@
-=======
-Visitor
-=======
-
-.. currentmodule:: pyvsim.System
-
-.. autoclass:: pyvsim.System.Visitor
-    :members: 

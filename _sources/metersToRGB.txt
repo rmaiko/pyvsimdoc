@@ -1,8 +1,0 @@
-===========
-metersToRGB
-===========
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.metersToRGB
-

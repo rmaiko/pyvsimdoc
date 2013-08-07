@@ -1,8 +1,0 @@
-====
-norm
-====
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.norm
-

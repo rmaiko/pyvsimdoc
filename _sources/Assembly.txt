@@ -1,8 +1,0 @@
-========
-Assembly
-========
-
-.. currentmodule:: pyvsim.Primitives
-
-.. autoclass:: pyvsim.Primitives.Assembly
-    :members: 

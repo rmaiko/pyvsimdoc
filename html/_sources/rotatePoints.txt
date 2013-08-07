@@ -1,8 +1,0 @@
-============
-rotatePoints
-============
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.rotatePoints
-

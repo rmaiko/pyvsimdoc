@@ -1,8 +1,0 @@
-==============
-distributedSCS
-==============
-
-.. currentmodule:: pyvsim.MieUtils
-
-.. autofunction:: pyvsim.MieUtils.distributedSCS
-

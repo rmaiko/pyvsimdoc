@@ -1,8 +1,0 @@
-===============
-reallocateArray
-===============
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.reallocateArray
-

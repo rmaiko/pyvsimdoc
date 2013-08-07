@@ -1,8 +1,0 @@
-===========
-Couchpyvsim
-===========
-
-.. currentmodule:: pyvsim.DBFacade
-
-.. autoclass:: pyvsim.DBFacade.Couchpyvsim
-    :members: 

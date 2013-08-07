@@ -1,8 +1,0 @@
-=================
-PyvsimDatabasable
-=================
-
-.. currentmodule:: pyvsim.Core
-
-.. autoclass:: pyvsim.Core.PyvsimDatabasable
-    :members: 

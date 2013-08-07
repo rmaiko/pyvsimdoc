@@ -1,8 +1,0 @@
-======
-Pyvsim
-======
-
-.. currentmodule:: pyvsim.__init__
-
-.. autoclass:: pyvsim.__init__.Pyvsim
-    :members: 

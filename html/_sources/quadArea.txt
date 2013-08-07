@@ -1,8 +1,0 @@
-========
-quadArea
-========
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.quadArea
-
