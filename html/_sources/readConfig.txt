@@ -1,8 +1,0 @@
-==========
-readConfig
-==========
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.readConfig
-

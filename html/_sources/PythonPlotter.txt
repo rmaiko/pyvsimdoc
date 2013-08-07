@@ -1,8 +1,0 @@
-=============
-PythonPlotter
-=============
-
-.. currentmodule:: pyvsim.System
-
-.. autoclass:: pyvsim.System.PythonPlotter
-    :members: 

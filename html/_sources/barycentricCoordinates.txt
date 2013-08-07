@@ -1,8 +1,0 @@
-======================
-barycentricCoordinates
-======================
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.barycentricCoordinates
-

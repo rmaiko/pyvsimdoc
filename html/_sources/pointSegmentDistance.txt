@@ -1,8 +1,0 @@
-====================
-pointSegmentDistance
-====================
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.pointSegmentDistance
-

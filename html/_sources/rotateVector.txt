@@ -1,8 +1,0 @@
-============
-rotateVector
-============
-
-.. currentmodule:: pyvsim.Utils
-
-.. autofunction:: pyvsim.Utils.rotateVector
-

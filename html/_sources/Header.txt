@@ -1,8 +1,0 @@
-======
-Header
-======
-
-.. currentmodule:: pyvsim.MieUtils
-
-.. autofunction:: pyvsim.MieUtils.Header
-

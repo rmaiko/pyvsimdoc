@@ -1,8 +1,0 @@
-=======
-Seeding
-=======
-
-.. currentmodule:: pyvsim.Toolbox
-
-.. autoclass:: pyvsim.Toolbox.Seeding
-    :members: 
