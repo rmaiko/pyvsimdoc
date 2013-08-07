@@ -49,23 +49,11 @@
             
   <div class="section" id="module-pyvsim.__init__">
 <span id="init"></span><h1>__init__<a class="headerlink" href="#module-pyvsim.__init__" title="Permalink to this headline">¶</a></h1>
-<p>PyVSim v.1
-Copyright 2013 Ricardo Entz</p>
-<p>Licensed under the Apache License, Version 2.0 (the &#8220;License&#8221;);
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at</p>
-<blockquote>
-<div><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></div></blockquote>
-<p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &#8220;AS IS&#8221; BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.</p>
-<p>This file lists the objects to be used in a normal execution of pyvsim. This
+<span class="target" id="module-__init__"></span><p>This file lists the objects to be used in a normal execution of pyvsim. This
 way, the user does not have to know the internal distribution of classes (which
 may look somewhat arbitrary, e.g. Volume is in Primitives, not in Toolbox)</p>
-<p>The down side is that one needs to register the classes here when the user
-has to have access</p>
+<p>The idea is to implement a factory, so that all component registration and
+deregistration is done automatically in the future.</p>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
