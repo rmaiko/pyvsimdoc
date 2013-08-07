@@ -55,10 +55,14 @@
 <tt class="descclassname">pyvsim.Utils.</tt><tt class="descname">tetraVolume</tt><big>(</big><em>p1</em>, <em>p2</em>, <em>p3</em>, <em>p4</em><big>)</big><a class="reference internal" href="modules/pyvsim/Utils.html#tetraVolume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Utils.tetraVolume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the volume of a tetrahedron. This is simply the unrolled
 determinant:</p>
-<div class="highlight-python"><pre>| Vx1  Vy1  Vz1 |     1
-| Vx2  Vy2  Vz2 | * -----
-| Vx3  Vy3  Vz3 |     6</pre>
-</div>
+<div class="math">
+\[\begin{split}\left [ \begin{array}{ccc}
+V_{x,1} &amp; V_{y,1} &amp;  V_{z,1} \\
+V_{x,2} &amp; V_{y,2} &amp;  V_{z,2} \\
+V_{x,3} &amp; V_{y,3} &amp;  V_{z,3} \end{array} \right ] \cdot {1 \over 6}\end{split}\]</div>
+<p>With:</p>
+<div class="math">
+\[\vec{V}_1 = \vec{P}_1 - \vec{P}_4\]\[\vec{V}_2 = \vec{P}_2 - \vec{P}_4\]\[\vec{V}_3 = \vec{P}_3 - \vec{P}_4\]</div>
 <p>This function works only for list of vectors, for performance reasons
 will not check the inputs, will throw an error instead.</p>
 <p>(This works faster than numpy.linalg.det repeated over the list</p>

@@ -55,7 +55,7 @@
 <tt class="descclassname">pyvsim.Utils.</tt><tt class="descname">DLT</tt><big>(</big><em>uvlist</em>, <em>xyzlist</em><big>)</big><a class="reference internal" href="modules/pyvsim/Utils.html#DLT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Utils.DLT" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function calculates the direct linear transform matrix, which is the
 transform executed by a pinhole camera. This procedure was suggested in
-<cite>Wikipedia &lt;http://en.wikipedia.org/wiki/Direct_linear_transformation&gt;</cite> 
+<a class="reference external" href="http://en.wikipedia.org/wiki/Direct_linear_transformation">Wikipedia</a> 
 and some refinements are discussed in the book &#8220;Multiple View Geometry in
 computer vision&#8221; by Hartley and Zisserman.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -84,13 +84,21 @@ the third (the homogeneous) coordinate.</p>
 <div><p>A matrix containing the factors to calculate the partial derivatives
 of the UV coordinates with respect to the XYZ coordinates. By 
 multiplying dMdX * M * XYZ1, one gets the derivatives in the following
-order [du/dx du/dy du/dz dv/dx dv/dy dv/dz] multiplied by w^2 (which,
-for the normalized matrix M, is the depth of the points)</p>
+order 
+<span class="math">\(\left [ {\partial u \over \partial x} 
+{\partial u \over \partial y}
+{\partial u \over \partial z}
+{\partial v \over \partial x}
+{\partial v \over \partial y}
+{\partial v \over \partial z} \right ]\)</span> 
+multiplied by <span class="math">\(w^2\)</span> (which,
+for the normalized matrix <span class="math">\(M\)</span>, is the depth of the points)</p>
 </div></blockquote>
 <p><strong>detM</strong> : scalar</p>
 <blockquote>
-<div><p>The determinant of the matrix formed by the first three columns of M,
-if det(M[:,:3]) &lt; 0, it indicates that the mapping is done from a
+<div><p>The determinant of the matrix formed by the first three columns of 
+<span class="math">\(M\)</span>,
+if <span class="math">\(det(M[:,:3]) &lt; 0\)</span>, it indicates that the mapping is done from a
 right-handed coordinate system to a left-handed one (or vice versa). 
 This case happens when doing a mapping with a odd number of mirrors
 between camera and mapped region, and some derived quantities must be
@@ -101,16 +109,17 @@ inverted in this case, e.g. the line-of-sight vector.</p>
 <div><p>The condition number stated in page 108 of Hartley and Zisseman, which
 is the ratio of the first and the second-last singular value (because
 the last should be zero, if the transform is perfect. According to
-<cite>Wikipedia &lt;http://en.wikipedia.org/wiki/Condition_number&gt;</cite>, the 
-log10 of the condition number gives roughly how many digits of 
+<a class="reference external" href="http://en.wikipedia.org/wiki/Condition_number">Wikipedia</a>, the 
+<span class="math">\(log_{10}\)</span> of the condition number gives roughly how many digits of 
 accuracy are lost by transforming using the given matrix.</p>
 </div></blockquote>
 <p><strong>last_singular_value: double</strong> :</p>
 <blockquote class="last">
 <div><p>The smallest singular value. The finding of the DLT matrix is a 
-minimization of the problem abs(A*x) with abs(x) = 1. 
+minimization of the problem 
+<span class="math">\(\left | Ax \right |\)</span> with <span class="math">\(\left | x \right | = 1\)</span>. 
 last_condition_number is exactly abs(A*x), and gives an idea of the
-precision of the matrix found (with 0 being perfect)</p>
+precision of the matrix found (with <span class="math">\(0\)</span> being perfect)</p>
 </div></blockquote>
 </td>
 </tr>

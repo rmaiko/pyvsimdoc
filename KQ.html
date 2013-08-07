@@ -55,19 +55,19 @@
 <tt class="descclassname">pyvsim.Utils.</tt><tt class="descname">KQ</tt><big>(</big><em>A</em><big>)</big><a class="reference internal" href="modules/pyvsim/Utils.html#KQ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Utils.KQ" title="Permalink to this definition">¶</a></dt>
 <dd><p>This decomposition is proposed in the book &#8220;Multiple View Geometry in
 computer vision&#8221; by Hartley and Zisserman. It is basically a RQ 
-decomposition (which takes a matrix M and finds a right, upper diagonal
-camera matrix K and a orthogonal matrix Q so that M = a*K*Q (a is a 
-normalizing factor (R[-1,-1])).</p>
+decomposition (which takes a matrix <span class="math">\(M\)</span> and finds a right, upper diagonal
+camera matrix <span class="math">\(K\)</span> and a orthogonal matrix <span class="math">\(Q\)</span> so that <span class="math">\(M = aKQ\)</span> (<span class="math">\(a\)</span> 
+is a normalizing factor (<span class="math">\(R[-1,-1]\)</span>)).</p>
 <p>This specific function has the following extra steps:</p>
-<p>1) it defines a diagonal matrix D which, when post-multiplied by K makes 
+<p>1) it defines a diagonal matrix <span class="math">\(D\)</span> which, when post-multiplied by 
+<span class="math">\(K\)</span> makes 
 its diagonal elements positive.</p>
 <ol class="arabic simple" start="2">
-<li>it normalizes K by its [-1,-1] element.</li>
+<li>it normalizes <span class="math">\(K\)</span> by its <span class="math">\([-1,-1]\)</span> element.</li>
 </ol>
-<p>The use of these steps is that when the matrix M is a DLT matrix, K is a 
-camera matrix, and Q is the orientation of the camera (its rows are the
-front, down and left vectors, respectively).</p>
-<p>Attention : a check is performed to verify that the</p>
+<p>The use of these steps is that when the matrix <span class="math">\(M\)</span> is a DLT matrix, 
+<span class="math">\(K\)</span> is a camera matrix, and <span class="math">\(Q\)</span> is the orientation of the 
+camera (its rows are the front, down and left vectors, respectively).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -81,7 +81,7 @@ column taken away for this procedure.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>K</strong> : numpy.array</p>
 <blockquote>
-<div><p>The camera matrix, normalized by its [-1,-1] element.</p>
+<div><p>The camera matrix, normalized by its <span class="math">\([-1,-1]\)</span> element.</p>
 </div></blockquote>
 <p><strong>Q</strong> : numpy.array</p>
 <blockquote class="last">
