@@ -21,7 +21,7 @@ project.
 Download
 ========
 
-In the `google code page <http://code.google.com/p/pyvsim/>`, you can clone 
+In the `google code page <http://code.google.com/p/pyvsim/>`_, you can clone 
 the latest version of pyvsim!
 
 Index
