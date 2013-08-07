@@ -1,0 +1,8 @@
+====
+Part
+====
+
+.. currentmodule:: pyvsim.Primitives
+
+.. autoclass:: pyvsim.Primitives.Part
+    :members: 

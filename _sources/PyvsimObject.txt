@@ -1,0 +1,8 @@
+============
+PyvsimObject
+============
+
+.. currentmodule:: pyvsim.Core
+
+.. autoclass:: pyvsim.Core.PyvsimObject
+    :members: 
