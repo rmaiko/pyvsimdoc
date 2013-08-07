@@ -8,8 +8,8 @@
     
     <title>Volume &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,7 +51,7 @@
 <h1>Volume<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Primitives.Volume">
-<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Volume</tt><big>(</big><em>dimension=array([1</em>, <em>1</em>, <em>1])</em>, <em>fastInit=False</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Volume</tt><big>(</big><em>dimension=array([1</em>, <em>1</em>, <em>1])</em>, <em>fastInit=False</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used to represent a general hexahedron. Even though some
 methods will force it to become a cuboid (where all angles are right), such
 as:</p>
@@ -67,13 +67,13 @@ information)</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Primitives.Volume.expand">
-<tt class="descname">expand</tt><big>(</big><em>factor</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.expand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.expand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">expand</tt><big>(</big><em>factor</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume.expand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.expand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inflates the volume by &#8220;factor&#8221;</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Volume.interpolate">
-<tt class="descname">interpolate</tt><big>(</big><em>p</em>, <em>verify=True</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.interpolate" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">interpolate</tt><big>(</big><em>p</em>, <em>verify=True</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume.interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a convienience function to interpolate the data in the &#8221;.data&#8221;
 field of this object. As the field is not under surveillance, it is
 the responsibility of the user to ensure that the field contains a
@@ -106,7 +106,7 @@ edges. If not, the corresponding row of result will be zeroed out</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Volume.parametricToPhysical">
-<tt class="descname">parametricToPhysical</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.parametricToPhysical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.parametricToPhysical" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">parametricToPhysical</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume.parametricToPhysical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.parametricToPhysical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a vector or a list of vectors in parametric coordinates with
 the following properties:</p>
 <p>[x,y,z] (global) -&gt; [x&#8217;,y&#8217;,z&#8217;] (parametrical)</p>
@@ -115,7 +115,7 @@ the following properties:</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Volume.physicalToParametric">
-<tt class="descname">physicalToParametric</tt><big>(</big><em>c</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.physicalToParametric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.physicalToParametric" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">physicalToParametric</tt><big>(</big><em>c</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume.physicalToParametric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.physicalToParametric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a vector or a list of vectors in parametric coordinates with
 the following properties:</p>
 <p>[x,y,z] (global) -&gt; [x&#8217;,y&#8217;,z&#8217;] (parametrical)</p>
@@ -124,7 +124,7 @@ the following properties:</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Volume.pointInHexa">
-<tt class="descname">pointInHexa</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.pointInHexa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.pointInHexa" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">pointInHexa</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume.pointInHexa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.pointInHexa" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is intended as a lightweigth test for checking if a point (or
 a set of them) lies inside an hexahedron. This uses the algorithm
 implemented in <tt class="xref py py-mod docutils literal"><span class="pre">Utils</span></tt>.</p>
@@ -160,11 +160,11 @@ otherwise</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/Volume.txt"
+    <li><a href="sources/Volume.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

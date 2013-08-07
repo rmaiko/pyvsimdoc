@@ -8,8 +8,8 @@
     
     <title>Sensor &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,11 +51,11 @@
 <h1>Sensor<a class="headerlink" href="#sensor" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Toolbox.Sensor">
-<em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Sensor</tt><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Sensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Sensor</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.clear">
-<tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Sensor.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.clear" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes CCD with gaussian noise, the distribution parameters are
 given by:</p>
 <div class="highlight-python"><pre>* backgroundMeanLevel - the mean value
@@ -66,13 +66,13 @@ given by:</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.createDeadPixels">
-<tt class="descname">createDeadPixels</tt><big>(</big><em>probability</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Sensor.createDeadPixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.createDeadPixels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">createDeadPixels</tt><big>(</big><em>probability</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.createDeadPixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.createDeadPixels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a dead/hot pixel mapping for the sensor reading simulation</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.parametricToPixel">
-<tt class="descname">parametricToPixel</tt><big>(</big><em>coordinates</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Sensor.parametricToPixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.parametricToPixel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">parametricToPixel</tt><big>(</big><em>coordinates</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.parametricToPixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.parametricToPixel" title="Permalink to this definition">¶</a></dt>
 <dd><p>coords = [u,v] (in parametric -1..1 space)</p>
 <p>There is an inversion of the UV columns because of the unfortunate 
 parametric coordinate system that maps:</p>
@@ -85,7 +85,7 @@ v -&gt; sensor.y</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.physicalToPixel">
-<tt class="descname">physicalToPixel</tt><big>(</big><em>coords</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Sensor.physicalToPixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.physicalToPixel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">physicalToPixel</tt><big>(</big><em>coords</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.physicalToPixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.physicalToPixel" title="Permalink to this definition">¶</a></dt>
 <dd><p>coords = [x,y,z] (in real space)</p>
 <p>returns:
 [row column] - fractional position in sensor pixels</p>
@@ -94,7 +94,7 @@ v -&gt; sensor.y</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.readSensor">
-<tt class="descname">readSensor</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Sensor.readSensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.readSensor" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">readSensor</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.readSensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.readSensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the sensor reading in counts, creating quantization noise and
 saturating the signal where appropriate. This also simulates dead pixels,
 if there is a dead pixel mapping</p>
@@ -104,7 +104,7 @@ property of the class</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.recordParticles">
-<tt class="descname">recordParticles</tt><big>(</big><em>coords</em>, <em>energy</em>, <em>wavelength</em>, <em>diameter</em>, <em>ignoreLarge=0.2</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Sensor.recordParticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.recordParticles" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">recordParticles</tt><big>(</big><em>coords</em>, <em>energy</em>, <em>wavelength</em>, <em>diameter</em>, <em>ignoreLarge=0.2</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.recordParticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.recordParticles" title="Permalink to this definition">¶</a></dt>
 <dd><p>coords     - [y,z] parametric coordinates of the recorded point
 energy     - J -   energy which is captured by the lenses
 wavelength - m -   illumination wavelength
@@ -132,7 +132,7 @@ the following constants at the header of this module:</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.save">
-<tt class="descname">save</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Sensor.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.save" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">save</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes the sensor data in a 16-bit TIFF file (which is compatible
 with some mainstream PIV software)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -160,11 +160,11 @@ with some mainstream PIV software)</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/Sensor.txt"
+    <li><a href="sources/Sensor.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

@@ -8,8 +8,8 @@
     
     <title>Component &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,7 +51,7 @@
 <h1>Component<a class="headerlink" href="#component" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Primitives.Component">
-<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Component</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Component</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Component"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component" title="Permalink to this definition">¶</a></dt>
 <dd><p>The class component is a representation of elements used in the simulation.</p>
 <p>Most of its methods are abstract (throw a NotImplementedError) because the
 really useful classes are its derivatives:</p>
@@ -69,7 +69,7 @@ implemented, and if you try to change them, you will get an error.</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.alignTo">
-<tt class="descname">alignTo</tt><big>(</big><em>x_new</em>, <em>y_new</em>, <em>z_new=None</em>, <em>pivotPoint=None</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component.alignTo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.alignTo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">alignTo</tt><big>(</big><em>x_new</em>, <em>y_new</em>, <em>z_new=None</em>, <em>pivotPoint=None</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.alignTo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.alignTo" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method allows the alignment of the part to a specific direction
 (this is very useful in optical systems definition).</p>
 <p>The implementation assumes that at least two <em>orthogonal</em> vectors are
@@ -122,7 +122,7 @@ a right-handed coordinate system to a left-handed and vice-versa.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.clearData">
-<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.clearData" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.clearData" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method must be implemented by each inheriting class. Its function 
 is to avoid classes having inconsistent data after a geometric transform.</p>
 <p>For example: a camera has a mapnp.ping funcion calculated from raytracing,
@@ -134,13 +134,13 @@ not valid anymore.</p>
 
 <dl class="attribute">
 <dt id="pyvsim.Primitives.Component.depth">
-<tt class="descname">depth</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component.depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.depth" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">depth</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.depth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the depth of the component within a tree</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.intersections">
-<tt class="descname">intersections</tt><big>(</big><em>p0</em>, <em>p1</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component.intersections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.intersections" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">intersections</tt><big>(</big><em>p0</em>, <em>p1</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.intersections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.intersections" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a method used specifically for ray tracing. The method returns 
 data about the first intersection between line segments and the 
 polygons defined in the Component. The implementation of the
@@ -204,7 +204,7 @@ redundant, but that makes the function signature uniform with the
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.rotate">
-<tt class="descname">rotate</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint=None</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.rotate" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">rotate</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint=None</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.rotate" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method should be used when there is a change in the component
 position. This method operates only with the origin and the x, y and z
 vectors. It delegates the responsibility to the inheriting class by 
@@ -234,7 +234,7 @@ rotates around origin.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.rotateImplementation">
-<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.rotateImplementation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.rotateImplementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method must be implemented by the interested inheriting class in
 case a rotation affects its internals.</p>
 <p>For example: a class with a vector of points P will probably need to
@@ -275,7 +275,7 @@ rotates around origin.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.translate">
-<tt class="descname">translate</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.translate" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">translate</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.translate" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method should be used when there is a change in the component
 position. This method operates only with the origin position, and
 delegates the responsibility to the inheriting class by means of the
@@ -297,7 +297,7 @@ coordinates</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.translateImplementation">
-<tt class="descname">translateImplementation</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Component.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.translateImplementation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">translateImplementation</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.translateImplementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method must be implemented by the interested inheriting class in
 case a translation affects its internals.</p>
 <p>For example: a class with a vector of points P will probably need to
@@ -336,11 +336,11 @@ coordinates</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/Component.txt"
+    <li><a href="sources/Component.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

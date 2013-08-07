@@ -8,8 +8,8 @@
     
     <title>PyvsimDatabasable &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,13 +51,13 @@
 <h1>PyvsimDatabasable<a class="headerlink" href="#pyvsimdatabasable" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Core.PyvsimDatabasable">
-<em class="property">class </em><tt class="descclassname">pyvsim.Core.</tt><tt class="descname">PyvsimDatabasable</tt><a class="reference internal" href="_modules/pyvsim/Core.html#PyvsimDatabasable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Core.</tt><tt class="descname">PyvsimDatabasable</tt><a class="reference internal" href="modules/pyvsim/Core.html#PyvsimDatabasable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class provides another serialization method for some objects  - in a
 database.</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Core.PyvsimDatabasable.contributeToDB">
-<tt class="descname">contributeToDB</tt><big>(</big><em>overwrite=False</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Core.html#PyvsimDatabasable.contributeToDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable.contributeToDB" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">contributeToDB</tt><big>(</big><em>overwrite=False</em><big>)</big><a class="reference internal" href="modules/pyvsim/Core.html#PyvsimDatabasable.contributeToDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable.contributeToDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contributes to the database with the current object parameters. By 
 default no overwriting is allowed. Each entry is defined by the 
 &#8220;name&#8221; field.</p>
@@ -83,13 +83,13 @@ default no overwriting is allowed. Each entry is defined by the
 
 <dl class="attribute">
 <dt id="pyvsim.Core.PyvsimDatabasable.db">
-<tt class="descname">db</tt><a class="reference internal" href="_modules/pyvsim/Core.html#PyvsimDatabasable.db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable.db" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">db</tt><a class="reference internal" href="modules/pyvsim/Core.html#PyvsimDatabasable.db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable.db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the database object where libraries of parameters are stored.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Core.PyvsimDatabasable.fetchFromDB">
-<tt class="descname">fetchFromDB</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Core.html#PyvsimDatabasable.fetchFromDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable.fetchFromDB" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">fetchFromDB</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="modules/pyvsim/Core.html#PyvsimDatabasable.fetchFromDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable.fetchFromDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Redefines the current object with data received from the database in 
 the form of a dictionary.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -117,7 +117,7 @@ self.dbParameters</p>
 
 <dl class="method">
 <dt id="pyvsim.Core.PyvsimDatabasable.listDB">
-<tt class="descname">listDB</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Core.html#PyvsimDatabasable.listDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable.listDB" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">listDB</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Core.html#PyvsimDatabasable.listDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Core.PyvsimDatabasable.listDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list listing the current database entries in the category of 
 the object. E.g.: using this method in a Glass material will list only
 the available glasses, etc.</p>
@@ -146,11 +146,11 @@ the available glasses, etc.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/PyvsimDatabasable.txt"
+    <li><a href="sources/PyvsimDatabasable.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

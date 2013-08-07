@@ -8,8 +8,8 @@
     
     <title>Lens &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,11 +51,11 @@
 <h1>Lens<a class="headerlink" href="#lens" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Toolbox.Lens">
-<em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Lens</tt><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Lens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Lens</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Toolbox.Lens.clearData">
-<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Lens.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.clearData" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.clearData" title="Permalink to this definition">¶</a></dt>
 <dd><p>As the data from the Primitives.Part class that has to be cleaned is 
 used only for ray tracing, the parent method is not called.</p>
 <p>The notable points, however, are recalculated.</p>
@@ -63,7 +63,7 @@ used only for ray tracing, the parent method is not called.</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Lens.display">
-<tt class="descname">display</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Lens.display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.display" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">display</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens.display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.display" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method creates a plot showing the position of the lens notable
 planes (the two main planes, the pupils and the focusing offset). This
 is intended for debugging purposes, or better understanding how the 
@@ -72,13 +72,13 @@ lens work.</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Lens.lensDistortion">
-<tt class="descname">lensDistortion</tt><big>(</big><em>vectors</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Lens.lensDistortion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.lensDistortion" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">lensDistortion</tt><big>(</big><em>vectors</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens.lensDistortion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.lensDistortion" title="Permalink to this definition">¶</a></dt>
 <dd><p>TODO - Implementation of radial distortion model</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Lens.rayVector">
-<tt class="descname">rayVector</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Lens.rayVector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.rayVector" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">rayVector</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens.rayVector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.rayVector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a set of points (e.g. in the sensor), will return a list of
 vectors representing the direction to be followed by ray tracing.</p>
 </dd></dl>
@@ -94,11 +94,11 @@ vectors representing the direction to be followed by ray tracing.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/Lens.txt"
+    <li><a href="sources/Lens.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

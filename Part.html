@@ -8,8 +8,8 @@
     
     <title>Part &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,7 +51,7 @@
 <h1>Part<a class="headerlink" href="#part" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Primitives.Part">
-<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Part</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#Part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Part</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>This implementation of the Component class is the representation of a surface
 using triangle elements.</p>
 <p>This is supposed to be the standard element in np.piVSim, as raytracing with
@@ -62,7 +62,7 @@ STL file, that can be exported from a CAD program.</p>
 <p class="rubric">Methods</p>
 <dl class="attribute">
 <dt id="pyvsim.Primitives.Part.bounds">
-<tt class="descname">bounds</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#Part.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.bounds" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">bounds</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the coordinates of the aligned-to-axis-bounding box</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -81,7 +81,7 @@ zmax]. Defining a box aligned to axis bounding the Part</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Part.clearData">
-<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Part.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.clearData" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.clearData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implement this method whenever your object possesses geometrical 
 features that are calculated from their interaction with the ambient 
 (e.g. - any raytraced features). This method is called after all spatial 
@@ -90,7 +90,7 @@ transformations</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Part.intersections">
-<tt class="descname">intersections</tt><big>(</big><em>p0</em>, <em>p1</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Part.intersections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.intersections" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">intersections</tt><big>(</big><em>p0</em>, <em>p1</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.intersections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.intersections" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a method used specifically for ray tracing. The method returns 
 data about the first intersection between line segments and the 
 polygons defined in the Component. The implementation of the
@@ -163,7 +163,7 @@ redundant, but that makes the function signature uniform with the
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Part.refractiveIndex">
-<tt class="descname">refractiveIndex</tt><big>(</big><em>wavelength=5.32e-07</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Part.refractiveIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.refractiveIndex" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">refractiveIndex</tt><big>(</big><em>wavelength=5.32e-07</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.refractiveIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.refractiveIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the index of refraction of the material given the wavelength
 (or a list of them)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -188,7 +188,7 @@ redundant, but that makes the function signature uniform with the
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Part.rotateImplementation">
-<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Part.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.rotateImplementation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.rotateImplementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is in charge of updating the position of the point cloud
 (provided it exists) when the Part is rotated.</p>
 <p>There is an exception handling because there is the possibility that 
@@ -221,7 +221,7 @@ rotates around origin.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Part.translateImplementation">
-<tt class="descname">translateImplementation</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Part.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.translateImplementation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">translateImplementation</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.translateImplementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is in charge of updating the position of the point cloud
 (provided it exists) when the Part is translated.</p>
 <p>There is an exception handling because there is the possibility that 
@@ -253,11 +253,11 @@ coordinates</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/Part.txt"
+    <li><a href="sources/Part.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

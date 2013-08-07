@@ -8,8 +8,8 @@
     
     <title>Laser &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,18 +51,18 @@
 <h1>Laser<a class="headerlink" href="#laser" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Toolbox.Laser">
-<em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Laser</tt><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Laser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Laser</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Laser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Methods</p>
 <dl class="attribute">
 <dt id="pyvsim.Toolbox.Laser.bounds">
-<tt class="descname">bounds</tt><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Laser.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser.bounds" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">bounds</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Laser.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser.bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>The laser participates in the ray tracing procedure only if it lays
 the volumes representing its light beam</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Laser.illuminate">
-<tt class="descname">illuminate</tt><big>(</big><em>pts</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Laser.illuminate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser.illuminate" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">illuminate</tt><big>(</big><em>pts</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Laser.illuminate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser.illuminate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a set of points in space, this method calculates the light 
 intensity (in J/m^2) and direction produced by the laser.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -88,7 +88,7 @@ the direction that the light emanating from the laser is</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Laser.trace">
-<tt class="descname">trace</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Laser.trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser.trace" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">trace</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Laser.trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser.trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an assembly containing volumes representing the laser 
 propagation. The volumes are created from usefulLength[0] to
 usefulLength[1], which is only a way to calculate less elements
@@ -107,7 +107,7 @@ computation extremely costly.</p>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Laser.traceReflections">
-<tt class="descname">traceReflections</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Toolbox.html#Laser.traceReflections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser.traceReflections" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">traceReflections</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Laser.traceReflections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser.traceReflections" title="Permalink to this definition">¶</a></dt>
 <dd><p>POC implementation of a calculation of laser safety distances</p>
 </dd></dl>
 
@@ -122,11 +122,11 @@ computation extremely costly.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/Laser.txt"
+    <li><a href="sources/Laser.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

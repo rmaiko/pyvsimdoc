@@ -8,8 +8,8 @@
     
     <title>Assembly &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,7 +51,7 @@
 <h1>Assembly<a class="headerlink" href="#assembly" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Primitives.Assembly">
-<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Assembly</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Assembly</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly" title="Permalink to this definition">¶</a></dt>
 <dd><p>The assembly class is a non-terminal node in the Components tree. It carries
 almost no properties of its own, but makes sure that all geometrical 
 transformations are propagated to its subcomponents.</p>
@@ -62,7 +62,7 @@ numpy.ndarray.</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Primitives.Assembly.acceptVisitor">
-<tt class="descname">acceptVisitor</tt><big>(</big><em>visitor</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.acceptVisitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.acceptVisitor" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">acceptVisitor</tt><big>(</big><em>visitor</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.acceptVisitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.acceptVisitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is a provision for the <cite>Visitor Pattern 
 &lt;http://http://en.wikipedia.org/wiki/Visitor_pattern&gt;</cite>  and is be used
 for traversing the tree.</p>
@@ -71,7 +71,7 @@ for traversing the tree.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Assembly.append">
-<tt class="descname">append</tt><big>(</big><em>component</em>, <em>n=None</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.append" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">append</tt><big>(</big><em>component</em>, <em>n=None</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.append" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds element at the component list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -101,7 +101,7 @@ otherwise it is added at the n-th position.</p>
 
 <dl class="attribute">
 <dt id="pyvsim.Primitives.Assembly.bounds">
-<tt class="descname">bounds</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.bounds" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">bounds</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the boundaries of the assembly by finding the minimum bounding
 box aligned to the axis that contains it.</p>
 <p>The algorithm works by finding the maximum and minimum values of
@@ -126,7 +126,7 @@ x, y and z by traversing the subcomponents.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Assembly.clearData">
-<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.clearData" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.clearData" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method iterates the clearData to all the items found in the list,
 making the <cite>:meth:~Core.Component.clearData</cite> method be executed through
 the whole components tree.</p>
@@ -134,7 +134,7 @@ the whole components tree.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Assembly.intersections">
-<tt class="descname">intersections</tt><big>(</big><em>p0</em>, <em>p1</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.intersections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.intersections" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">intersections</tt><big>(</big><em>p0</em>, <em>p1</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.intersections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.intersections" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method searches for intersections between a given set of line
 segments and the Parts included in this Assembly. Please check the
 documentation at <cite>:class:~Core.Part</cite> for a better description of its
@@ -197,7 +197,7 @@ redundant, but that makes the function signature uniform with the
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Assembly.refractiveIndex">
-<tt class="descname">refractiveIndex</tt><big>(</big><em>wavelength=5.32e-07</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.refractiveIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.refractiveIndex" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">refractiveIndex</tt><big>(</big><em>wavelength=5.32e-07</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.refractiveIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.refractiveIndex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the index of refraction of the material given the wavelength
 (or a list of them)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -222,7 +222,7 @@ redundant, but that makes the function signature uniform with the
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Assembly.remove">
-<tt class="descname">remove</tt><big>(</big><em>element</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.remove" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">remove</tt><big>(</big><em>element</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the element at the n-th position of the component list. This
 also de-registers this assembly as its parent.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -247,7 +247,7 @@ also de-registers this assembly as its parent.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Assembly.rotateImplementation">
-<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.rotateImplementation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.rotateImplementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method iterates the rotation to all the items found in the list,
 making the <cite>:meth:~Core.Component.rotate</cite> method be executed through
 the whole components tree.</p>
@@ -255,7 +255,7 @@ the whole components tree.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.Assembly.translateImplementation">
-<tt class="descname">translateImplementation</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.translateImplementation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">translateImplementation</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Assembly.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.translateImplementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method iterates the translation to all the items found in the list,
 making the <cite>:meth:~Core.Component.translate</cite> method be executed through
 the whole components tree.</p>
@@ -272,11 +272,11 @@ the whole components tree.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/Assembly.txt"
+    <li><a href="sources/Assembly.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

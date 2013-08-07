@@ -8,8 +8,8 @@
     
     <title>VTKPlotter &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,13 +51,13 @@
 <h1>VTKPlotter<a class="headerlink" href="#vtkplotter" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.System.VTKPlotter">
-<em class="property">class </em><tt class="descclassname">pyvsim.System.</tt><tt class="descname">VTKPlotter</tt><a class="reference internal" href="_modules/pyvsim/System.html#VTKPlotter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.System.</tt><tt class="descname">VTKPlotter</tt><a class="reference internal" href="modules/pyvsim/System.html#VTKPlotter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is a Facade to VTK. It takes a snapshot of the assembly tree 
 and generates a VTK plot.</p>
 <p class="rubric">Methods</p>
 <dl class="class">
 <dt id="pyvsim.System.VTKPlotter.VTKWindow">
-<em class="property">class </em><tt class="descname">VTKWindow</tt><big>(</big><em>displayAxes=True</em><big>)</big><a class="reference internal" href="_modules/pyvsim/System.html#VTKPlotter.VTKWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter.VTKWindow" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descname">VTKWindow</tt><big>(</big><em>displayAxes=True</em><big>)</big><a class="reference internal" href="modules/pyvsim/System.html#VTKPlotter.VTKWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter.VTKWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>A window to plot objects using VTK. Even though this stays in a separate
 thread, a error in VTK interface to Python makes it wait until the
 window is closed.</p>
@@ -66,7 +66,7 @@ window is closed.</p>
 
 <dl class="method">
 <dt id="pyvsim.System.VTKPlotter.display">
-<tt class="descclassname">VTKPlotter.</tt><tt class="descname">display</tt><big>(</big><em>displayAxes=True</em><big>)</big><a class="reference internal" href="_modules/pyvsim/System.html#VTKPlotter.display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter.display" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">VTKPlotter.</tt><tt class="descname">display</tt><big>(</big><em>displayAxes=True</em><big>)</big><a class="reference internal" href="modules/pyvsim/System.html#VTKPlotter.display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter.display" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a window and plots all the objects found during the last visit
 to the parts tree.</p>
 <p>I.e., before running this command, you should do:</p>
@@ -77,14 +77,14 @@ window is closed. This is a &#8220;feature&#8221; of matplotlib and VTK.</p>
 
 <dl class="method">
 <dt id="pyvsim.System.VTKPlotter.lineActor">
-<tt class="descclassname">VTKPlotter.</tt><tt class="descname">lineActor</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="_modules/pyvsim/System.html#VTKPlotter.lineActor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter.lineActor" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">VTKPlotter.</tt><tt class="descname">lineActor</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="modules/pyvsim/System.html#VTKPlotter.lineActor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter.lineActor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an object of type vtkLODActor for rendering within a VTK 
 pipeline</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.System.VTKPlotter.polyActor">
-<tt class="descclassname">VTKPlotter.</tt><tt class="descname">polyActor</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="_modules/pyvsim/System.html#VTKPlotter.polyActor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter.polyActor" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">VTKPlotter.</tt><tt class="descname">polyActor</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="modules/pyvsim/System.html#VTKPlotter.polyActor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.System.VTKPlotter.polyActor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an object of type vtkLODActor for rendering within a VTK 
 pipeline</p>
 </dd></dl>
@@ -100,11 +100,11 @@ pipeline</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/VTKPlotter.txt"
+    <li><a href="sources/VTKPlotter.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">

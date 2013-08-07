@@ -8,8 +8,8 @@
     
     <title>RayBundle &mdash; pyvsim 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -51,7 +51,7 @@
 <h1>RayBundle<a class="headerlink" href="#raybundle" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pyvsim.Primitives.RayBundle">
-<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">RayBundle</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#RayBundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">RayBundle</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#RayBundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents an arbitrary number of light rays. The reason for
 having them wrapped in a single class is that it allows full vectorization
 of the raytracing procedure.</p>
@@ -59,7 +59,7 @@ of the raytracing procedure.</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Primitives.RayBundle.append">
-<tt class="descname">append</tt><big>(</big><em>initialVector</em>, <em>initialPosition=None</em>, <em>wavelength=5.32e-07</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#RayBundle.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.append" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">append</tt><big>(</big><em>initialVector</em>, <em>initialPosition=None</em>, <em>wavelength=5.32e-07</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#RayBundle.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.append" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is used to append new rays in the bundle.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -120,20 +120,20 @@ checks), so it should be used ideally only once to append all rays</li>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.RayBundle.clear">
-<tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#RayBundle.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.clear" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#RayBundle.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes all rays and ray tracing data from the bundle.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.RayBundle.clearData">
-<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#RayBundle.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.clearData" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#RayBundle.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.clearData" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method removes all elements from the self.items list and the ray
 pathes</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.RayBundle.delete">
-<tt class="descname">delete</tt><big>(</big><em>n</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#RayBundle.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.delete" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">delete</tt><big>(</big><em>n</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#RayBundle.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is not implemented, and is present only to respect the 
 Assembly interface. As deleting a single ray requires many matrix 
 reshapings, it is better to clear all the data and redo the ray
@@ -150,7 +150,7 @@ tracing.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.RayBundle.rotateImplementation">
-<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#RayBundle.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.rotateImplementation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#RayBundle.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.rotateImplementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method rotates the starting points and deletes all ray tracing
 data, because a rotation or a translation of light 
 rays may completely change the light paths.</p>
@@ -179,7 +179,7 @@ rotates around origin.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.RayBundle.trace">
-<tt class="descname">trace</tt><big>(</big><em>tracingRule=1</em>, <em>restart=False</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#RayBundle.trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.trace" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">trace</tt><big>(</big><em>tracingRule=1</em>, <em>restart=False</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#RayBundle.trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>A method for starting ray tracing. The bundle must be included in the
 environment assembly where ray tracing will be done (the position, 
 however, is not important)</p>
@@ -209,7 +209,7 @@ raised.</p>
 
 <dl class="method">
 <dt id="pyvsim.Primitives.RayBundle.translateImplementation">
-<tt class="descname">translateImplementation</tt><big>(</big><em>translation</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#RayBundle.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.translateImplementation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">translateImplementation</tt><big>(</big><em>translation</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#RayBundle.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.RayBundle.translateImplementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method changes the rays starting points, and waits for clear data
 to delete all ray tracing related information.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -237,11 +237,11 @@ to delete all ray tracing related information.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/logo.png" alt="Logo"/>
+              <img class="logo" src="static/logo.png" alt="Logo"/>
             </a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/RayBundle.txt"
+    <li><a href="sources/RayBundle.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
