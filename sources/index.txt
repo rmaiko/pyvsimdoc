@@ -3,20 +3,36 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to pyvsim's documentation! - 43
-=======================================
-
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
-
-
-Indices and tables
+Welcome to pyvsim!
 ==================
 
+pyvsim, Python Visualization Simulation is a tool for helping in the set-up 
+of optical measurement systems.
+
+It includes camera models and the possibility of importing CAD models for the 
+calculation of parameters such as field and depth of view.
+
+The physical simulation is written in a generic form, so the project can be 
+adapted for many uses (maybe even 3d scenarios rendering).
+
+This site is generated from the pyvsim source code, and it is an ongoing 
+project.
+
+Download
+========
+
+In the `google code page <http://code.google.com/p/pyvsim/>`, you can clone 
+the latest version of pyvsim!
+
+Index
+======
+
+If you need information about a specific function or class, check the index.
+
 * :ref:`genindex`
+
+Other useful indexes
+====================
 * :ref:`modindex`
 * :ref:`search`
 
