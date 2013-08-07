@@ -1,0 +1,8 @@
+==========================
+mieScatteringCrossSections
+==========================
+
+.. currentmodule:: pyvsim.MieUtils
+
+.. autofunction:: pyvsim.MieUtils.mieScatteringCrossSections
+

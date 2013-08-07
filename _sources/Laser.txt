@@ -1,0 +1,8 @@
+=====
+Laser
+=====
+
+.. currentmodule:: pyvsim.Toolbox
+
+.. autoclass:: pyvsim.Toolbox.Laser
+    :members: 

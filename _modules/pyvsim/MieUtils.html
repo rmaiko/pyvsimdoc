@@ -1,0 +1,505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyvsim.MieUtils &mdash; pyvsim 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="pyvsim 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">pyvsim 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyvsim.MieUtils</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">PyVSim 1.0</span>
+<span class="sd">Copyright 2013 Ricardo Entz</span>
+
+<span class="sd">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="sd">you may not use this file except in compliance with the License.</span>
+<span class="sd">You may obtain a copy of the License at</span>
+
+<span class="sd">    http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="sd">Unless required by applicable law or agreed to in writing, software</span>
+<span class="sd">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="sd">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="sd">See the License for the specific language governing permissions and</span>
+<span class="sd">limitations under the License.</span>
+
+<span class="sd">This module contains the Mie scattering calculations for a particle or a</span>
+<span class="sd">distribution of particles. This is not yet integrated in pyvsim</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.special</span>
+
+<div class="viewcode-block" id="Tau"><a class="viewcode-back" href="../../Tau.html#pyvsim.MieUtils.Tau">[docs]</a><span class="k">def</span> <span class="nf">Tau</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">costheta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the value of the function \Tau, as defined by Maetzler (Maetzler, C. </span>
+<span class="sd">    Matlab functions for Mie scattering and absorption Institute of Applied </span>
+<span class="sd">    Physics, University of Bern, 2002), as a function of the cosine of the</span>
+<span class="sd">    scattering angle (theta) and the \Pi  function:</span>
+<span class="sd">    </span>
+<span class="sd">    \Tau(n, cos(\theta)) = n cos(\theta) \Pi(n) - (n+1) \Pi(n-1)</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pi : numpy.array (n)</span>
+<span class="sd">        An array containing the values of the \Pi function</span>
+<span class="sd">    costheta : double</span>
+<span class="sd">        The co-sine of the scattering angle</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tau : numpy.array (n)</span>
+<span class="sd">        An array containing the values of the \Theta function    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tau</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">n</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pi</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">tau</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="o">=</span> <span class="n">costheta</span>
+    <span class="n">tau</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">*</span><span class="n">costheta</span><span class="o">*</span><span class="n">pi</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">pi</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">tau</span>
+</div>
+<div class="viewcode-block" id="Header"><a class="viewcode-back" href="../../Header.html#pyvsim.MieUtils.Header">[docs]</a><span class="k">def</span> <span class="nf">Header</span><span class="p">(</span><span class="n">nmax</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates an array with the &quot;header&quot;, i.e. a factor to be used in the Mie</span>
+<span class="sd">    scattering calculations. Its value is:</span>
+<span class="sd">    </span>
+<span class="sd">    header(n) = \over {2n+1} {n(n+1)}</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nmax : int</span>
+<span class="sd">        The number of factors to be calculated</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    header : np.array (nmax)</span>
+<span class="sd">        The header to be used in Mie scattering calculations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">nmax</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Pi"><a class="viewcode-back" href="../../Pi.html#pyvsim.MieUtils.Pi">[docs]</a><span class="k">def</span> <span class="nf">Pi</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">costheta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a generator for the recursive calculation of the Pi function</span>
+<span class="sd">    as defined in &quot;Hahn, D. W. Light scattering theory Department of </span>
+<span class="sd">    Mechanical and Aeorospace Engineering, University of Florida, 2009&quot;, which</span>
+<span class="sd">    is:</span>
+<span class="sd">    </span>
+<span class="sd">    \Pi_n(cos \theta) = P_n^{(1)} (cos \theta) / sin(theta)</span>
+<span class="sd">    </span>
+<span class="sd">    Where:</span>
+<span class="sd">    </span>
+<span class="sd">    P_n^{(1)} is a Legendre polynomial</span>
+<span class="sd">    </span>
+<span class="sd">    Or, in the recursive form, as shown in Maetzler (Maetzler, C. Matlab </span>
+<span class="sd">    functions for Mie scattering and absorption Institute of Applied Physics, </span>
+<span class="sd">    University of Bern, 2002):</span>
+<span class="sd">    </span>
+<span class="sd">    \Pi_n = \over {2n-1} {n-1} cos(\theta) P_{n-1} - \over n {n-1} \Pi_{n-2}</span>
+<span class="sd">    </span>
+<span class="sd">    With:</span>
+<span class="sd">    </span>
+<span class="sd">    \Pi_{0} = 0</span>
+<span class="sd">    </span>
+<span class="sd">    \Pi_{1} = 1  </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nmax : int</span>
+<span class="sd">        The number of coefficients to be calculated</span>
+<span class="sd">        </span>
+<span class="sd">    costheta: np.array (N)</span>
+<span class="sd">        The angles (in radians) to be used as input to the \Pi function</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Pi : generator</span>
+<span class="sd">        A generator capable of creating an (N+1)-sized array with the values</span>
+<span class="sd">        of the \Pi function</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">pi_n</span>   <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">pi_n_1</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">yield</span> <span class="n">pi_n</span>
+    <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">nmax</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">newpi</span> <span class="o">=</span> <span class="p">(((</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">costheta</span> <span class="o">*</span> <span class="n">pi_n</span> <span class="o">-</span> 
+                 <span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">pi_n_1</span><span class="p">)</span>
+        <span class="n">pi_n_1</span> <span class="o">=</span> <span class="n">pi_n</span>
+        <span class="n">pi_n</span>   <span class="o">=</span> <span class="n">newpi</span>
+        <span class="n">n</span>      <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">yield</span> <span class="n">newpi</span>
+        </div>
+<div class="viewcode-block" id="mie_abcd"><a class="viewcode-back" href="../../mie_abcd.html#pyvsim.MieUtils.mie_abcd">[docs]</a><span class="k">def</span> <span class="nf">mie_abcd</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes a matrix of Mie coefficients, a_n, b_n, c_n, d_n, </span>
+<span class="sd">    of orders n=1 to nmax, complex refractive index m=m&#39;+im&quot;, </span>
+<span class="sd">    and size parameter x=k0*r, where k0= wave number </span>
+<span class="sd">    in the ambient medium, r=sphere radius; </span>
+<span class="sd">    p. 100, 477 in Bohren and Huffman (1983) BEWI:TDD122</span>
+<span class="sd">    C. Matzler, June 2002</span>
+<span class="sd">    </span>
+<span class="sd">    There is a limitation for the maximum allowable x for this</span>
+<span class="sd">    function. I have not yet verified from where it comes from</span>
+<span class="sd">    (limit: x = 180, which yields a maximum particle size of </span>
+<span class="sd">    about 30 microns in air)</span>
+<span class="sd">    </span>
+<span class="sd">    Adapted from Matlab code (Dec 2012)</span>
+<span class="sd">    Vectorized (Apr 2013)</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : real or complex</span>
+<span class="sd">        The particle refractive index.</span>
+<span class="sd">    x : numpy.array (M)</span>
+<span class="sd">        The Mie parameter, defined as x = k0 * r = 2 * pi * r / lambda (where</span>
+<span class="sd">        r is the particle radius and lambda is the light wavelength)</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    (an, bn) : numpy.array (nmax, M)</span>
+<span class="sd">        The Mie a and b parameters calculated for nmax factors, used to </span>
+<span class="sd">        calculate an approximation of the scattered light far field.</span>
+<span class="sd">        </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the particle diameter which is being calculated forces the creation</span>
+<span class="sd">        of too big matrices (happens when x is higher than approximately 180)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c">#</span>
+    <span class="c"># Parameter calculation</span>
+    <span class="c"># </span>
+    <span class="n">nmax</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)))</span>
+    <span class="n">n</span>           <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">nmax</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">nu</span>          <span class="o">=</span> <span class="n">n</span><span class="o">+</span><span class="mf">0.5</span>
+    <span class="n">z</span>           <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">x</span>
+    <span class="n">m2</span>          <span class="o">=</span> <span class="n">m</span><span class="o">*</span><span class="n">m</span> 
+    <span class="n">sqx</span>         <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">sqz</span>         <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">z</span><span class="p">)</span>
+
+    <span class="c">#</span>
+    <span class="c"># Bessel function calculation</span>
+    <span class="c"># </span>
+    <span class="n">x_block</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">x</span><span class="p">,(</span><span class="n">nmax</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">z_block</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">z</span><span class="p">,(</span><span class="n">nmax</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">n_block</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">n</span><span class="p">,(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Some matrix dimensions to help understanding the calculations</span>
+<span class="sd">                 &lt;--nmax--&gt;</span>
+<span class="sd">    x_block = [[x1, x1, x1 ...],    ^</span>
+<span class="sd">               [x2, x2, x2 ...],  len(x)</span>
+<span class="sd">               ...            ]]    v</span>
+<span class="sd">               </span>
+<span class="sd">                 &lt;--len(x)--&gt;</span>
+<span class="sd">    n_block = [[1, 1, 1 ...],    ^</span>
+<span class="sd">               [2, 2, 2 ...],  nmax(x)</span>
+<span class="sd">               ...               | </span>
+<span class="sd">               [n, n, n ...]]    v               </span>
+<span class="sd">               </span>
+<span class="sd">                 &lt;--nmax--&gt;</span>
+<span class="sd">    nu      = [nu1, nu2, nu3 ...]   1</span>
+<span class="sd">    </span>
+<span class="sd">                         &lt;--len(x)--&gt;</span>
+<span class="sd">    bx, bz, yx  =  [[nu1.x1, nu1.x2, ... nu1.xn],   ^</span>
+<span class="sd">                    [nu2.x1, nu2.x2, ... nu2.xn],   |</span>
+<span class="sd">                    ...                            nmax(x)</span>
+<span class="sd">                                                    |</span>
+<span class="sd">                    [nun.x1, nun.x2, ... nun.xn]]   v</span>
+<span class="sd">    bx, bz, yx have the final matrix size (FMS)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bx</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">jv</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span><span class="n">x_block</span>    <span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">sqx</span><span class="p">,(</span><span class="n">nmax</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">bz</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">jv</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span><span class="n">m</span> <span class="o">*</span> <span class="n">x_block</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">sqz</span><span class="p">,(</span><span class="n">nmax</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">yx</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">yv</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span><span class="n">x_block</span>    <span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">sqx</span><span class="p">,(</span><span class="n">nmax</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c"># From now on, all calculations are made with the final matrix sizes</span>
+    <span class="n">hx</span> <span class="o">=</span> <span class="n">bx</span><span class="o">+</span><span class="mi">1j</span><span class="o">*</span><span class="n">yx</span>
+    
+    <span class="n">b1x</span>     <span class="o">=</span>   <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span>   <span class="p">,</span><span class="n">bx</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]])</span>
+    <span class="n">b1z</span>     <span class="o">=</span>   <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="n">z</span>   <span class="p">,</span><span class="n">bz</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]])</span>
+    <span class="n">y1x</span>     <span class="o">=</span>   <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span>  <span class="p">,</span><span class="n">yx</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]])</span>
+
+    <span class="n">h1x</span><span class="o">=</span> <span class="n">b1x</span><span class="o">+</span><span class="mi">1j</span><span class="o">*</span><span class="n">y1x</span><span class="p">;</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">x_block</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">b1x</span> <span class="o">-</span> <span class="n">n_block</span><span class="o">*</span><span class="n">bx</span><span class="p">;</span>
+    <span class="n">az</span> <span class="o">=</span> <span class="n">z_block</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">b1z</span> <span class="o">-</span> <span class="n">n_block</span><span class="o">*</span><span class="n">bz</span><span class="p">;</span>
+    <span class="n">ahx</span><span class="o">=</span> <span class="n">x_block</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">h1x</span> <span class="o">-</span> <span class="n">n_block</span><span class="o">*</span><span class="n">hx</span><span class="p">;</span>
+
+    <span class="n">an</span> <span class="o">=</span> <span class="p">(</span><span class="n">m2</span><span class="o">*</span><span class="n">bz</span><span class="o">*</span><span class="n">ax</span><span class="o">-</span><span class="n">bx</span><span class="o">*</span><span class="n">az</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">m2</span><span class="o">*</span><span class="n">bz</span><span class="o">*</span><span class="n">ahx</span><span class="o">-</span><span class="n">hx</span><span class="o">*</span><span class="n">az</span><span class="p">);</span>
+    <span class="n">bn</span> <span class="o">=</span> <span class="p">(</span><span class="n">bz</span><span class="o">*</span><span class="n">ax</span><span class="o">-</span><span class="n">bx</span><span class="o">*</span><span class="n">az</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">bz</span><span class="o">*</span><span class="n">ahx</span><span class="o">-</span><span class="n">hx</span><span class="o">*</span><span class="n">az</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">an</span><span class="p">,</span><span class="n">bn</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="mieScatteringCrossSections"><a class="viewcode-back" href="../../mieScatteringCrossSections.html#pyvsim.MieUtils.mieScatteringCrossSections">[docs]</a><span class="k">def</span> <span class="nf">mieScatteringCrossSections</span><span class="p">(</span><span class="n">refractiveIndex</span><span class="p">,</span>
+                               <span class="n">particleDiameters</span><span class="p">,</span>
+                               <span class="n">wavelength</span><span class="p">,</span> 
+                               <span class="n">theta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function calculates the Mie scattering cross section of a spherical</span>
+<span class="sd">    particle. Its optimal use is by minimizing function calls and giving</span>
+<span class="sd">    a particle size range instead.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    refrativeIndex : real / complex</span>
+<span class="sd">        The refractive index of the particles. The real part of the index</span>
+<span class="sd">        is the classical (as used in Snell&#39;s law) and the complex is related</span>
+<span class="sd">        to light absorption</span>
+<span class="sd">    particleDiameters : numpy.array (N)</span>
+<span class="sd">        A list of particle diameters to be calculated</span>
+<span class="sd">    wavelength : real, meters</span>
+<span class="sd">        The wavelength of the light source</span>
+<span class="sd">    theta : numpy.array (M), radians</span>
+<span class="sd">        A list of scattering angles to be calculated</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    (sigma1, sigma2) : tuple of numpy.array (M,N)</span>
+<span class="sd">        The differential scattering cross sections for the given particle </span>
+<span class="sd">        diameters (column number) and scattering angles (row number). Sigma1</span>
+<span class="sd">        stands for light that is polarized perpendicular to the propagation </span>
+<span class="sd">        plane, and sigma2 for light polarized parallel to the propagation plane</span>
+<span class="sd">    </span>
+<span class="sd">    Polarization parameter:</span>
+<span class="sd">    1 = accounts for light polarized perpendicular to propagation plane</span>
+<span class="sd">    2 = accounts for light polarized parallel to propagation plane</span>
+<span class="sd">    None = returns average</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cos_theta</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="c"># Calculation of Mie parameters</span>
+    <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">mie_abcd</span><span class="p">(</span><span class="n">refractiveIndex</span><span class="p">,</span> 
+                     <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">particleDiameters</span><span class="o">/</span><span class="n">wavelength</span><span class="p">)</span>
+    <span class="n">nmax</span>         <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">nangles</span>      <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cos_theta</span><span class="p">)</span>
+    <span class="n">nd</span>           <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">particleDiameters</span><span class="p">)</span>
+    
+    <span class="n">pi</span>           <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">nangles</span><span class="p">,</span><span class="n">nmax</span><span class="p">,</span><span class="n">nd</span><span class="p">))</span>
+    <span class="n">tau</span>          <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">nangles</span><span class="p">,</span><span class="n">nmax</span><span class="p">,</span><span class="n">nd</span><span class="p">))</span>
+    <span class="n">header</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">Header</span><span class="p">(</span><span class="n">nmax</span><span class="p">),</span> <span class="p">(</span><span class="n">nd</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ctheta</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cos_theta</span><span class="p">):</span>
+        <span class="n">pigen</span>        <span class="o">=</span> <span class="n">Pi</span><span class="p">(</span><span class="n">nmax</span><span class="p">,</span> <span class="n">ctheta</span><span class="p">)</span>
+        <span class="n">pitemp</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="n">pigen</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+        <span class="n">tautemp</span>      <span class="o">=</span> <span class="n">Tau</span><span class="p">(</span><span class="n">pitemp</span><span class="p">,</span> <span class="n">ctheta</span><span class="p">)</span>
+        <span class="n">pi</span><span class="p">[</span><span class="n">i</span><span class="p">,:,:]</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">pitemp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],(</span><span class="n">nd</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">tau</span><span class="p">[</span><span class="n">i</span><span class="p">,:,:]</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">tautemp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">nd</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    
+    <span class="n">i1</span> <span class="o">=</span> <span class="n">header</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">tau</span><span class="p">)</span>
+    <span class="n">i2</span> <span class="o">=</span> <span class="n">header</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">tau</span><span class="p">)</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The following sum puts the coefficients in the following form:</span>
+<span class="sd">                &lt;   ndiameters &gt;</span>
+<span class="sd">    i1,i2 =  [[i1,  i1,  ...   i1],   ^</span>
+<span class="sd">              [i1,  i1,  ...   i1],  nangles</span>
+<span class="sd">              ...</span>
+<span class="sd">              [i1,  i1,  ...   i1]]   v</span>
+<span class="sd">    so, each particle diameter is represented by a column</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">i1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">i2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">i1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">i1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">wavelength</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">i2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">i2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">wavelength</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">)</span>
+</div>
+<span class="k">def</span> <span class="nf">distributedSCS</span><span class="p">(</span><span class="n">refractiveIndex</span><span class="p">,</span> 
+                   <span class="n">diameters</span><span class="p">,</span> 
+                   <span class="n">percentage</span><span class="p">,</span> 
+                   <span class="n">wavelength</span><span class="p">,</span>
+                   <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">501</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function calculates the mean differential scattering cross section of </span>
+<span class="sd">    a particle size distribution (described by a cumulative probability</span>
+<span class="sd">    function). </span>
+<span class="sd">    Note that this result shows the behavior of the distribution, which is not</span>
+<span class="sd">    the behavior of any of the particles.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    refrativeIndex : real / complex</span>
+<span class="sd">        The refractive index of the particles. The real part of the index</span>
+<span class="sd">        is the classical (as used in Snell&#39;s law) and the complex is related</span>
+<span class="sd">        to light absorption</span>
+<span class="sd">    particleDiameters : numpy.array (N)</span>
+<span class="sd">        A list of particle diameters to be calculated</span>
+<span class="sd">    percentage : numpy.array (N)</span>
+<span class="sd">        The value of the cumulative distribution function (CDF) of the particle</span>
+<span class="sd">        diameter distribution sampled at the points given in the</span>
+<span class="sd">        particleDiameter array</span>
+<span class="sd">    wavelength : real, meters</span>
+<span class="sd">        The wavelength of the light source</span>
+<span class="sd">    theta : numpy.array (M), radians</span>
+<span class="sd">        A list of scattering angles to be calculated. If not given, defaults</span>
+<span class="sd">        to a 501-element array from 0 to 180deg</span>
+<span class="sd">         </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    (sigma1, sigma2) : tuple of numpy.array (M)</span>
+<span class="sd">        The differential scattering cross sections for the given distribution. </span>
+<span class="sd">        Sigma1 stands for light that is polarized perpendicular to the </span>
+<span class="sd">        propagation plane, and sigma2 for light polarized parallel to the </span>
+<span class="sd">        propagation plane</span>
+<span class="sd">        </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the particle diameter which is being calculated forces the creation</span>
+<span class="sd">        of too big matrices (happens when the Mie parameter (2*pi*radius / </span>
+<span class="sd">        lightWavelength) is higher than approximately 180)        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scs</span> <span class="o">=</span> <span class="n">mieScatteringCrossSections</span><span class="p">(</span><span class="n">refractiveIndex</span>   <span class="o">=</span> <span class="n">refractiveIndex</span><span class="p">,</span>
+                                     <span class="n">particleDiameters</span> <span class="o">=</span> <span class="n">diameters</span><span class="p">,</span>
+                                     <span class="n">wavelength</span>        <span class="o">=</span> <span class="n">wavelength</span><span class="p">,</span> 
+                                     <span class="n">theta</span>             <span class="o">=</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="n">distribution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">percentage</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">scs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">distribution</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">scs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">distribution</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+  
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">Utils</span>
+    <span class="n">tic</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="n">Tictoc</span><span class="p">()</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+    
+    <span class="n">tic</span><span class="o">.</span><span class="n">tic</span><span class="p">()</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">,</span><span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">,</span><span class="mi">1001</span><span class="p">)</span>
+    <span class="n">diam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">3.1</span><span class="p">,</span><span class="mf">0.0062</span><span class="p">)</span>
+    <span class="n">pdf</span>  <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">gammainc</span><span class="p">(</span><span class="mf">13.9043</span><span class="p">,</span><span class="mf">10.9078</span><span class="o">*</span><span class="n">diam</span><span class="p">)</span><span class="o">**</span><span class="mf">0.2079</span>
+    <span class="n">perc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
+    <span class="n">diam</span> <span class="o">=</span> <span class="n">diam</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">*</span><span class="mf">1e-6</span>
+    <span class="n">scs1</span> <span class="o">=</span> <span class="n">distributedSCS</span><span class="p">(</span><span class="mf">1.45386</span><span class="p">,</span> 
+                          <span class="n">diam</span><span class="p">,</span> 
+                          <span class="n">perc</span><span class="p">,</span> 
+                          <span class="mf">532e-9</span><span class="p">,</span>
+                          <span class="n">theta</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                                                       
+    <span class="n">tic</span><span class="o">.</span><span class="n">toc</span><span class="p">()</span>
+    <span class="n">apertureAngle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">apertureAngle</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Kernel is </span><span class="si">%d</span><span class="s"> elements long&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+    
+    <span class="c">#for s in scs1:</span>
+    <span class="c">#    print s</span>
+    <span class="c">#for n,s in enumerate(perc):</span>
+    <span class="c">#    print diam[n], s    </span>
+        
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">facecolor</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">scs1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;Whole distribution&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">diam</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diam</span><span class="p">)</span><span class="o">/</span><span class="mf">5.</span><span class="p">)):</span>
+        <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="n">diam</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+        <span class="n">scs2</span> <span class="o">=</span> <span class="n">distributedSCS</span><span class="p">(</span><span class="mf">1.45386</span><span class="p">,</span> 
+                          <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">diam</span><span class="p">[</span><span class="n">n</span><span class="p">]]),</span> 
+                          <span class="mi">1</span><span class="p">,</span> <span class="c">#np.array([perc[n]]), </span>
+                          <span class="mf">532e-9</span><span class="p">,</span>
+                          <span class="n">theta</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>   
+        <span class="k">if</span> <span class="n">apertureAngle</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c"># filtered</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">scs2</span><span class="p">,</span><span class="n">kernel</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s">&quot;same&quot;</span><span class="p">),</span> 
+                     <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;D=</span><span class="si">%s</span><span class="s"> micron contribution&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">diam</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">*</span><span class="mf">1e6</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># unfiltered</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">scs2</span><span class="p">,</span> 
+                     <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;D=</span><span class="si">%s</span><span class="s"> micron contribution&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">diam</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">*</span><span class="mf">1e6</span><span class="p">))</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;Scattering angle&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;Scattering cross section (m^2)/(sr)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s">&#39;log&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s">&quot;both&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s">&quot;both&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">pyvsim 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Ricardo Entz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

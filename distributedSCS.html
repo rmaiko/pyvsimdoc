@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>distributedSCS &mdash; pyvsim 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pyvsim 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="distributedscs">
+<h1>distributedSCS<a class="headerlink" href="#distributedscs" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt>
+<tt class="descname">distributedSCS(refractiveIndex, diameters, percentage, wavelength, theta=array([ 0.        ,  0.00628319,  0.01256637,  0.01884956,  0.02513274,</tt></dt>
+<dt>
+<tt class="descname">0.03141593,  0.03769911,  0.0439823 ,  0.05026548,  0.05654867,</tt></dt>
+<dt>
+<tt class="descname">0.06283185,  0.06911504,  0.07539822,  0.08168141,  0.08796459,</tt></dt>
+<dt>
+<tt class="descname">0.09424778,  0.10053096,  0.10681415,  0.11309734,  0.11938052,</tt></dt>
+<dt>
+<tt class="descname">0.12566371,  0.13194689,  0.13823008,  0.14451326,  0.15079645,</tt></dt>
+<dt>
+<tt class="descname">0.15707963,  0.16336282,  0.169646  ,  0.17592919,  0.18221237,</tt></dt>
+<dt>
+<tt class="descname">0.18849556,  0.19477874,  0.20106193,  0.20734512,  0.2136283 ,</tt></dt>
+<dt>
+<tt class="descname">0.21991149,  0.22619467,  0.23247786,  0.23876104,  0.24504423,</tt></dt>
+<dt>
+<tt class="descname">0.25132741,  0.2576106 ,  0.26389378,  0.27017697,  0.27646015,</tt></dt>
+<dt>
+<tt class="descname">0.28274334,  0.28902652,  0.29530971,  0.30159289,  0.30787608,</tt></dt>
+<dt>
+<tt class="descname">0.31415927,  0.32044245,  0.32672564,  0.33300882,  0.33929201,</tt></dt>
+<dt>
+<tt class="descname">0.34557519,  0.35185838,  0.35814156,  0.36442475,  0.37070793,</tt></dt>
+<dt>
+<tt class="descname">0.37699112,  0.3832743 ,  0.38955749,  0.39584067,  0.40212386,</tt></dt>
+<dt>
+<tt class="descname">0.40840704,  0.41469023,  0.42097342,  0.4272566 ,  0.43353979,</tt></dt>
+<dt>
+<tt class="descname">0.43982297,  0.44610616,  0.45238934,  0.45867253,  0.46495571,</tt></dt>
+<dt>
+<tt class="descname">0.4712389 ,  0.47752208,  0.48380527,  0.49008845,  0.49637164,</tt></dt>
+<dt>
+<tt class="descname">0.50265482,  0.50893801,  0.5152212 ,  0.52150438,  0.52778757,</tt></dt>
+<dt>
+<tt class="descname">0.53407075,  0.54035394,  0.54663712,  0.55292031,  0.55920349,</tt></dt>
+<dt>
+<tt class="descname">0.56548668,  0.57176986,  0.57805305,  0.58433623,  0.59061942,</tt></dt>
+<dt>
+<tt class="descname">0.5969026 ,  0.60318579,  0.60946897,  0.61575216,  0.62203535,</tt></dt>
+<dt>
+<tt class="descname">0.62831853,  0.63460172,  0.6408849 ,  0.64716809,  0.65345127,</tt></dt>
+<dt>
+<tt class="descname">0.65973446,  0.66601764,  0.67230083,  0.67858401,  0.6848672 ,</tt></dt>
+<dt>
+<tt class="descname">0.69115038,  0.69743357,  0.70371675,  0.70999994,  0.71628313,</tt></dt>
+<dt>
+<tt class="descname">0.72256631,  0.7288495 ,  0.73513268,  0.74141587,  0.74769905,</tt></dt>
+<dt>
+<tt class="descname">0.75398224,  0.76026542,  0.76654861,  0.77283179,  0.77911498,</tt></dt>
+<dt>
+<tt class="descname">0.78539816,  0.79168135,  0.79796453,  0.80424772,  0.8105309 ,</tt></dt>
+<dt>
+<tt class="descname">0.81681409,  0.82309728,  0.82938046,  0.83566365,  0.84194683,</tt></dt>
+<dt>
+<tt class="descname">0.84823002,  0.8545132 ,  0.86079639,  0.86707957,  0.87336276,</tt></dt>
+<dt>
+<tt class="descname">0.87964594,  0.88592913,  0.89221231,  0.8984955 ,  0.90477868,</tt></dt>
+<dt>
+<tt class="descname">0.91106187,  0.91734505,  0.92362824,  0.92991143,  0.93619461,</tt></dt>
+<dt>
+<tt class="descname">0.9424778 ,  0.94876098,  0.95504417,  0.96132735,  0.96761054,</tt></dt>
+<dt>
+<tt class="descname">0.97389372,  0.98017691,  0.98646009,  0.99274328,  0.99902646,</tt></dt>
+<dt>
+<tt class="descname">1.00530965,  1.01159283,  1.01787602,  1.02415921,  1.03044239,</tt></dt>
+<dt>
+<tt class="descname">1.03672558,  1.04300876,  1.04929195,  1.05557513,  1.06185832,</tt></dt>
+<dt>
+<tt class="descname">1.0681415 ,  1.07442469,  1.08070787,  1.08699106,  1.09327424,</tt></dt>
+<dt>
+<tt class="descname">1.09955743,  1.10584061,  1.1121238 ,  1.11840698,  1.12469017,</tt></dt>
+<dt>
+<tt class="descname">1.13097336,  1.13725654,  1.14353973,  1.14982291,  1.1561061 ,</tt></dt>
+<dt>
+<tt class="descname">1.16238928,  1.16867247,  1.17495565,  1.18123884,  1.18752202,</tt></dt>
+<dt>
+<tt class="descname">1.19380521,  1.20008839,  1.20637158,  1.21265476,  1.21893795,</tt></dt>
+<dt>
+<tt class="descname">1.22522113,  1.23150432,  1.23778751,  1.24407069,  1.25035388,</tt></dt>
+<dt>
+<tt class="descname">1.25663706,  1.26292025,  1.26920343,  1.27548662,  1.2817698 ,</tt></dt>
+<dt>
+<tt class="descname">1.28805299,  1.29433617,  1.30061936,  1.30690254,  1.31318573,</tt></dt>
+<dt>
+<tt class="descname">1.31946891,  1.3257521 ,  1.33203529,  1.33831847,  1.34460166,</tt></dt>
+<dt>
+<tt class="descname">1.35088484,  1.35716803,  1.36345121,  1.3697344 ,  1.37601758,</tt></dt>
+<dt>
+<tt class="descname">1.38230077,  1.38858395,  1.39486714,  1.40115032,  1.40743351,</tt></dt>
+<dt>
+<tt class="descname">1.41371669,  1.41999988,  1.42628306,  1.43256625,  1.43884944,</tt></dt>
+<dt>
+<tt class="descname">1.44513262,  1.45141581,  1.45769899,  1.46398218,  1.47026536,</tt></dt>
+<dt>
+<tt class="descname">1.47654855,  1.48283173,  1.48911492,  1.4953981 ,  1.50168129,</tt></dt>
+<dt>
+<tt class="descname">1.50796447,  1.51424766,  1.52053084,  1.52681403,  1.53309721,</tt></dt>
+<dt>
+<tt class="descname">1.5393804 ,  1.54566359,  1.55194677,  1.55822996,  1.56451314,</tt></dt>
+<dt>
+<tt class="descname">1.57079633,  1.57707951,  1.5833627 ,  1.58964588,  1.59592907,</tt></dt>
+<dt>
+<tt class="descname">1.60221225,  1.60849544,  1.61477862,  1.62106181,  1.62734499,</tt></dt>
+<dt>
+<tt class="descname">1.63362818,  1.63991137,  1.64619455,  1.65247774,  1.65876092,</tt></dt>
+<dt>
+<tt class="descname">1.66504411,  1.67132729,  1.67761048,  1.68389366,  1.69017685,</tt></dt>
+<dt>
+<tt class="descname">1.69646003,  1.70274322,  1.7090264 ,  1.71530959,  1.72159277,</tt></dt>
+<dt>
+<tt class="descname">1.72787596,  1.73415914,  1.74044233,  1.74672552,  1.7530087 ,</tt></dt>
+<dt>
+<tt class="descname">1.75929189,  1.76557507,  1.77185826,  1.77814144,  1.78442463,</tt></dt>
+<dt>
+<tt class="descname">1.79070781,  1.796991  ,  1.80327418,  1.80955737,  1.81584055,</tt></dt>
+<dt>
+<tt class="descname">1.82212374,  1.82840692,  1.83469011,  1.8409733 ,  1.84725648,</tt></dt>
+<dt>
+<tt class="descname">1.85353967,  1.85982285,  1.86610604,  1.87238922,  1.87867241,</tt></dt>
+<dt>
+<tt class="descname">1.88495559,  1.89123878,  1.89752196,  1.90380515,  1.91008833,</tt></dt>
+<dt>
+<tt class="descname">1.91637152,  1.9226547 ,  1.92893789,  1.93522107,  1.94150426,</tt></dt>
+<dt>
+<tt class="descname">1.94778745,  1.95407063,  1.96035382,  1.966637  ,  1.97292019,</tt></dt>
+<dt>
+<tt class="descname">1.97920337,  1.98548656,  1.99176974,  1.99805293,  2.00433611,</tt></dt>
+<dt>
+<tt class="descname">2.0106193 ,  2.01690248,  2.02318567,  2.02946885,  2.03575204,</tt></dt>
+<dt>
+<tt class="descname">2.04203522,  2.04831841,  2.0546016 ,  2.06088478,  2.06716797,</tt></dt>
+<dt>
+<tt class="descname">2.07345115,  2.07973434,  2.08601752,  2.09230071,  2.09858389,</tt></dt>
+<dt>
+<tt class="descname">2.10486708,  2.11115026,  2.11743345,  2.12371663,  2.12999982,</tt></dt>
+<dt>
+<tt class="descname">2.136283  ,  2.14256619,  2.14884938,  2.15513256,  2.16141575,</tt></dt>
+<dt>
+<tt class="descname">2.16769893,  2.17398212,  2.1802653 ,  2.18654849,  2.19283167,</tt></dt>
+<dt>
+<tt class="descname">2.19911486,  2.20539804,  2.21168123,  2.21796441,  2.2242476 ,</tt></dt>
+<dt>
+<tt class="descname">2.23053078,  2.23681397,  2.24309715,  2.24938034,  2.25566353,</tt></dt>
+<dt>
+<tt class="descname">2.26194671,  2.2682299 ,  2.27451308,  2.28079627,  2.28707945,</tt></dt>
+<dt>
+<tt class="descname">2.29336264,  2.29964582,  2.30592901,  2.31221219,  2.31849538,</tt></dt>
+<dt>
+<tt class="descname">2.32477856,  2.33106175,  2.33734493,  2.34362812,  2.3499113 ,</tt></dt>
+<dt>
+<tt class="descname">2.35619449,  2.36247768,  2.36876086,  2.37504405,  2.38132723,</tt></dt>
+<dt>
+<tt class="descname">2.38761042,  2.3938936 ,  2.40017679,  2.40645997,  2.41274316,</tt></dt>
+<dt>
+<tt class="descname">2.41902634,  2.42530953,  2.43159271,  2.4378759 ,  2.44415908,</tt></dt>
+<dt>
+<tt class="descname">2.45044227,  2.45672546,  2.46300864,  2.46929183,  2.47557501,</tt></dt>
+<dt>
+<tt class="descname">2.4818582 ,  2.48814138,  2.49442457,  2.50070775,  2.50699094,</tt></dt>
+<dt>
+<tt class="descname">2.51327412,  2.51955731,  2.52584049,  2.53212368,  2.53840686,</tt></dt>
+<dt>
+<tt class="descname">2.54469005,  2.55097323,  2.55725642,  2.56353961,  2.56982279,</tt></dt>
+<dt>
+<tt class="descname">2.57610598,  2.58238916,  2.58867235,  2.59495553,  2.60123872,</tt></dt>
+<dt>
+<tt class="descname">2.6075219 ,  2.61380509,  2.62008827,  2.62637146,  2.63265464,</tt></dt>
+<dt>
+<tt class="descname">2.63893783,  2.64522101,  2.6515042 ,  2.65778738,  2.66407057,</tt></dt>
+<dt>
+<tt class="descname">2.67035376,  2.67663694,  2.68292013,  2.68920331,  2.6954865 ,</tt></dt>
+<dt>
+<tt class="descname">2.70176968,  2.70805287,  2.71433605,  2.72061924,  2.72690242,</tt></dt>
+<dt>
+<tt class="descname">2.73318561,  2.73946879,  2.74575198,  2.75203516,  2.75831835,</tt></dt>
+<dt>
+<tt class="descname">2.76460154,  2.77088472,  2.77716791,  2.78345109,  2.78973428,</tt></dt>
+<dt>
+<tt class="descname">2.79601746,  2.80230065,  2.80858383,  2.81486702,  2.8211502 ,</tt></dt>
+<dt>
+<tt class="descname">2.82743339,  2.83371657,  2.83999976,  2.84628294,  2.85256613,</tt></dt>
+<dt>
+<tt class="descname">2.85884931,  2.8651325 ,  2.87141569,  2.87769887,  2.88398206,</tt></dt>
+<dt>
+<tt class="descname">2.89026524,  2.89654843,  2.90283161,  2.9091148 ,  2.91539798,</tt></dt>
+<dt>
+<tt class="descname">2.92168117,  2.92796435,  2.93424754,  2.94053072,  2.94681391,</tt></dt>
+<dt>
+<tt class="descname">2.95309709,  2.95938028,  2.96566346,  2.97194665,  2.97822984,</tt></dt>
+<dt>
+<tt class="descname">2.98451302,  2.99079621,  2.99707939,  3.00336258,  3.00964576,</tt></dt>
+<dt>
+<tt class="descname">3.01592895,  3.02221213,  3.02849532,  3.0347785 ,  3.04106169,</tt></dt>
+<dt>
+<tt class="descname">3.04734487,  3.05362806,  3.05991124,  3.06619443,  3.07247762,</tt></dt>
+<dt>
+<tt class="descname">3.0787608 ,  3.08504399,  3.09132717,  3.09761036,  3.10389354,</tt></dt>
+<dt>
+<tt class="descname">3.11017673,  3.11645991,  3.1227431 ,  3.12902628,  3.13530947,</tt></dt>
+<dt>
+<tt class="descname">3.14159265]))</tt></dt>
+<dd><p>This function calculates the mean differential scattering cross section of 
+a particle size distribution (described by a cumulative probability
+function). 
+Note that this result shows the behavior of the distribution, which is not
+the behavior of any of the particles.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>refrativeIndex</strong> : real / complex</p>
+<blockquote>
+<div><p>The refractive index of the particles. The real part of the index
+is the classical (as used in Snell&#8217;s law) and the complex is related
+to light absorption</p>
+</div></blockquote>
+<p><strong>particleDiameters</strong> : numpy.array (N)</p>
+<blockquote>
+<div><p>A list of particle diameters to be calculated</p>
+</div></blockquote>
+<p><strong>percentage</strong> : numpy.array (N)</p>
+<blockquote>
+<div><p>The value of the cumulative distribution function (CDF) of the particle
+diameter distribution sampled at the points given in the
+particleDiameter array</p>
+</div></blockquote>
+<p><strong>wavelength</strong> : real, meters</p>
+<blockquote>
+<div><p>The wavelength of the light source</p>
+</div></blockquote>
+<p><strong>theta</strong> : numpy.array (M), radians</p>
+<blockquote>
+<div><p>A list of scattering angles to be calculated. If not given, defaults
+to a 501-element array from 0 to 180deg</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(sigma1, sigma2)</strong> : tuple of numpy.array (M)</p>
+<blockquote>
+<div><p>The differential scattering cross sections for the given distribution. 
+Sigma1 stands for light that is polarized perpendicular to the 
+propagation plane, and sigma2 for light polarized parallel to the 
+propagation plane</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first"><strong>ValueError</strong> :</p>
+<blockquote class="last">
+<div><p>If the particle diameter which is being calculated forces the creation
+of too big matrices (happens when the Mie parameter (2*pi*radius / 
+lightWavelength) is higher than approximately 180)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/distributedSCS.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<ul class="this-page-menu">
+  <li><a href="/scipy/docs/scipy-docs/distributedSCS.rst">Edit page</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pyvsim 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Ricardo Entz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

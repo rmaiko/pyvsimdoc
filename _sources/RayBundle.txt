@@ -1,0 +1,8 @@
+=========
+RayBundle
+=========
+
+.. currentmodule:: pyvsim.Primitives
+
+.. autoclass:: pyvsim.Primitives.RayBundle
+    :members: 
