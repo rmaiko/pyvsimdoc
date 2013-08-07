@@ -53,16 +53,21 @@
 <dl class="function">
 <dt id="pyvsim.MieUtils.mie_abcd">
 <tt class="descclassname">pyvsim.MieUtils.</tt><tt class="descname">mie_abcd</tt><big>(</big><em>m</em>, <em>x</em><big>)</big><a class="reference internal" href="modules/pyvsim/MieUtils.html#mie_abcd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.MieUtils.mie_abcd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes a matrix of Mie coefficients, a_n, b_n, c_n, d_n, 
-of orders n=1 to nmax, complex refractive index m=m&#8217;+im&#8221;, 
-and size parameter x=k0*r, where k0= wave number 
-in the ambient medium, r=sphere radius; 
-p. 100, 477 in Bohren and Huffman (1983) BEWI:TDD122
-C. Matzler, June 2002</p>
-<p>There is a limitation for the maximum allowable x for this
+<dd><p>Computes a matrix of Mie coefficients:</p>
+<div class="math">
+\[a_n, b_n, c_n, d_n\]</div>
+<p>of orders <span class="math">\(n=1\)</span> to <span class="math">\(n_{max}\)</span>, complex refractive index 
+<span class="math">\(m=m^\prime + im^{\prime\prime}\)</span>, 
+and size parameter 
+<span class="math">\(x=k_0\cdot r\)</span>, 
+where 
+<span class="math">\(k_0\)</span> is the wave number in the ambient medium, 
+<span class="math">\(r\)</span> sphere radius;</p>
+<p>Reference: p. 100, 477 in Bohren and Huffman (1983) BEWI:TDD122</p>
+<p>There is a limitation for the maximum allowable <span class="math">\(x\)</span> for this
 function. I have not yet verified from where it comes from
-(limit: x = 180, which yields a maximum particle size of 
-about 30 microns in air)</p>
+(limit: <span class="math">\(x = 180\)</span>, which yields a maximum particle size of 
+about <span class="math">\(30\mu m\)</span> in air)</p>
 <p>Adapted from Matlab code (Dec 2012)
 Vectorized (Apr 2013)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -75,14 +80,17 @@ Vectorized (Apr 2013)</p>
 </div></blockquote>
 <p><strong>x</strong> : numpy.array (M)</p>
 <blockquote>
-<div><p>The Mie parameter, defined as x = k0 * r = 2 * pi * r / lambda (where
-r is the particle radius and lambda is the light wavelength)</p>
+<div><p>The Mie parameter, defined as 
+<span class="math">\(x = k_0 r = {{2  \pi r} \over \lambda}\)</span>
+(where <span class="math">\(r\)</span> is the particle radius and <span class="math">\(\lambda\)</span> is the 
+light wavelength)</p>
 </div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(an, bn)</strong> : numpy.array (nmax, M)</p>
 <blockquote>
-<div><p>The Mie a and b parameters calculated for nmax factors, used to 
+<div><p>The Mie <span class="math">\(a\)</span> and <span class="math">\(b\)</span> parameters calculated for <span class="math">\(n_{max}\)</span>
+factors, used to 
 calculate an approximation of the scattered light far field.</p>
 </div></blockquote>
 </td>
