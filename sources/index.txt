@@ -19,7 +19,7 @@ For the moment, pyvsim is more concentrated in simulating PIV equipment, a nice
 example of what it can already do is the configuration below.
 
 .. figure:: ./pivdemo.png
-	:scale: 50%
+    :scale: 50%
     :align: center
 	
 	A one-camera PIV configuration using a mirror
@@ -28,8 +28,8 @@ It can also be used to generate synthetic images of particles (but it's not so
 efficient doing so).
 
 .. figure:: ./synth.png
-	:scale: 50%
-	:align: center
+    :scale: 50%
+    :align: center
 	
 	An example synthetic image
 
