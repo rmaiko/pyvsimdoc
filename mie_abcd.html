@@ -63,7 +63,7 @@ and size parameter
 where 
 <span class="math">\(k_0\)</span> is the wave number in the ambient medium, 
 <span class="math">\(r\)</span> sphere radius;</p>
-<p>Reference: p. 100, 477 in Bohren and Huffman (1983) BEWI:TDD122</p>
+<p>Reference: <a class="reference external" href="http://books.google.de/books/about/Absorption_and_scattering_of_light_by_sm.html?id=S1RCZ8BjgN0C&amp;redir_esc=y">p. 100, 477 in Bohren and Huffman (1983) BEWI:TDD122</a></p>
 <p>There is a limitation for the maximum allowable <span class="math">\(x\)</span> for this
 function. I have not yet verified from where it comes from
 (limit: <span class="math">\(x = 180\)</span>, which yields a maximum particle size of 
@@ -87,7 +87,7 @@ light wavelength)</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(an, bn)</strong> : numpy.array (nmax, M)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(an, bn)</strong> : numpy.array (<span class="math">\(n_{max}\)</span>, M)</p>
 <blockquote>
 <div><p>The Mie <span class="math">\(a\)</span> and <span class="math">\(b\)</span> parameters calculated for <span class="math">\(n_{max}\)</span>
 factors, used to 
@@ -98,7 +98,7 @@ calculate an approximation of the scattered light far field.</p>
 <tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first"><strong>ValueError</strong> :</p>
 <blockquote class="last">
 <div><p>If the particle diameter which is being calculated forces the creation
-of too big matrices (happens when x is higher than approximately 180)</p>
+of too big matrices (happens when <span class="math">\(x\)</span> is higher than approximately 180)</p>
 </div></blockquote>
 </td>
 </tr>
