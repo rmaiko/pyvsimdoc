@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Assembly &mdash; pyvsim 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pyvsim 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="assembly">
+<h1>Assembly<a class="headerlink" href="#assembly" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyvsim.Primitives.Assembly">
+<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Assembly</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>The assembly class is a non-terminal node in the Components tree. It carries
+almost no properties of its own, but makes sure that all geometrical 
+transformations are propagated to its subcomponents.</p>
+<p>The subcomponents are stored in a numpy array. This is definetely not
+always needed (except when fancy slicing is desired), but this keeps
+the consistency all along the code, making all lists instances of
+numpy.ndarray.</p>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="pyvsim.Primitives.Assembly.acceptVisitor">
+<tt class="descname">acceptVisitor</tt><big>(</big><em>visitor</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.acceptVisitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.acceptVisitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is a provision for the <cite>Visitor Pattern 
+&lt;http://http://en.wikipedia.org/wiki/Visitor_pattern&gt;</cite>  and is be used
+for traversing the tree.</p>
+<p>As an assembly has sub-elements, we must iterate through them</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Assembly.append">
+<tt class="descname">append</tt><big>(</big><em>component</em>, <em>n=None</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds element at the component list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>component</strong> : Component</p>
+<blockquote>
+<div><p>The Component to be added</p>
+</div></blockquote>
+<p><strong>n</strong> : int = None</p>
+<blockquote>
+<div><p>[Optional] The position of the component to be added. If no 
+parameter is given, the element is added at the end of the list, 
+otherwise it is added at the n-th position.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>n</strong> :</p>
+<blockquote class="last">
+<div><p>The list length.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Assembly.bounds">
+<tt class="descname">bounds</tt><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the boundaries of the assembly by finding the minimum bounding
+box aligned to the axis that contains it.</p>
+<p>The algorithm works by finding the maximum and minimum values of
+x, y and z by traversing the subcomponents.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>bounds</strong> : numpy.array(2,3)</p>
+<blockquote class="last">
+<div><p>An array containing the following elements: 
+[[xmin, ymin, zmin],</p>
+<blockquote>
+<div><p>[xmax, ymax, zmax]]</p>
+</div></blockquote>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Assembly.clearData">
+<tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.clearData" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method iterates the clearData to all the items found in the list,
+making the <cite>:meth:~Core.Component.clearData</cite> method be executed through
+the whole components tree.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Assembly.intersections">
+<tt class="descname">intersections</tt><big>(</big><em>p0</em>, <em>p1</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.intersections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.intersections" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method searches for intersections between a given set of line
+segments and the Parts included in this Assembly. Please check the
+documentation at <cite>:class:~Core.Part</cite> for a better description of its
+internals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.array (N x 3)</strong> :</p>
+<blockquote>
+<div><p>Coordinates defining N segments by 2 points (each p0, p1 pair), 
+which will be tested for intersection with the polygons defined in 
+the structure.</p>
+</div></blockquote>
+<p><strong>tol - double</strong> :</p>
+<blockquote>
+<div><p>Tolerance used in the criteria for intersection (see documentation
+of each implementation)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>None</strong> :</p>
+<blockquote>
+<div><p>If no intersections are found. Otherwise returns a list with:</p>
+</div></blockquote>
+<p><strong>lineParameter</strong> :</p>
+<blockquote>
+<div><p>This is used to indicate how far the intersection point is from the
+segment starting point, if 0, the intersection is at p0 and if 1, 
+the intersection is at p1</p>
+<p><em>Iff</em> the parameter is &gt; 1 (999), no intersection was found</p>
+</div></blockquote>
+<p><strong>intersectionCoordinates</strong> :</p>
+<blockquote>
+<div><p>This is where the intersections are found</p>
+</div></blockquote>
+<p><strong>triangleIndexes</strong> :</p>
+<blockquote>
+<div><p>This is the index of the triangle where the intersection was found.
+If no intersection found, will return 0, <em>but attention</em>, the only
+way to guarantee that no intersection was found is when the 
+lineParameter is zero.</p>
+</div></blockquote>
+<p><strong>normals</strong> :</p>
+<blockquote>
+<div><p>The normal vector at the intersection point (if the surface is
+defined with normals at vertices, interpolation is performed).</p>
+</div></blockquote>
+<p><strong>part</strong> :</p>
+<blockquote class="last">
+<div><p>A list with references to this object. This is, in this case, 
+redundant, but that makes the function signature uniform with the
+<cite>:class:~Core.Assembly</cite></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Assembly.refractiveIndex">
+<tt class="descname">refractiveIndex</tt><big>(</big><em>wavelength=5.32e-07</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.refractiveIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.refractiveIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of refraction of the material given the wavelength
+(or a list of them)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>wavelength</strong> : scalar or numpy.array</p>
+<blockquote>
+<div><p>The wavelength of the incoming light given in <em>meters</em></p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>refractiveIndex</strong> : same dimension as wavelength</p>
+<blockquote class="last">
+<div><p>The index of refraction</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Assembly.remove">
+<tt class="descname">remove</tt><big>(</big><em>element</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the element at the n-th position of the component list. This
+also de-registers this assembly as its parent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>element</strong> : string, int or object</p>
+<blockquote>
+<div><p>The name, the position in the list or the object to be removed</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>element</strong> :</p>
+<blockquote class="last">
+<div><p>A reference to the element, if one is to re-use that.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Assembly.rotateImplementation">
+<tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.rotateImplementation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method iterates the rotation to all the items found in the list,
+making the <cite>:meth:~Core.Component.rotate</cite> method be executed through
+the whole components tree.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Assembly.translateImplementation">
+<tt class="descname">translateImplementation</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Assembly.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Assembly.translateImplementation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method iterates the translation to all the items found in the list,
+making the <cite>:meth:~Core.Component.translate</cite> method be executed through
+the whole components tree.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Assembly.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<ul class="this-page-menu">
+  <li><a href="/scipy/docs/scipy-docs/Assembly.rst">Edit page</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pyvsim 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Ricardo Entz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

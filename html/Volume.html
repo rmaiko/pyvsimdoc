@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Volume &mdash; pyvsim 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pyvsim 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="volume">
+<h1>Volume<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyvsim.Primitives.Volume">
+<em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Volume</tt><big>(</big><em>dimension=array([1</em>, <em>1</em>, <em>1])</em>, <em>fastInit=False</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is used to represent a general hexahedron. Even though some
+methods will force it to become a cuboid (where all angles are right), such
+as:</p>
+<div class="highlight-python"><pre>* :meth:`~Core.Volume.width`
+* :meth:`~Core.Volume.depth`
+* :meth:`~Core.Volume.heigth`
+* :meth:`~Core.Volume.dimension`</pre>
+</div>
+<p>These methods can be safely ignored a set of points can be directly given,
+allowing quadrilaterally-faced hexas to be represented (check 
+<cite>Wikipedia&#8217;s article &lt;http://en.wikipedia.org/wiki/Hexahedron&gt;</cite> for more
+information)</p>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="pyvsim.Primitives.Volume.expand">
+<tt class="descname">expand</tt><big>(</big><em>factor</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.expand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.expand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inflates the volume by &#8220;factor&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Volume.interpolate">
+<tt class="descname">interpolate</tt><big>(</big><em>p</em>, <em>verify=True</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a convienience function to interpolate the data in the &#8221;.data&#8221;
+field of this object. As the field is not under surveillance, it is
+the responsibility of the user to ensure that the field contains a
+numpy.array with the shape (M,8), i.e. one data point for each
+vertex</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p</strong> : numpy.array (N,3)</p>
+<blockquote>
+<div><p>A collection of points</p>
+</div></blockquote>
+<p><strong>verify</strong> : boolean (True)</p>
+<blockquote>
+<div><p>Verifies if the point is contained in the hexa defined by the
+edges. If not, the corresponding row of result will be zeroed out</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>result</strong> : numpy.array (N,M)</p>
+<blockquote class="last">
+<div><p>An array with the data from the field &#8221;.data&#8221; interpolated</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Volume.parametricToPhysical">
+<tt class="descname">parametricToPhysical</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.parametricToPhysical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.parametricToPhysical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms a vector or a list of vectors in parametric coordinates with
+the following properties:</p>
+<p>[x,y,z] (global) -&gt; [x&#8217;,y&#8217;,z&#8217;] (parametrical)</p>
+<p>0 &lt;= x&#8217;,y&#8217;,z&#8217; &lt;= 1 if [x,y,z] lies inside the volume</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Volume.physicalToParametric">
+<tt class="descname">physicalToParametric</tt><big>(</big><em>c</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.physicalToParametric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.physicalToParametric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms a vector or a list of vectors in parametric coordinates with
+the following properties:</p>
+<p>[x,y,z] (global) -&gt; [x&#8217;,y&#8217;,z&#8217;] (parametrical)</p>
+<p>0 &lt;= x&#8217;,y&#8217;,z&#8217; &lt;= 1 if [x,y,z] lies inside the volume</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Primitives.Volume.pointInHexa">
+<tt class="descname">pointInHexa</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="_modules/pyvsim/Primitives.html#Volume.pointInHexa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.pointInHexa" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is intended as a lightweigth test for checking if a point (or
+a set of them) lies inside an hexahedron. This uses the algorithm
+implemented in <tt class="xref py py-mod docutils literal"><span class="pre">Utils</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p</strong> : numpy.array (N,3)</p>
+<blockquote>
+<div><p>A collection of points</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>result</strong> : numpy.array (N)</p>
+<blockquote class="last">
+<div><p>An array with &#8220;1&#8221; corresponding to points in the hexa or &#8220;0&#8221; 
+otherwise</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Volume.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<ul class="this-page-menu">
+  <li><a href="/scipy/docs/scipy-docs/Volume.rst">Edit page</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pyvsim 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Ricardo Entz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

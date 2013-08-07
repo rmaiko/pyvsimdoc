@@ -1,0 +1,15 @@
+====
+Core
+====
+
+.. currentmodule:: pyvsim.Core
+
+.. automodule:: pyvsim.Core
+
+Contents
+========
+.. toctree::  
+    :maxdepth: 2  
+
+    PyvsimObject
+    PyvsimDatabasable

@@ -1,0 +1,8 @@
+===========
+pointInHexa
+===========
+
+.. currentmodule:: pyvsim.Utils
+
+.. autofunction:: pyvsim.Utils.pointInHexa
+

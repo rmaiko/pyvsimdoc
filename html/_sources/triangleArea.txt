@@ -1,0 +1,8 @@
+============
+triangleArea
+============
+
+.. currentmodule:: pyvsim.Utils
+
+.. autofunction:: pyvsim.Utils.triangleArea
+

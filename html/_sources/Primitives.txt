@@ -1,0 +1,21 @@
+==========
+Primitives
+==========
+
+.. currentmodule:: pyvsim.Primitives
+
+.. automodule:: pyvsim.Primitives
+
+Contents
+========
+.. toctree::  
+    :maxdepth: 2  
+
+    Component
+    Assembly
+    Points
+    Line
+    Part
+    Plane
+    Volume
+    RayBundle
