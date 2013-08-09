@@ -56,23 +56,11 @@
 <dd><p>This is a convenience class that inherits from Part and represents
 a rectangle. There are also convenience methods to  make coordinate
 transformation.</p>
-<p>As a default, the plane is defined as:</p>
-<p>y (first coordinate)
-^  
-<a href="#id1"><span class="problematic" id="id2">|</span></a>&#8212;&#8212;&#8212;&#8212;&#8211;+
-|              <a href="#id3"><span class="problematic" id="id4">|</span></a>h 
-|              <a href="#id5"><span class="problematic" id="id6">|</span></a>e
-|              <a href="#id7"><span class="problematic" id="id8">|</span></a>i
-|              <a href="#id9"><span class="problematic" id="id10">|</span></a>g
-|              <a href="#id11"><span class="problematic" id="id12">|</span></a>t
-|              <a href="#id13"><span class="problematic" id="id14">|</span></a>h
-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8211;&gt; z (second coordinate)</p>
-<blockquote>
-<div>length</div></blockquote>
-<p>To navigate in the plane, one can use the following coordinate system::
-[y&#8217;,z&#8217;], where 0 &lt;= y&#8217; &lt;=1 and 0 &lt;= z&#8217; &lt;=1</p>
-<p>As a default, the X vector is the normal for the triangles.</p>
-<p>This class can represent <em>only</em> rectangles, so that most of its methods
+<p>To navigate in the plane, one can use the following coordinate system:
+<span class="math">\(\left[u,v\right]\)</span> , where 
+<span class="math">\(-1 &lt;= u,v &lt;=1\)</span></p>
+<p>As a default, the <span class="math">\(\vec{x}\)</span> vector is the normal for the triangles.</p>
+<p>This class can represent <strong>only</strong> rectangles, so that most of its methods
 are greatly simplified. If you need to represent a parallelogram, you
 would have to implement your own class.</p>
 <p class="rubric">Methods</p>
@@ -80,7 +68,7 @@ would have to implement your own class.</p>
 <dt id="pyvsim.Primitives.Plane.parametricToPhysical">
 <tt class="descname">parametricToPhysical</tt><big>(</big><em>coordinates</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Plane.parametricToPhysical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Plane.parametricToPhysical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a 2-component vector in the range -1..1 in sensor coordinates
-Normalized [u,v] -&gt; [x,y,z] (global reference frame)</p>
+<span class="math">\([u,v] \rarrow [x,y,z]\)</span> (global reference frame)</p>
 <p>Vectorization for this method is implemented.</p>
 </dd></dl>
 
@@ -89,7 +77,7 @@ Normalized [u,v] -&gt; [x,y,z] (global reference frame)</p>
 <tt class="descname">physicalToParametric</tt><big>(</big><em>coords</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Plane.physicalToParametric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Plane.physicalToParametric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a 3-component coordinates vector to a 2-component vector
 which value falls in the range -1..1 in sensor coordinates
-Normalized [y,z] -&gt; [x,y,z] (global reference frame)</p>
+<span class="math">\([x,y,z] \rarrow [u,v]\)</span></p>
 <p>Vectorization for this method is implemented.</p>
 </dd></dl>
 
