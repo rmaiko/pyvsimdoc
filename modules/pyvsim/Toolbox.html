@@ -171,7 +171,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">coordinates</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span>
     </div>
-    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">colormap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Sensor.display"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">colormap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">):</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">facecolor</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
         <span class="c">#imgplot = plt.imshow(self.readSensor()/(-1+2**self.bitDepth))</span>
         <span class="n">imgplot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">readSensor</span><span class="p">())</span>
@@ -179,7 +179,7 @@
         <span class="n">imgplot</span><span class="o">.</span><span class="n">set_interpolation</span><span class="p">(</span><span class="s">&#39;none&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
-    
+    </div>
 <div class="viewcode-block" id="Sensor.createDeadPixels"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.createDeadPixels">[docs]</a>    <span class="k">def</span> <span class="nf">createDeadPixels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">probability</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a dead/hot pixel mapping for the sensor reading simulation</span>
@@ -1181,7 +1181,7 @@
         <span class="n">cond</span> <span class="o">=</span> <span class="n">cond</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensorSamplingCenters</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cond</span>
     
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Camera.initialize"><a class="viewcode-back" href="../../Camera.html#pyvsim.Toolbox.Camera.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">vv</span><span class="p">,</span><span class="n">vh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depthOfField</span><span class="p">()</span>
         <span class="c"># Make sure rays intersect volume by expanding it a little</span>
         <span class="n">vv</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
@@ -1195,7 +1195,7 @@
         <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapPoints</span><span class="p">(</span><span class="n">vh</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">skipPupilAngle</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">virtualApertureArea</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">vh</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
         
-    
+    </div>
     <span class="k">def</span> <span class="nf">_depthOfField</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method calculates the camera field of view and depth of field.</span>

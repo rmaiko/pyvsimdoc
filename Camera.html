@@ -53,12 +53,30 @@
 <dl class="class">
 <dt id="pyvsim.Toolbox.Camera">
 <em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Camera</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Camera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Camera" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Methods</p>
+<dd><p>This class represents a camera composed of a body (used only for display),
+a sensor and a lens, therefore it is an assembly.</p>
+<p>The main functions of this class are driving the sensor and the lens 
+together, so that the user can call more logical functions (such as
+initialize) instead of using a complicated series of internal functions.</p>
+<p>The camera creates a mapping of world coordinates into sensor coordinates
+by using direct linear transformations (a pinhole model). Lens imperfections
+and ambient influence can be modeled by using several DLTs (which is 
+controlled by the parameter mappingResolution).</p>
+<p class="rubric">Methods</p>
 <dl class="attribute">
 <dt id="pyvsim.Toolbox.Camera.bounds">
 <tt class="descname">bounds</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Camera.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Camera.bounds" title="Permalink to this definition">¶</a></dt>
 <dd><p>This signals the ray tracing implementation that no attempt should be
 made to intersect rays with the camera</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Toolbox.Camera.initialize">
+<tt class="descname">initialize</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Camera.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Camera.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the camera field of view and its mapping
+functions to relate world coordinates to sensor coordinates. This
+should be called whenever the ambient is set up, so the camera can 
+be used for synthetic image generation and displaying.</p>
 </dd></dl>
 
 <dl class="method">
@@ -89,7 +107,7 @@ in the initialization of the camera</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>uv</strong> : numpy.array (N,3)</p>
 <blockquote>
-<div><p>The points (in normalized homogeneous coordinates) mapped to the
+<div><p>The points (in sensor homogeneous coordinates) mapped to the
 sensor</p>
 </div></blockquote>
 <p><strong>w</strong> : numpy.array (N)</p>

@@ -53,7 +53,16 @@
 <dl class="class">
 <dt id="pyvsim.Toolbox.Lens">
 <em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Lens</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Methods</p>
+<dd><p>This class represents an objective lens. The implemented model is a thick,
+pupil-centric lens as described by <a class="reference external" href="http://link.springer.com/article/10.1023%2FA%3A1016324132583">Aggarwal and Ahuja</a> .</p>
+<p>This means that the center of projection is assumed to be at the center
+of the entrance pupil.</p>
+<p>This class generates the starting vectors for the ray tracing procedure. One
+caveat is that it is not possible to execute ray tracing from the back of the
+lens (i.e. from the sensor to the lens), as the rays are assumed straight
+between these two points. This can be a problem when modelling stacked lenses,
+that have to be substituted by an equivalent one.</p>
+<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Toolbox.Lens.clearData">
 <tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.clearData" title="Permalink to this definition">¶</a></dt>

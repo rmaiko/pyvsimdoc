@@ -53,15 +53,36 @@
 <dl class="class">
 <dt id="pyvsim.Toolbox.Sensor">
 <em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Sensor</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Methods</p>
+<dd><p>This class describes a sensor. It is responsible for determining the size
+of the camera field of view and also for recording particles.</p>
+<p>The particle recording behavior is similar to the one described by Lecordier
+and Westerweel in their <a class="reference external" href="http://link.springer.com/chapter/10.1007%2F978-3-642-18795-7_11">synthetic image generator</a> .</p>
+<p>Some features can be easily implemented such as:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Quantum efficiency as a function of wavelength (as the recording function</dt>
+<dd><p class="first last">receives the wavelength as a parameter)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Light field measurement (the &#8220;virtualData&#8221; field can be used to store </dt>
+<dd><p class="first last">more data)</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>But were not implemented until now.</p>
+<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.clear">
 <tt class="descname">clear</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes CCD with gaussian noise, the distribution parameters are
+<dd><p>Initializes sensor with gaussian noise, the distribution parameters are
 given by:</p>
-<div class="highlight-python"><pre>* backgroundMeanLevel - the mean value
-* backgroundNoiseVar - the variance of the distribution</pre>
-</div>
+<ul class="simple">
+<li>backgroundMeanLevel - the mean value</li>
+<li>backgroundNoiseVar - the variance of the distribution</li>
+</ul>
 <p>To handle negative values, only the absolute value is taken into account</p>
 </dd></dl>
 
@@ -72,25 +93,91 @@ given by:</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyvsim.Toolbox.Sensor.display">
+<tt class="descname">display</tt><big>(</big><em>colormap='jet'</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.display"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function displays what is currently recorded in the camera sensor.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.parametricToPixel">
 <tt class="descname">parametricToPixel</tt><big>(</big><em>coordinates</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.parametricToPixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.parametricToPixel" title="Permalink to this definition">¶</a></dt>
-<dd><p>coords = [u,v] (in parametric -1..1 space)</p>
+<dd><p>Transforms (normalized) parametric coordinates into pixel position on the
+sensor.</p>
 <p>There is an inversion of the UV columns because of the unfortunate 
 parametric coordinate system that maps:</p>
 <p>u -&gt; sensor.z
 v -&gt; sensor.y</p>
-<p>returns:
-[row column] - fractional position in sensor pixels</p>
-<p>DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>coords</strong> : numpy.ndarray (N,3)</p>
+<blockquote>
+<div><p>The position in the sensor in normalized coordinates (range -1..1)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>pixels</strong> : numpy.ndarray (N,2)</p>
+<blockquote>
+<div><p>The fractional position in sensor pixels in the format [row column]</p>
+</div></blockquote>
+<p class="last"><strong>DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Toolbox.Sensor.parametricToSensor">
+<tt class="descname">parametricToSensor</tt><big>(</big><em>param_coords</em><big>)</big><a class="headerlink" href="#pyvsim.Toolbox.Sensor.parametricToSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>From the parametric coordinates <span class="math">\(\\overline{U,V}\)</span>,
+which range is <span class="math">\([-1..1]\)</span>, calculates the sensor coordinates in
+meters, so the algorithm is basically multiplying by the sensor size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>param_coords</strong> : numpy.ndarray (N,2)</p>
+<blockquote>
+<div><p>The parametric coordinates in the range -1..1.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sensor_coords</strong> : numpy.ndarray (N,2)</p>
+<blockquote class="last">
+<div><p>The sensor coordinates in meters</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.physicalToPixel">
 <tt class="descname">physicalToPixel</tt><big>(</big><em>coords</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.physicalToPixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.physicalToPixel" title="Permalink to this definition">¶</a></dt>
-<dd><p>coords = [x,y,z] (in real space)</p>
-<p>returns:
-[row column] - fractional position in sensor pixels</p>
-<p>DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</p>
+<dd><p>Transforms world coordinates into a position in the sensor, given in
+pixels</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>coords</strong> : numpy.ndarray (N,3)</p>
+<blockquote>
+<div><p>The position in world coordinates</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>pixels</strong> : numpy.ndarray (N,2)</p>
+<blockquote>
+<div><p>The fractional position in sensor pixels in the format [row column]</p>
+</div></blockquote>
+<p class="last"><strong>DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -106,12 +193,12 @@ property of the class</p>
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.recordParticles">
 <tt class="descname">recordParticles</tt><big>(</big><em>coords</em>, <em>energy</em>, <em>wavelength</em>, <em>diameter</em>, <em>ignoreLarge=0.2</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.recordParticles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.recordParticles" title="Permalink to this definition">¶</a></dt>
-<dd><p>coords     - [y,z] parametric coordinates of the recorded point
+<dd><p>coords     - [u,v] sensor coordinates of the recorded point
 energy     - J -   energy which is captured by the lenses
 wavelength - m -   illumination wavelength
 diameter   - m -   particle image diameter</p>
 <p>This is the front-end of the _recordParticle method, its main input
-is an array of parametric coordinates, representing the particle image
+is an array of sensor coordinates, representing the particle image
 centers.</p>
 <p>The other inputs can be either arrays (e.g. for particle with 
 varying diameters) or scalars (e.g. for all particles with same
@@ -144,6 +231,86 @@ with some mainstream PIV software)</p>
 <blockquote class="last">
 <div><p>The file name and path (including the extension)</p>
 </div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Toolbox.Sensor.sensorToParametric">
+<tt class="descname">sensorToParametric</tt><big>(</big><em>sensor_coords</em><big>)</big><a class="headerlink" href="#pyvsim.Toolbox.Sensor.sensorToParametric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform sensor coordinates <span class="math">\((U,V)\)</span> in meters to parametric 
+coordinates,
+<span class="math">\((\\overline{U},\\overline{V})\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>param_coords</strong> : numpy.ndarray (N,2)</p>
+<blockquote>
+<div><p>The parametric coordinates in the range -1..1.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sensor_coords</strong> : numpy.ndarray (N,2)</p>
+<blockquote class="last">
+<div><p>The sensor coordinates in meters</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Toolbox.Sensor.sensorToPhysical">
+<tt class="descname">sensorToPhysical</tt><big>(</big><em>sensor_coords</em><big>)</big><a class="headerlink" href="#pyvsim.Toolbox.Sensor.sensorToPhysical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform sensor coordinates <span class="math">\((U,V)\)</span> in meters to world coordinates</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>param_coords</strong> : numpy.ndarray (N,2)</p>
+<blockquote>
+<div><p>The parametric coordinates in the range -1..1.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>sensor_coords</strong> : numpy.ndarray (N,3)</p>
+<blockquote class="last">
+<div><p>The sensor coordinates in meters</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvsim.Toolbox.Sensor.sensorToPixel">
+<tt class="descname">sensorToPixel</tt><big>(</big><em>coords</em><big>)</big><a class="headerlink" href="#pyvsim.Toolbox.Sensor.sensorToPixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms (normalized) parametric coordinates into pixel position on the
+sensor.</p>
+<p>There is an inversion of the UV columns because of the unfortunate 
+parametric coordinate system that maps:</p>
+<p>u -&gt; sensor.z
+v -&gt; sensor.y</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>coords</strong> : numpy.ndarray (N,3)</p>
+<blockquote>
+<div><p>The position in the sensor in normalized coordinates (range -1..1)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>pixels</strong> : numpy.ndarray (N,2)</p>
+<blockquote>
+<div><p>The fractional position in sensor pixels in the format [row column]</p>
+</div></blockquote>
+<p class="last"><strong>DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</strong> :</p>
 </td>
 </tr>
 </tbody>
