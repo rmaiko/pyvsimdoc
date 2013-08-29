@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -13,7 +15,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '',
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -53,7 +55,35 @@
 <dl class="function">
 <dt id="pyvsim.Utils.readSTL">
 <tt class="descclassname">pyvsim.Utils.</tt><tt class="descname">readSTL</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="modules/pyvsim/Utils.html#readSTL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Utils.readSTL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>&#8221;
+Reads an STL file and converts it into a pyvsim Part. Note that the 
+coordinate system of the STL file is used for the pyvsim Part.</p>
+<p>This function uses the facilities of VTK for STL reading. Sometimes this
+causes a warning window to pop-up, but most of times the files are read
+successfully.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : string</p>
+<blockquote>
+<div><p>The filename (including path) of the stl file.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>part</strong> : pyvsim.Primitives.Part</p>
+<blockquote class="last">
+<div><p>A part with the STL data. With the following default parameters:</p>
+<ul class="simple">
+<li>name : the Part name is the filename</li>
+<li>surfaceProperty : opaque</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 
@@ -105,7 +135,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Ricardo Entz.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

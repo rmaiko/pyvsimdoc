@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -52,20 +54,30 @@
             
   <h1>Source code for pyvsim.Toolbox</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">PyVSim v.1</span>
-<span class="sd">Copyright 2013 Ricardo Entz</span>
+<span class="sd">.. module :: Toolbox</span>
+<span class="sd">    :platform: Unix, Windows</span>
+<span class="sd">    :synopsis: Equipment model</span>
+<span class="sd">    </span>
+<span class="sd">This module packs models for equipment usually employed in PIV measurements.</span>
 
-<span class="sd">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
-<span class="sd">you may not use this file except in compliance with the License.</span>
-<span class="sd">You may obtain a copy of the License at</span>
+<span class="sd">    </span>
+<span class="sd">.. moduleauthor :: Ricardo Entz &lt;maiko at thebigheads.net&gt;</span>
 
-<span class="sd">    http://www.apache.org/licenses/LICENSE-2.0</span>
-
-<span class="sd">Unless required by applicable law or agreed to in writing, software</span>
-<span class="sd">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
-<span class="sd">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
-<span class="sd">See the License for the specific language governing permissions and</span>
-<span class="sd">limitations under the License.</span>
+<span class="sd">.. license::</span>
+<span class="sd">    PyVSim v.1</span>
+<span class="sd">    Copyright 2013 Ricardo Entz</span>
+<span class="sd">    </span>
+<span class="sd">    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="sd">    you may not use this file except in compliance with the License.</span>
+<span class="sd">    You may obtain a copy of the License at</span>
+<span class="sd">    </span>
+<span class="sd">        http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="sd">    </span>
+<span class="sd">    Unless required by applicable law or agreed to in writing, software</span>
+<span class="sd">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="sd">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="sd">    See the License for the specific language governing permissions and</span>
+<span class="sd">    limitations under the License.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -114,6 +126,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">surfaceProperty</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DUMP</span>
 </div>
 <div class="viewcode-block" id="Sensor"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor">[docs]</a><span class="k">class</span> <span class="nc">Sensor</span><span class="p">(</span><span class="n">Primitives</span><span class="o">.</span><span class="n">Plane</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes a sensor. It is responsible for determining the size</span>
+<span class="sd">    of the camera field of view and also for recording particles.</span>
+<span class="sd">    </span>
+<span class="sd">    The particle recording behavior is similar to the one described by Lecordier</span>
+<span class="sd">    and Westerweel in their `synthetic image generator </span>
+<span class="sd">    &lt;http://link.springer.com/chapter/10.1007%2F978-3-642-18795-7_11&gt;`_ .</span>
+<span class="sd">    </span>
+<span class="sd">    Some features can be easily implemented such as:</span>
+<span class="sd">    </span>
+<span class="sd">    * Quantum efficiency as a function of wavelength (as the recording function</span>
+<span class="sd">        receives the wavelength as a parameter)</span>
+<span class="sd">    * Light field measurement (the &quot;virtualData&quot; field can be used to store </span>
+<span class="sd">        more data)</span>
+<span class="sd">        </span>
+<span class="sd">    But were not implemented until now.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        --|----------------------------------&gt; </span>
@@ -154,24 +183,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">color</span>                  <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         
-<div class="viewcode-block" id="Sensor.parametricToPixel"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.parametricToPixel">[docs]</a>    <span class="k">def</span> <span class="nf">parametricToPixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">coordinates</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        coords = [u,v] (in parametric -1..1 space)</span>
-<span class="sd">        </span>
-<span class="sd">        There is an inversion of the UV columns because of the unfortunate </span>
-<span class="sd">        parametric coordinate system that maps:</span>
-<span class="sd">         </span>
-<span class="sd">        u -&gt; sensor.z</span>
-<span class="sd">        v -&gt; sensor.y</span>
-<span class="sd">        </span>
-<span class="sd">        returns:</span>
-<span class="sd">        [row column] - fractional position in sensor pixels</span>
-<span class="sd">        </span>
-<span class="sd">        DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">coordinates</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span>
-    </div>
+   
 <div class="viewcode-block" id="Sensor.display"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">colormap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function displays what is currently recorded in the camera sensor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">facecolor</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
         <span class="c">#imgplot = plt.imshow(self.readSensor()/(-1+2**self.bitDepth))</span>
         <span class="n">imgplot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">readSensor</span><span class="p">())</span>
@@ -190,8 +206,8 @@
         </div>
 <div class="viewcode-block" id="Sensor.clear"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes CCD with gaussian noise, the distribution parameters are</span>
-<span class="sd">        given by::</span>
+<span class="sd">        Initializes sensor with gaussian noise, the distribution parameters are</span>
+<span class="sd">        given by:</span>
 <span class="sd">        </span>
 <span class="sd">        * backgroundMeanLevel - the mean value</span>
 <span class="sd">        * backgroundNoiseVar - the variance of the distribution</span>
@@ -250,12 +266,129 @@
         <span class="n">outDs</span>   <span class="o">=</span> <span class="bp">None</span>
         <span class="n">outBand</span> <span class="o">=</span> <span class="bp">None</span>
     </div>
+<div class="viewcode-block" id="Sensor.parametricToSensor"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.parametricToSensor">[docs]</a>    <span class="k">def</span> <span class="nf">parametricToSensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_coords</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        From the parametric coordinates :math:`\\\overline{U,V}`,</span>
+<span class="sd">        which range is :math:`[-1..1]`, calculates the sensor coordinates in</span>
+<span class="sd">        meters, so the algorithm is basically multiplying by the sensor size.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        param_coords : numpy.ndarray (N,2)</span>
+<span class="sd">            The parametric coordinates in the range -1..1. </span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sensor_coords : numpy.ndarray (N,2)</span>
+<span class="sd">            The sensor coordinates in meters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dim_uv</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">[</span><span class="mi">1</span><span class="p">:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">uvlist</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s">&quot;ij,j-&gt;ij&quot;</span><span class="p">,</span><span class="n">param_coords</span><span class="p">,</span><span class="n">dim_uv</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">uvlist</span>
+        </div>
+<div class="viewcode-block" id="Sensor.sensorToParametric"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.sensorToParametric">[docs]</a>    <span class="k">def</span> <span class="nf">sensorToParametric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor_coords</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform sensor coordinates :math:`(U,V)` in meters to parametric </span>
+<span class="sd">        coordinates,</span>
+<span class="sd">        :math:`(\\\overline{U},\\\overline{V})`.</span>
+
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        param_coords : numpy.ndarray (N,2)</span>
+<span class="sd">            The parametric coordinates in the range -1..1. </span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sensor_coords : numpy.ndarray (N,2)</span>
+<span class="sd">            The sensor coordinates in meters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dim_uv</span>  <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">[</span><span class="mi">1</span><span class="p">:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">uvlist</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s">&quot;ij,j-&gt;ij&quot;</span><span class="p">,</span><span class="n">sensor_coords</span><span class="p">,</span><span class="n">dim_uv</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">uvlist</span>
+    </div>
+<div class="viewcode-block" id="Sensor.sensorToPhysical"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.sensorToPhysical">[docs]</a>    <span class="k">def</span> <span class="nf">sensorToPhysical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor_coords</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transform sensor coordinates :math:`(U,V)` in meters to world coordinates</span>
+
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        param_coords : numpy.ndarray (N,2)</span>
+<span class="sd">            The parametric coordinates in the range -1..1. </span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sensor_coords : numpy.ndarray (N,3)</span>
+<span class="sd">            The sensor coordinates in meters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametricToPhysical</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensorToParametric</span><span class="p">(</span><span class="n">sensor_coords</span><span class="p">))</span>
+    </div>
+<div class="viewcode-block" id="Sensor.sensorToPixel"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.sensorToPixel">[docs]</a>    <span class="k">def</span> <span class="nf">sensorToPixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transforms (normalized) parametric coordinates into pixel position on the</span>
+<span class="sd">        sensor.</span>
+<span class="sd">        </span>
+<span class="sd">        There is an inversion of the UV columns because of the unfortunate </span>
+<span class="sd">        parametric coordinate system that maps:</span>
+<span class="sd">         </span>
+<span class="sd">        u -&gt; sensor.z</span>
+<span class="sd">        v -&gt; sensor.y</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coords : numpy.ndarray (N,3)</span>
+<span class="sd">            The position in the sensor in normalized coordinates (range -1..1)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pixels : numpy.ndarray (N,2)</span>
+<span class="sd">            The fractional position in sensor pixels in the format [row column] </span>
+<span class="sd">        </span>
+<span class="sd">        DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametricToPixel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensorToParametric</span><span class="p">(</span><span class="n">coords</span><span class="p">))</span>
+    
+    </div>
+<div class="viewcode-block" id="Sensor.parametricToPixel"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.parametricToPixel">[docs]</a>    <span class="k">def</span> <span class="nf">parametricToPixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">coordinates</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transforms (normalized) parametric coordinates into pixel position on the</span>
+<span class="sd">        sensor.</span>
+<span class="sd">        </span>
+<span class="sd">        There is an inversion of the UV columns because of the unfortunate </span>
+<span class="sd">        parametric coordinate system that maps:</span>
+<span class="sd">         </span>
+<span class="sd">        u -&gt; sensor.z</span>
+<span class="sd">        v -&gt; sensor.y</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coords : numpy.ndarray (N,3)</span>
+<span class="sd">            The position in the sensor in normalized coordinates (range -1..1)</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pixels : numpy.ndarray (N,2)</span>
+<span class="sd">            The fractional position in sensor pixels in the format [row column] </span>
+<span class="sd">        </span>
+<span class="sd">        DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">coordinates</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span>    
+    </div>
 <div class="viewcode-block" id="Sensor.physicalToPixel"><a class="viewcode-back" href="../../Sensor.html#pyvsim.Toolbox.Sensor.physicalToPixel">[docs]</a>    <span class="k">def</span> <span class="nf">physicalToPixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">coords</span><span class="p">):</span>   
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        coords = [x,y,z] (in real space)</span>
+<span class="sd">        Transforms world coordinates into a position in the sensor, given in</span>
+<span class="sd">        pixels</span>
 <span class="sd">        </span>
-<span class="sd">        returns:</span>
-<span class="sd">        [row column] - fractional position in sensor pixels</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coords : numpy.ndarray (N,3)</span>
+<span class="sd">            The position in world coordinates</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pixels : numpy.ndarray (N,2)</span>
+<span class="sd">            The fractional position in sensor pixels in the format [row column] </span>
 <span class="sd">        </span>
 <span class="sd">        DOES NOT CHECK IF OUTSIDE SENSOR BOUNDARIES!!!</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -263,7 +396,7 @@
     </div>
     <span class="k">def</span> <span class="nf">_recordParticles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">coords</span><span class="p">,</span><span class="n">energy</span><span class="p">,</span><span class="n">wavelength</span><span class="p">,</span><span class="n">diameter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        coords     - [y,z] parametric coordinates of the recorded point</span>
+<span class="sd">        coords     - [u,v] sensor coordinates of the recorded point</span>
 <span class="sd">        energy     - J -   energy which is captured by the lenses</span>
 <span class="sd">        wavelength - m -   illumination wavelength</span>
 <span class="sd">        diameter   - m -   particle image diameter</span>
@@ -358,12 +491,12 @@
             <span class="n">diameter2</span>    <span class="o">=</span> <span class="n">diameter</span>
             <span class="n">coords2</span>      <span class="o">=</span> <span class="n">coords</span>
 
-        <span class="n">pixels</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametricToPixel</span><span class="p">(</span><span class="n">coords2</span><span class="p">)</span> 
+        <span class="n">pixels</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensorToPixel</span><span class="p">(</span><span class="n">coords2</span><span class="p">)</span> 
 
         <span class="c">#</span>
         <span class="c"># Auxiliary variables for vectorization</span>
         <span class="c">#</span>
-        <span class="n">npts</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">coords2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">npts</span>            <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">coords2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
         
         <span class="n">totalPhotons</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">totalPhotons</span><span class="p">,(</span><span class="n">npts</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
         <span class="n">pixelX</span>          <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">pixels</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],(</span><span class="n">npts</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
@@ -427,13 +560,13 @@
                         <span class="n">diameter</span><span class="p">,</span>
                         <span class="n">ignoreLarge</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        coords     - [y,z] parametric coordinates of the recorded point</span>
+<span class="sd">        coords     - [u,v] sensor coordinates of the recorded point</span>
 <span class="sd">        energy     - J -   energy which is captured by the lenses</span>
 <span class="sd">        wavelength - m -   illumination wavelength</span>
 <span class="sd">        diameter   - m -   particle image diameter</span>
 <span class="sd">        </span>
 <span class="sd">        This is the front-end of the _recordParticle method, its main input</span>
-<span class="sd">        is an array of parametric coordinates, representing the particle image</span>
+<span class="sd">        is an array of sensor coordinates, representing the particle image</span>
 <span class="sd">        centers.</span>
 <span class="sd">        </span>
 <span class="sd">        The other inputs can be either arrays (e.g. for particle with </span>
@@ -508,7 +641,7 @@
             <span class="n">diameter</span> <span class="o">=</span> <span class="n">diameter</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">nparts</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">stepMax</span> <span class="o">&lt;</span> <span class="n">nparts</span><span class="p">:</span>  
-            <span class="k">print</span> <span class="s">&quot;Recording partials&quot;</span>             
+            <span class="k">print</span> <span class="s">&quot;Recording partials in steps of </span><span class="si">%i</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">stepMax</span>             
             <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">nrec</span> <span class="o">=</span> <span class="mi">0</span>
             
@@ -531,6 +664,20 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_recordParticles</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">,</span> <span class="n">diameter</span><span class="p">)</span>
 </div></div>
 <div class="viewcode-block" id="Lens"><a class="viewcode-back" href="../../Lens.html#pyvsim.Toolbox.Lens">[docs]</a><span class="k">class</span> <span class="nc">Lens</span><span class="p">(</span><span class="n">Primitives</span><span class="o">.</span><span class="n">Part</span><span class="p">,</span> <span class="n">Core</span><span class="o">.</span><span class="n">PyvsimDatabasable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represents an objective lens. The implemented model is a thick,</span>
+<span class="sd">    pupil-centric lens as described by `Aggarwal and Ahuja </span>
+<span class="sd">    &lt;http://link.springer.com/article/10.1023%2FA%3A1016324132583&gt;`_ .</span>
+<span class="sd">    </span>
+<span class="sd">    This means that the center of projection is assumed to be at the center</span>
+<span class="sd">    of the entrance pupil.</span>
+<span class="sd">    </span>
+<span class="sd">    This class generates the starting vectors for the ray tracing procedure. One</span>
+<span class="sd">    caveat is that it is not possible to execute ray tracing from the back of the</span>
+<span class="sd">    lens (i.e. from the sensor to the lens), as the rays are assumed straight</span>
+<span class="sd">    between these two points. This can be a problem when modelling stacked lenses,</span>
+<span class="sd">    that have to be substituted by an equivalent one.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">Primitives</span><span class="o">.</span><span class="n">Part</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">Core</span><span class="o">.</span><span class="n">PyvsimDatabasable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -557,6 +704,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_Xdim</span>                        <span class="o">=</span>  <span class="mf">0.0802568218</span>
         <span class="c"># Adjustable parameters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_focusingDistance</span>            <span class="o">=</span>  <span class="mi">10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">macro</span>                        <span class="o">=</span> <span class="bp">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aperture</span>                     <span class="o">=</span>  <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">distortionParameters</span>         <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
                                                       <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
@@ -694,13 +842,19 @@
         <span class="c"># -----  =  ----------- + ----------------------------</span>
         <span class="c">#   F          F + d&#39;      focusingDistance - SH - d&#39;</span>
         <span class="c">#                                      </span>
-        <span class="c">#             -(foc - F - H) - sqrt((foc-f-H)**2 + 4*F**2))</span>
+        <span class="c">#             -(foc - F - H) +- sqrt((foc-f-H)**2 + 4*F**2))</span>
         <span class="c">#  dprime =  ----------------------------------------------</span>
         <span class="c">#                                  2</span>
         <span class="n">aux</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">focusingDistance</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_H_fore_scalar</span> <span class="o">+</span> 
                                                     <span class="bp">self</span><span class="o">.</span><span class="n">flangeFocalDistance</span><span class="p">)</span>
         <span class="n">delta</span>   <span class="o">=</span> <span class="n">aux</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">d_line</span>  <span class="o">=</span> <span class="p">(</span><span class="n">aux</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">d_line1</span>  <span class="o">=</span> <span class="p">(</span><span class="n">aux</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">d_line2</span>  <span class="o">=</span> <span class="p">(</span><span class="n">aux</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">macro</span><span class="p">:</span>
+            <span class="n">d_line</span> <span class="o">=</span>  <span class="n">d_line2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d_line</span> <span class="o">=</span>  <span class="n">d_line1</span>
         
 <span class="c">#        print &quot;------ FOCUS CALCULATION ------------------------&quot;</span>
 <span class="c">#        print &quot;foc          : &quot;, self.focusingDistance</span>
@@ -815,6 +969,19 @@
 <span class="c">#        return Utils.rotateVector(vectors,(To-Ti),axis)</span>
             </div></div>
 <div class="viewcode-block" id="Camera"><a class="viewcode-back" href="../../Camera.html#pyvsim.Toolbox.Camera">[docs]</a><span class="k">class</span> <span class="nc">Camera</span><span class="p">(</span><span class="n">Primitives</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represents a camera composed of a body (used only for display),</span>
+<span class="sd">    a sensor and a lens, therefore it is an assembly.</span>
+<span class="sd">    </span>
+<span class="sd">    The main functions of this class are driving the sensor and the lens </span>
+<span class="sd">    together, so that the user can call more logical functions (such as</span>
+<span class="sd">    initialize) instead of using a complicated series of internal functions.</span>
+<span class="sd">    </span>
+<span class="sd">    The camera creates a mapping of world coordinates into sensor coordinates</span>
+<span class="sd">    by using direct linear transformations (a pinhole model). Lens imperfections</span>
+<span class="sd">    and ambient influence can be modeled by using several DLTs (which is </span>
+<span class="sd">    controlled by the parameter mappingResolution).</span>
+<span class="sd">    &quot;&quot;&quot;</span> 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">Primitives</span><span class="o">.</span><span class="n">Assembly</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span>                       <span class="o">=</span> <span class="s">&#39;Camera &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">)</span>
@@ -899,6 +1066,11 @@
 <span class="sd">        there is a definition of the initial positioning of the sensor and the </span>
 <span class="sd">        lens.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="p">)</span>
+            
         <span class="bp">self</span><span class="o">.</span><span class="n">lens</span>           <span class="o">=</span> <span class="n">Lens</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span>         <span class="o">=</span> <span class="n">Sensor</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">body</span>           <span class="o">=</span> <span class="n">Primitives</span><span class="o">.</span><span class="n">Volume</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="p">)</span>
@@ -946,7 +1118,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        uv : numpy.array (N,3)</span>
-<span class="sd">            The points (in normalized homogeneous coordinates) mapped to the</span>
+<span class="sd">            The points (in sensor homogeneous coordinates) mapped to the</span>
 <span class="sd">            sensor</span>
 <span class="sd">        w  : numpy.array (N)</span>
 <span class="sd">            The distance from the center of projection, as calculated by the</span>
@@ -1002,14 +1174,15 @@
         <span class="n">lineofsight</span>  <span class="o">=</span> <span class="o">-</span><span class="n">lineofsight</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">lineofsightnorm</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
         
         <span class="sd">&quot;&quot;&quot;Calculate the diameter of the geometric image&quot;&quot;&quot;</span>
-        <span class="n">pts_sensor</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">parametricToPhysical</span><span class="p">(</span><span class="n">uv</span><span class="p">)</span>
+        <span class="n">pts_sensor</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">sensorToPhysical</span><span class="p">(</span><span class="n">uv</span><span class="p">)</span>
         
         <span class="n">HpS</span>         <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">H_aft</span> <span class="o">-</span> <span class="n">pts_sensor</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">HpX</span>         <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">X_scalar</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">H_aft_scalar</span>
         
         <span class="n">pprime</span>      <span class="o">=</span> <span class="n">w</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">E_scalar</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">H_fore_scalar</span>
         <span class="n">p</span>           <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">F</span> <span class="o">*</span> <span class="n">pprime</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pprime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">F</span><span class="p">)</span>
-        <span class="n">imdim</span>       <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">Xdim</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">HpS</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">HpX</span><span class="p">)</span>
+
+        <span class="n">imdim</span>       <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">Xdim</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">HpS</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">HpX</span><span class="p">)</span>
         <span class="c"># Diffraction-limited part </span>
         <span class="n">imdim</span>      <span class="o">+=</span> <span class="mf">2.44</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">referenceWavelength</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">aperture</span>
         <span class="c"># Calculates the solid angle &quot;seen&quot; by the points</span>
@@ -1102,7 +1275,10 @@
 <span class="c">#        print UV</span>
         <span class="n">bundle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shootRays</span><span class="p">(</span><span class="n">parametricCoords</span><span class="p">,</span>
                                 <span class="n">maximumRayTrace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">focusingDistance</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-        
+<span class="c">#        self += bundle</span>
+<span class="c">#        self += target</span>
+<span class="c">#        import System</span>
+<span class="c">#        System.plot(self)</span>
 
         <span class="c"># Finds the intersections that are important:</span>
         <span class="n">intersections</span> <span class="o">=</span> <span class="p">(</span><span class="n">target</span> <span class="o">==</span> <span class="n">bundle</span><span class="o">.</span><span class="n">rayIntersections</span><span class="p">)</span>
@@ -1157,6 +1333,9 @@
                                     <span class="n">UV</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span>  <span class="p">],</span>
                                     <span class="n">UV</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
                                     <span class="n">UV</span><span class="p">[</span><span class="n">i</span>  <span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]])</span>
+                <span class="c"># We want the DLT to be from meters to meters:</span>
+                <span class="n">uvlist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">parametricToSensor</span><span class="p">(</span><span class="n">uvlist</span><span class="p">)</span>
+                
                 <span class="n">xyzlist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">firstInts</span><span class="p">[</span><span class="n">i</span>  <span class="p">,</span><span class="n">j</span>  <span class="p">],</span>
                                     <span class="n">firstInts</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span>  <span class="p">],</span>
                                     <span class="n">firstInts</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
@@ -1182,6 +1361,12 @@
         <span class="k">return</span> <span class="n">cond</span>
     
 <div class="viewcode-block" id="Camera.initialize"><a class="viewcode-back" href="../../Camera.html#pyvsim.Toolbox.Camera.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function calculates the camera field of view and its mapping</span>
+<span class="sd">        functions to relate world coordinates to sensor coordinates. This</span>
+<span class="sd">        should be called whenever the ambient is set up, so the camera can </span>
+<span class="sd">        be used for synthetic image generation and displaying.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">vv</span><span class="p">,</span><span class="n">vh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depthOfField</span><span class="p">()</span>
         <span class="c"># Make sure rays intersect volume by expanding it a little</span>
         <span class="n">vv</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
@@ -1444,6 +1629,8 @@
                               <span class="s">&quot;could not create virtual cameras&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">None</span>
         <span class="n">phantomPrototype</span>                    <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">phantomPrototype</span><span class="o">.</span><span class="n">clearData</span><span class="p">()</span>
+        <span class="n">phantomPrototype</span><span class="o">.</span><span class="n">parent</span>             <span class="o">=</span> <span class="bp">None</span>
         <span class="n">phantomPrototype</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">color</span>         <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">phantomPrototype</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">opacity</span>       <span class="o">=</span> <span class="mf">0.2</span>
         <span class="n">phantomPrototype</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">color</span>         <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]</span>
@@ -1455,18 +1642,17 @@
 <span class="c">#        print phantomPrototype.lens.y</span>
 <span class="c">#        print phantomPrototype.lens.z</span>
         <span class="n">phantomPrototype</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">alignTo</span><span class="p">(</span><span class="n">phantomPrototype</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">phantomPrototype</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">phantomPrototype</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">phantomPrototype</span>
 
         <span class="n">phantomAssembly</span>                     <span class="o">=</span> <span class="n">Primitives</span><span class="o">.</span><span class="n">Assembly</span><span class="p">()</span>
-        <span class="n">sy</span>                                  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">dimension</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">sz</span>                                  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">dimension</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="c"># Matrix to go from sensor parametric coordinates to sensor</span>
+<span class="c">#        sy                                  = self.sensor.dimension[1]</span>
+<span class="c">#        sz                                  = self.sensor.dimension[2]</span>
+        <span class="c"># Matrix to go from sensor coordinates to sensor</span>
         <span class="c"># local coordinates</span>
-        <span class="c">#   [Sx]    [  0  ,  0   ,  1][u] </span>
-        <span class="c">#   [Sy] =  [  0  , sy/2 ,  0][v] u = Zcamera</span>
-        <span class="c">#   [Sz]    [sz/2 ,  0   ,  0][1] v = Ycamera</span>
-        <span class="n">MT</span>                                  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mi">0</span>  <span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
-                                                        <span class="p">[</span> <span class="mi">0</span>  <span class="p">,</span><span class="n">sy</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
-                                                        <span class="p">[</span><span class="n">sz</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]])</span>
+        <span class="n">MT</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mi">0</span>  <span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">],</span>
+                        <span class="p">[</span> <span class="mi">0</span>  <span class="p">,</span>   <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
+                        <span class="p">[</span> <span class="mi">1</span>  <span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]])</span>
 
         <span class="k">if</span> <span class="n">centeronly</span><span class="p">:</span>
             <span class="n">rangei</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span>
@@ -1485,7 +1671,7 @@
                                   <span class="n">phantom</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">PinholeFore</span><span class="p">)</span>
 
                 <span class="c"># Transform the DLT matrix (that originally goes from global</span>
-                <span class="c"># coordinates to sensor parametric) to local sensor coordinates</span>
+                <span class="c"># coordinates to sensor coords) to local sensor coordinates</span>
                 <span class="n">MTM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">MT</span><span class="p">,</span> <span class="n">M</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
                 <span class="p">[</span><span class="n">_</span><span class="p">,</span><span class="n">Qm</span><span class="p">]</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="n">KQ</span><span class="p">(</span><span class="n">MTM</span><span class="p">)</span>
                     
@@ -1495,16 +1681,6 @@
                 <span class="n">phantomAssembly</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">phantom</span><span class="p">)</span>
         
         <span class="k">return</span> <span class="n">phantomAssembly</span>
-    
-<span class="c">#    def scheimpflugPlane(self, point, v1, v2):</span>
-<span class="c">#        SHp = self.lens.H_aft - self.sensor.origin</span>
-<span class="c">#        HHp = self.lens.H_fore - self.lens.H_aft</span>
-<span class="c">#        # normal to the plane</span>
-<span class="c">#        n = np.cross(v1,v2)</span>
-<span class="c">#        # line-plane intersection</span>
-<span class="c">#        d = np.dot(point - self.lens.H_fore,n)/np.dot(HHp,n)</span>
-<span class="c">#        P_int = self.lens.H_aft + d*HHp</span>
-<span class="c">#        HP = P_int - </span>
          </div></div>
 <div class="viewcode-block" id="Seeding"><a class="viewcode-back" href="../../Seeding.html#pyvsim.Toolbox.Seeding">[docs]</a><span class="k">class</span> <span class="nc">Seeding</span><span class="p">(</span><span class="n">Primitives</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1601,16 +1777,32 @@
         
         <span class="n">scatterangle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">lineofsight</span><span class="o">*</span><span class="n">lightvector</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span>
                                  <span class="n">lightintensity</span><span class="p">)</span>
-        <span class="n">scatterangle</span><span class="p">[</span><span class="n">lightintensity</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c"># Replacing nans by suitable value</span>
+        <span class="n">scatterangle</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">9999</span>
+        <span class="n">minangle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">)</span>
+        <span class="n">scatterangle</span><span class="p">[</span><span class="n">scatterangle</span> <span class="o">==</span> <span class="mi">9999</span><span class="p">]</span> <span class="o">=</span> <span class="n">minangle</span>
+<span class="c">#         plt.plot(scatterangle)</span>
+<span class="c">#         plt.show()</span>
         
-        <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">diameters</span>
-        <span class="n">diams</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">),</span>
-                             <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">),</span>
-                             <span class="mi">500</span><span class="p">)</span>
-        <span class="k">print</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">)</span>
-        <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">),</span>
-                             <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">),</span>
-                             <span class="mi">30</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&quot;Diameter range &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">)</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">):</span>
+            <span class="n">diams</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">),</span>
+                                 <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">),</span>
+                                 <span class="mi">500</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">diams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">),</span> 
+                              <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameters</span><span class="p">)</span><span class="o">+</span><span class="mf">1e-6</span><span class="p">])</span>
+            
+        <span class="k">print</span> <span class="s">&quot;Angle range &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">)</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">):</span>
+            <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">),</span>
+                                 <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">),</span>
+                                 <span class="mi">30</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">),</span> 
+                               <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scatterangle</span><span class="p">)</span><span class="o">+</span><span class="mf">1e-6</span><span class="p">])</span>
         
         <span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">)</span> <span class="o">=</span> <span class="n">MieUtils</span><span class="o">.</span><span class="n">mieScatteringCrossSections</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refractiveIndex</span><span class="p">(</span><span class="n">wavelength</span><span class="p">),</span> 
                                                       <span class="n">diams</span><span class="p">,</span> 
@@ -1618,7 +1810,7 @@
                                                       <span class="n">angles</span><span class="p">)</span>
         <span class="n">scs</span> <span class="o">=</span> <span class="p">(</span><span class="n">s1</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">polarization</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> 
                <span class="n">s2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">polarization</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        
+
         <span class="n">interpolant</span> <span class="o">=</span> <span class="n">RectBivariateSpline</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span>
                                           <span class="n">diams</span><span class="p">,</span>
                                           <span class="n">scs</span><span class="p">,</span>
@@ -1628,10 +1820,10 @@
         <span class="k">return</span> <span class="n">scs</span><span class="o">*</span><span class="n">lightintensity</span><span class="o">*</span><span class="n">solidangle</span>
     </div>
 <div class="viewcode-block" id="CalibrationPlate"><a class="viewcode-back" href="../../CalibrationPlate.html#pyvsim.Toolbox.CalibrationPlate">[docs]</a><span class="k">class</span> <span class="nc">CalibrationPlate</span><span class="p">(</span><span class="n">Seeding</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sidelength</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">):</span>
         <span class="n">Seeding</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
-                            <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+        <span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">sidelength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">sidelength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">sidelength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">sidelength</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
         <span class="n">Z</span>     <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">points</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span><span class="n">Y</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span><span class="n">Z</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">points</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> 
@@ -1645,7 +1837,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">Primitives</span><span class="o">.</span><span class="n">Assembly</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span>                       <span class="o">=</span> <span class="s">&#39;Laser &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">transientFields</span>            <span class="o">=</span> <span class="p">[</span><span class="s">&quot;profileInterpolator&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transientFields</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">&quot;profileInterpolator&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">body</span>                       <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rays</span>                       <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">volume</span>                     <span class="o">=</span> <span class="bp">None</span>
@@ -1843,7 +2035,7 @@
 <div class="viewcode-block" id="Laser.illuminate"><a class="viewcode-back" href="../../Laser.html#pyvsim.Toolbox.Laser.illuminate">[docs]</a>    <span class="k">def</span> <span class="nf">illuminate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pts</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given a set of points in space, this method calculates the light </span>
-<span class="sd">        intensity (in J/m^2) and direction produced by the laser.</span>
+<span class="sd">        intensity (in :math:`J/m^2`) and direction produced by the laser.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1853,12 +2045,13 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        intensity : numpy.array (N,3)</span>
-<span class="sd">            A vector which norm is the light intensity (in J/m^2) pointing to</span>
+<span class="sd">            A vector which norm is the light intensity (in :math:`J/m^2`) pointing to</span>
 <span class="sd">            the direction that the light emanating from the laser is</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">volume</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
         <span class="k">for</span> <span class="n">vol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">+=</span> <span class="n">vol</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+
         <span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
         <span class="n">vecs</span>  <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">result</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
         <span class="n">S</span>     <span class="o">=</span> <span class="n">result</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span> 
@@ -2000,9 +2193,9 @@
     <span class="n">tic</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="n">Tictoc</span><span class="p">()</span>
     
     <span class="n">c</span>                               <span class="o">=</span> <span class="n">Camera</span><span class="p">()</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">focusingDistance</span>         <span class="o">=</span> <span class="mf">0.99</span><span class="c">#.9695 #0.9725</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">aperture</span>                 <span class="o">=</span> <span class="mi">22</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">mappingResolution</span>             <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">focusingDistance</span>         <span class="o">=</span> <span class="mi">1</span><span class="c">#.9695 #0.9725</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">aperture</span>                 <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">mappingResolution</span>             <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">c</span><span class="o">.</span><span class="n">lens</span><span class="o">.</span><span class="n">distortionParameters</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
                                                 <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
                                                 <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
@@ -2119,6 +2312,9 @@
     <span class="n">c</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;test01.tif&quot;</span><span class="p">)</span>
     <span class="n">tic</span><span class="o">.</span><span class="n">toc</span><span class="p">()</span>
     <span class="n">c</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="s">&quot;jet&quot;</span><span class="p">)</span>
+    
+    <span class="n">vc</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">virtualCameras</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">environment</span> <span class="o">+=</span> <span class="n">vc</span>
 <span class="c">#    </span>
 
     <span class="n">System</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">environment</span><span class="p">)</span>
@@ -2167,7 +2363,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Ricardo Entz.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

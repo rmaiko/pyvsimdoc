@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -13,7 +15,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '',
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -65,7 +67,26 @@ V_{x,3} &amp; V_{y,3} &amp;  V_{z,3} \end{array} \right ] \cdot {1 \over 6}\end{
 \[\vec{V}_1 = \vec{P}_1 - \vec{P}_4\]\[\vec{V}_2 = \vec{P}_2 - \vec{P}_4\]\[\vec{V}_3 = \vec{P}_3 - \vec{P}_4\]</div>
 <p>This function works only for list of vectors, for performance reasons
 will not check the inputs, will throw an error instead.</p>
-<p>(This works faster than numpy.linalg.det repeated over the list</p>
+<p>(This works faster than numpy.linalg.det repeated over the list of
+tetrahedrons)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p1, p2, p3, p4</strong> : numpy.ndarray (N,3)</p>
+<blockquote>
+<div><p>The points of the N tetrahedrons.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>v</strong> : numpy.ndarray (N)</p>
+<blockquote class="last">
+<div><p>The volume of the tetrahedrons.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -118,7 +139,7 @@ will not check the inputs, will throw an error instead.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Ricardo Entz.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

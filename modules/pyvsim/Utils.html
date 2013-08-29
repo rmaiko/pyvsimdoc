@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -52,20 +54,30 @@
             
   <h1>Source code for pyvsim.Utils</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">PyVSim v.1</span>
-<span class="sd">Copyright 2013 Ricardo Entz</span>
+<span class="sd">.. module :: Utils</span>
+<span class="sd">    :platform: Unix, Windows</span>
+<span class="sd">    :synopsis: Helper functions</span>
+<span class="sd">    </span>
+<span class="sd">This module packs all kinds of helper classes, mostly for mathematical problem</span>
+<span class="sd">solving.</span>
+<span class="sd">    </span>
+<span class="sd">.. moduleauthor :: Ricardo Entz &lt;maiko at thebigheads.net&gt;</span>
 
-<span class="sd">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
-<span class="sd">you may not use this file except in compliance with the License.</span>
-<span class="sd">You may obtain a copy of the License at</span>
-
-<span class="sd">    http://www.apache.org/licenses/LICENSE-2.0</span>
-
-<span class="sd">Unless required by applicable law or agreed to in writing, software</span>
-<span class="sd">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
-<span class="sd">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
-<span class="sd">See the License for the specific language governing permissions and</span>
-<span class="sd">limitations under the License.</span>
+<span class="sd">.. license::</span>
+<span class="sd">    PyVSim v.1</span>
+<span class="sd">    Copyright 2013 Ricardo Entz</span>
+<span class="sd">    </span>
+<span class="sd">    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="sd">    you may not use this file except in compliance with the License.</span>
+<span class="sd">    You may obtain a copy of the License at</span>
+<span class="sd">    </span>
+<span class="sd">        http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="sd">    </span>
+<span class="sd">    Unless required by applicable law or agreed to in writing, software</span>
+<span class="sd">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="sd">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="sd">    See the License for the specific language governing permissions and</span>
+<span class="sd">    limitations under the License.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -118,7 +130,7 @@
 <span class="sd">    defined by the hexa faces and the point, and its behavior is approximately</span>
 <span class="sd">    linear.</span>
 <span class="sd">    </span>
-<span class="sd">    *Warning* - there is no verification whether the points are inside the </span>
+<span class="sd">    **Warning** - there is no verification whether the points are inside the </span>
 <span class="sd">    hexahedron. One must check it using other methods.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
@@ -190,17 +202,40 @@
 <div class="viewcode-block" id="tetraVolume"><a class="viewcode-back" href="../../tetraVolume.html#pyvsim.Utils.tetraVolume">[docs]</a><span class="k">def</span> <span class="nf">tetraVolume</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">p3</span><span class="p">,</span><span class="n">p4</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the volume of a tetrahedron. This is simply the unrolled</span>
-<span class="sd">    determinant::</span>
+<span class="sd">    determinant:</span>
 <span class="sd">    </span>
-<span class="sd">    | Vx1  Vy1  Vz1 |     1</span>
-<span class="sd">    | Vx2  Vy2  Vz2 | * -----</span>
-<span class="sd">    | Vx3  Vy3  Vz3 |     6</span>
+<span class="sd">    .. math::</span>
+<span class="sd">    </span>
+<span class="sd">        \\left [ \\begin{array}{ccc}</span>
+<span class="sd">        V_{x,1} &amp; V_{y,1} &amp;  V_{z,1} \\\\</span>
+<span class="sd">        V_{x,2} &amp; V_{y,2} &amp;  V_{z,2} \\\\</span>
+<span class="sd">        V_{x,3} &amp; V_{y,3} &amp;  V_{z,3} \\end{array} \\right ] \\cdot {1 \\over 6}</span>
+<span class="sd">        </span>
+<span class="sd">    With:</span>
+<span class="sd">    </span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \\vec{V}_1 = \\vec{P}_1 - \\vec{P}_4</span>
+<span class="sd">        </span>
+<span class="sd">        \\vec{V}_2 = \\vec{P}_2 - \\vec{P}_4</span>
+<span class="sd">        </span>
+<span class="sd">        \\vec{V}_3 = \\vec{P}_3 - \\vec{P}_4</span>
 <span class="sd">    </span>
 <span class="sd">    </span>
 <span class="sd">    This function works only for list of vectors, for performance reasons</span>
 <span class="sd">    will not check the inputs, will throw an error instead.</span>
 <span class="sd">    </span>
-<span class="sd">    (This works faster than numpy.linalg.det repeated over the list</span>
+<span class="sd">    (This works faster than numpy.linalg.det repeated over the list of</span>
+<span class="sd">    tetrahedrons)</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    p1, p2, p3, p4 : numpy.ndarray (N,3)</span>
+<span class="sd">        The points of the N tetrahedrons.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    v : numpy.ndarray (N)</span>
+<span class="sd">        The volume of the tetrahedrons.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">p1</span><span class="o">-</span><span class="n">p4</span><span class="p">,</span> <span class="n">p2</span><span class="o">-</span><span class="n">p4</span><span class="p">,</span> <span class="n">p3</span><span class="o">-</span><span class="n">p4</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">p1</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
@@ -218,10 +253,32 @@
                              <span class="n">vecs</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">vecs</span><span class="p">[</span><span class="mi">2</span><span class="p">,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">vecs</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span>
                              <span class="n">vecs</span><span class="p">[</span><span class="mi">1</span><span class="p">,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">vecs</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">vecs</span><span class="p">[</span><span class="mi">2</span><span class="p">,:,</span><span class="mi">2</span><span class="p">])</span> 
 </div>
-<div class="viewcode-block" id="jet"><a class="viewcode-back" href="../../jet.html#pyvsim.Utils.jet">[docs]</a><span class="k">def</span> <span class="nf">jet</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">,</span> <span class="n">saturationIndicator</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="jet"><a class="viewcode-back" href="../../jet.html#pyvsim.Utils.jet">[docs]</a><span class="k">def</span> <span class="nf">jet</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">minval</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">maxval</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">saturationIndicator</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the RGB values to emulate a &quot;jet&quot; colormap from matlab</span>
+<span class="sd">    Returns the RGB values to emulate a &quot;jet&quot; colormap from Matlab</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value : numpy.ndarray(N)</span>
+<span class="sd">        The value to be represented by the colormap</span>
+<span class="sd">        </span>
+<span class="sd">    minval : float</span>
+<span class="sd">        The minimum value of the scale. Defaults to the minimum of the values in</span>
+<span class="sd">        the parameter &quot;value&quot;</span>
+<span class="sd">        </span>
+<span class="sd">    maxval : float </span>
+<span class="sd">        The maximum value of the scale. Defaults to the maximum of the values in</span>
+<span class="sd">        the parameter &quot;value&quot;.</span>
+<span class="sd">        </span>
+<span class="sd">    saturationIndication : boolean</span>
+<span class="sd">        Substitute the default saturation values (red and blue) for white,</span>
+<span class="sd">        providing better contrast when saturated values are of interest.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">minval</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">minval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">maxval</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">maxval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        
     <span class="n">val</span>   <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">minval</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">maxval</span><span class="o">-</span><span class="n">minval</span><span class="p">)</span>
     <span class="n">rmask</span> <span class="o">=</span> <span class="n">val</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">val</span> <span class="o">+</span> <span class="mf">4.5</span>
     <span class="n">gmask</span> <span class="o">=</span> <span class="n">val</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">val</span> <span class="o">+</span> <span class="mf">3.5</span>
@@ -240,7 +297,7 @@
 <div class="viewcode-block" id="metersToRGB"><a class="viewcode-back" href="../../metersToRGB.html#pyvsim.Utils.metersToRGB">[docs]</a><span class="k">def</span> <span class="nf">metersToRGB</span><span class="p">(</span><span class="n">wl</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts light wavelength to a RGB vector, the algorithm comes from:</span>
-<span class="sd">    `This blog &lt;http://codingmess.blogspot.de/2009/05/conversion-of-wavelength-in-nanometers.html&gt;`</span>
+<span class="sd">    `This blog &lt;http://codingmess.blogspot.de/2009/05/conversion-of-wavelength-in-nanometers.html&gt;`_</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -270,8 +327,8 @@
 </div>
 <div class="viewcode-block" id="aeq"><a class="viewcode-back" href="../../aeq.html#pyvsim.Utils.aeq">[docs]</a><span class="k">def</span> <span class="nf">aeq</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A tool for comparing numpy nparrays and checking if all their values</span>
-<span class="sd">    are *A*lmost *EQ*ual up to a given tolerance.</span>
+<span class="sd">    A tool for comparing numpy ndarrays and checking if all their values</span>
+<span class="sd">    are Almost EQual up to a given tolerance.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -321,7 +378,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x : numpy.array (N, 3)</span>
-<span class="sd">        A vector (size = 3) or a list of vectors (N rows, 3 columns) to be</span>
+<span class="sd">        A vector or a list of vectors (N rows, 3 columns) to be</span>
 <span class="sd">        rotated</span>
 <span class="sd">    angle : double</span>
 <span class="sd">        scalar (in radians)</span>
@@ -351,6 +408,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span><span class="mi">0</span><span class="p">):</span>
+            <span class="n">angle</span> <span class="o">=</span> <span class="n">angle</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span><span class="mi">0</span><span class="p">)))</span>
+            <span class="n">a</span>     <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s">&quot;ij,i-&gt;ij&quot;</span><span class="p">,</span><span class="n">axis</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s">&quot;i,ij-&gt;ij&quot;</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
@@ -479,7 +539,7 @@
 <span class="sd">    they belong. </span>
 <span class="sd">    </span>
 <span class="sd">    For more information on barycentric coordinates, see `Wikipedia </span>
-<span class="sd">    &lt;http://en.wikipedia.org/wiki/Barycentric_coordinate_system&gt;`</span>
+<span class="sd">    &lt;http://en.wikipedia.org/wiki/Barycentric_coordinate_system&gt;`_</span>
 <span class="sd">    </span>
 <span class="sd">    Assumes::</span>
 <span class="sd">    1) points are given as numpy arrays (crashes if not met)</span>
@@ -536,16 +596,19 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given three points in 3D space, returns the triangle area. </span>
 <span class="sd">    </span>
-<span class="sd">    Assumes::</span>
+<span class="sd">    Assumes:</span>
 <span class="sd">    </span>
 <span class="sd">    1. points are given as numpy arrays (crashes if not met)</span>
 <span class="sd">    2. if points lists are given, this will still work</span>
 <span class="sd">    </span>
 <span class="sd">    Algorithm</span>
 <span class="sd">    ---------</span>
-<span class="sd">    v1 = p2 - p1</span>
-<span class="sd">    v2 = p3 - p1</span>
-<span class="sd">    return 0.5*norm(np.cross(v1,v2))</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \\vec{V}_1 = \\vec{P}_2 - \\vec{P}_1</span>
+<span class="sd">        </span>
+<span class="sd">        \\vec{V}_2 = \\vec{P}_3 - \\vec{P}_1</span>
+<span class="sd">        </span>
+<span class="sd">        A = {1 \\over 2} \\overline{\\vec{V}_1 \\times \\vec{V}_2}</span>
 <span class="sd">        </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -567,22 +630,21 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This decomposition is proposed in the book &quot;Multiple View Geometry in</span>
 <span class="sd">    computer vision&quot; by Hartley and Zisserman. It is basically a RQ </span>
-<span class="sd">    decomposition (which takes a matrix M and finds a right, upper diagonal</span>
-<span class="sd">    camera matrix K and a orthogonal matrix Q so that M = a*K*Q (a is a </span>
-<span class="sd">    normalizing factor (R[-1,-1])).</span>
+<span class="sd">    decomposition (which takes a matrix :math:`M` and finds a right, upper diagonal</span>
+<span class="sd">    camera matrix :math:`K` and a orthogonal matrix :math:`Q` so that :math:`M = aKQ` (:math:`a` </span>
+<span class="sd">    is a normalizing factor (:math:`R[-1,-1]`)).</span>
 <span class="sd">    </span>
 <span class="sd">    This specific function has the following extra steps: </span>
 <span class="sd">    </span>
-<span class="sd">    1) it defines a diagonal matrix D which, when post-multiplied by K makes </span>
+<span class="sd">    1) it defines a diagonal matrix :math:`D` which, when post-multiplied by </span>
+<span class="sd">    :math:`K` makes </span>
 <span class="sd">    its diagonal elements positive.</span>
 <span class="sd">     </span>
-<span class="sd">    2) it normalizes K by its [-1,-1] element.</span>
+<span class="sd">    2) it normalizes :math:`K` by its :math:`[-1,-1]` element.</span>
 <span class="sd">    </span>
-<span class="sd">    The use of these steps is that when the matrix M is a DLT matrix, K is a </span>
-<span class="sd">    camera matrix, and Q is the orientation of the camera (its rows are the</span>
-<span class="sd">    front, down and left vectors, respectively).</span>
-<span class="sd">    </span>
-<span class="sd">    Attention : a check is performed to verify that the </span>
+<span class="sd">    The use of these steps is that when the matrix :math:`M` is a DLT matrix, </span>
+<span class="sd">    :math:`K` is a camera matrix, and :math:`Q` is the orientation of the </span>
+<span class="sd">    camera (its rows are the front, down and left vectors, respectively).</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -593,7 +655,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    K : numpy.array</span>
-<span class="sd">        The camera matrix, normalized by its [-1,-1] element.</span>
+<span class="sd">        The camera matrix, normalized by its :math:`[-1,-1]` element.</span>
 <span class="sd">    Q : numpy.array</span>
 <span class="sd">        The camera orientation matrix</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -727,6 +789,27 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">part1</span><span class="p">,</span><span class="n">part2</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="readSTL"><a class="viewcode-back" href="../../readSTL.html#pyvsim.Utils.readSTL">[docs]</a><span class="k">def</span> <span class="nf">readSTL</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;&quot;</span>
+<span class="sd">    Reads an STL file and converts it into a pyvsim Part. Note that the </span>
+<span class="sd">    coordinate system of the STL file is used for the pyvsim Part.</span>
+<span class="sd">    </span>
+<span class="sd">    This function uses the facilities of VTK for STL reading. Sometimes this</span>
+<span class="sd">    causes a warning window to pop-up, but most of times the files are read</span>
+<span class="sd">    successfully.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">        The filename (including path) of the stl file.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    part : pyvsim.Primitives.Part</span>
+<span class="sd">        A part with the STL data. With the following default parameters:</span>
+<span class="sd">        </span>
+<span class="sd">        * name : the Part name is the filename</span>
+<span class="sd">        * surfaceProperty : opaque</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">vtk</span>
     <span class="kn">import</span> <span class="nn">pyvsim.Primitives</span>
     <span class="n">STLReader</span>   <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkSTLReader</span><span class="p">()</span>
@@ -750,6 +833,7 @@
     <span class="n">obj</span><span class="o">.</span><span class="n">points</span>          <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
     <span class="n">obj</span><span class="o">.</span><span class="n">connectivity</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cts</span><span class="p">)</span>
     <span class="n">obj</span><span class="o">.</span><span class="n">name</span>            <span class="o">=</span> <span class="n">filename</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">surfaceProperty</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">OPAQUE</span>
     
     <span class="k">print</span> <span class="s">&quot;Read </span><span class="si">%i</span><span class="s"> triangles&quot;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">cts</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
     
@@ -759,7 +843,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates the direct linear transform matrix, which is the</span>
 <span class="sd">    transform executed by a pinhole camera. This procedure was suggested in</span>
-<span class="sd">    `Wikipedia &lt;http://en.wikipedia.org/wiki/Direct_linear_transformation&gt;` </span>
+<span class="sd">    `Wikipedia &lt;http://en.wikipedia.org/wiki/Direct_linear_transformation&gt;`_ </span>
 <span class="sd">    and some refinements are discussed in the book &quot;Multiple View Geometry in</span>
 <span class="sd">    computer vision&quot; by Hartley and Zisserman.</span>
 <span class="sd">    </span>
@@ -781,11 +865,19 @@
 <span class="sd">        A matrix containing the factors to calculate the partial derivatives</span>
 <span class="sd">        of the UV coordinates with respect to the XYZ coordinates. By </span>
 <span class="sd">        multiplying dMdX * M * XYZ1, one gets the derivatives in the following</span>
-<span class="sd">        order [du/dx du/dy du/dz dv/dx dv/dy dv/dz] multiplied by w^2 (which,</span>
-<span class="sd">        for the normalized matrix M, is the depth of the points)</span>
+<span class="sd">        order </span>
+<span class="sd">        :math:`\\left [ {\\partial u \\over \\partial x} </span>
+<span class="sd">        {\\partial u \\over \\partial y}</span>
+<span class="sd">        {\\partial u \\over \\partial z}</span>
+<span class="sd">        {\\partial v \\over \\partial x}</span>
+<span class="sd">        {\\partial v \\over \\partial y}</span>
+<span class="sd">        {\\partial v \\over \\partial z} \\right ]` </span>
+<span class="sd">        multiplied by :math:`w^2` (which,</span>
+<span class="sd">        for the normalized matrix :math:`M`, is the depth of the points)</span>
 <span class="sd">    detM : scalar</span>
-<span class="sd">        The determinant of the matrix formed by the first three columns of M,</span>
-<span class="sd">        if det(M[:,:3]) &lt; 0, it indicates that the mapping is done from a</span>
+<span class="sd">        The determinant of the matrix formed by the first three columns of </span>
+<span class="sd">        :math:`M`,</span>
+<span class="sd">        if :math:`det(M[:,:3]) &lt; 0`, it indicates that the mapping is done from a</span>
 <span class="sd">        right-handed coordinate system to a left-handed one (or vice versa). </span>
 <span class="sd">        This case happens when doing a mapping with a odd number of mirrors</span>
 <span class="sd">        between camera and mapped region, and some derived quantities must be</span>
@@ -794,14 +886,15 @@
 <span class="sd">        The condition number stated in page 108 of Hartley and Zisseman, which</span>
 <span class="sd">        is the ratio of the first and the second-last singular value (because</span>
 <span class="sd">        the last should be zero, if the transform is perfect. According to</span>
-<span class="sd">        `Wikipedia &lt;http://en.wikipedia.org/wiki/Condition_number&gt;`, the </span>
-<span class="sd">        log10 of the condition number gives roughly how many digits of </span>
+<span class="sd">        `Wikipedia &lt;http://en.wikipedia.org/wiki/Condition_number&gt;`_, the </span>
+<span class="sd">        :math:`log_{10}` of the condition number gives roughly how many digits of </span>
 <span class="sd">        accuracy are lost by transforming using the given matrix.</span>
 <span class="sd">    last_singular_value: double</span>
 <span class="sd">        The smallest singular value. The finding of the DLT matrix is a </span>
-<span class="sd">        minimization of the problem abs(A*x) with abs(x) = 1. </span>
+<span class="sd">        minimization of the problem </span>
+<span class="sd">        :math:`\\left | Ax \\right |` with :math:`\\left | x \\right | = 1`. </span>
 <span class="sd">        last_condition_number is exactly abs(A*x), and gives an idea of the</span>
-<span class="sd">        precision of the matrix found (with 0 being perfect)</span>
+<span class="sd">        precision of the matrix found (with :math:`0` being perfect)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">uvlist</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>  <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">xyzlist</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">uvlist</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  <span class="o">==</span> <span class="mi">2</span>
@@ -931,7 +1024,8 @@
 <span class="sd">        List of points to be tested</span>
 <span class="sd">    hexapoints : numpy.array (8, 3)</span>
 <span class="sd">        List of points defining an hexahedron, must obey the conventional order</span>
-<span class="sd">        of defining hexas</span>
+<span class="sd">        of defining hexas. Also works in the case hexa has negative volume</span>
+<span class="sd">        (this was made especifically for cases when laser sheet is reflected)</span>
 <span class="sd">       </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -956,7 +1050,15 @@
 <span class="sd">    &gt;&gt;&gt; pointInHexa(p, hexapoints)</span>
 <span class="sd">    array([ 0.,  1.,  0.])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
+    <span class="c"># Fix the case of inverted volumes (may happen when mirrors are present)</span>
+    <span class="n">v1</span> <span class="o">=</span> <span class="n">hexapoints</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">hexapoints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">v3</span> <span class="o">=</span> <span class="n">hexapoints</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">hexapoints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">v4</span> <span class="o">=</span> <span class="n">hexapoints</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">hexapoints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">v3</span><span class="p">),</span><span class="n">v4</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">hexatemp</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+        <span class="n">hexatemp</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">hexapoints</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+        <span class="n">hexatemp</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span> <span class="o">=</span> <span class="n">hexapoints</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">hexapoints</span>   <span class="o">=</span> <span class="n">hexatemp</span>
    
     <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">truthtable</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
@@ -1094,8 +1196,9 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the area of a quadrilateral defined by its edge points. The </span>
 <span class="sd">    following assumptions are made:</span>
-<span class="sd">        - All points lie in the same plane        </span>
-<span class="sd">        - The quadrilateral is convex</span>
+<span class="sd">    </span>
+<span class="sd">    * All points lie in the same plane        </span>
+<span class="sd">    * The quadrilateral is convex</span>
 <span class="sd">        </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1186,7 +1289,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Ricardo Entz.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

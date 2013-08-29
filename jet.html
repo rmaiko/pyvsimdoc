@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -13,7 +15,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '',
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -52,8 +54,35 @@
 <h1>jet<a class="headerlink" href="#jet" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pyvsim.Utils.jet">
-<tt class="descclassname">pyvsim.Utils.</tt><tt class="descname">jet</tt><big>(</big><em>value</em>, <em>minval</em>, <em>maxval</em>, <em>saturationIndicator=False</em><big>)</big><a class="reference internal" href="modules/pyvsim/Utils.html#jet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Utils.jet" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyvsim.Utils.</tt><tt class="descname">jet</tt><big>(</big><em>value</em>, <em>minval=None</em>, <em>maxval=None</em>, <em>saturationIndicator=False</em><big>)</big><a class="reference internal" href="modules/pyvsim/Utils.html#jet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Utils.jet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the RGB values to emulate a &#8220;jet&#8221; colormap from Matlab</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>value</strong> : numpy.ndarray(N)</p>
+<blockquote>
+<div><p>The value to be represented by the colormap</p>
+</div></blockquote>
+<p><strong>minval</strong> : float</p>
+<blockquote>
+<div><p>The minimum value of the scale. Defaults to the minimum of the values in
+the parameter &#8220;value&#8221;</p>
+</div></blockquote>
+<p><strong>maxval</strong> : float</p>
+<blockquote>
+<div><p>The maximum value of the scale. Defaults to the maximum of the values in
+the parameter &#8220;value&#8221;.</p>
+</div></blockquote>
+<p><strong>saturationIndication</strong> : boolean</p>
+<blockquote class="last">
+<div><p>Substitute the default saturation values (red and blue) for white,
+providing better contrast when saturated values are of interest.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -106,7 +135,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Ricardo Entz.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

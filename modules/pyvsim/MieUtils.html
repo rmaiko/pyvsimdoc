@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -52,23 +54,35 @@
             
   <h1>Source code for pyvsim.MieUtils</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">PyVSim 1.0</span>
-<span class="sd">Copyright 2013 Ricardo Entz</span>
+<span class="sd">.. module :: MieUtils</span>
+<span class="sd">    :platform: Unix, Windows</span>
+<span class="sd">    :synopsis: Mie scattering calculation</span>
+<span class="sd">    </span>
+<span class="sd">This module contains the Mie scattering mathematics. This was separated because</span>
+<span class="sd">many different functions were needed to model that.</span>
 
-<span class="sd">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
-<span class="sd">you may not use this file except in compliance with the License.</span>
-<span class="sd">You may obtain a copy of the License at</span>
+<span class="sd">The functions were adapter from `Maetzler (Maetzler, C. Matlab functions for Mie </span>
+<span class="sd">scattering and absorption </span>
+<span class="sd">Institute of Applied Physics, University of Bern, 2002) </span>
+<span class="sd">&lt;http://arrc.ou.edu/~rockee/NRA_2007_website/Mie-scattering-Matlab.pdf&gt;`_</span>
+<span class="sd">    </span>
+<span class="sd">.. moduleauthor :: Ricardo Entz &lt;maiko at thebigheads.net&gt;</span>
 
-<span class="sd">    http://www.apache.org/licenses/LICENSE-2.0</span>
-
-<span class="sd">Unless required by applicable law or agreed to in writing, software</span>
-<span class="sd">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
-<span class="sd">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
-<span class="sd">See the License for the specific language governing permissions and</span>
-<span class="sd">limitations under the License.</span>
-
-<span class="sd">This module contains the Mie scattering calculations for a particle or a</span>
-<span class="sd">distribution of particles. This is not yet integrated in pyvsim</span>
+<span class="sd">.. license::</span>
+<span class="sd">    PyVSim v.1</span>
+<span class="sd">    Copyright 2013 Ricardo Entz</span>
+<span class="sd">    </span>
+<span class="sd">    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="sd">    you may not use this file except in compliance with the License.</span>
+<span class="sd">    You may obtain a copy of the License at</span>
+<span class="sd">    </span>
+<span class="sd">        http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="sd">    </span>
+<span class="sd">    Unless required by applicable law or agreed to in writing, software</span>
+<span class="sd">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="sd">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="sd">    See the License for the specific language governing permissions and</span>
+<span class="sd">    limitations under the License.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -76,17 +90,19 @@
 
 <div class="viewcode-block" id="Tau"><a class="viewcode-back" href="../../Tau.html#pyvsim.MieUtils.Tau">[docs]</a><span class="k">def</span> <span class="nf">Tau</span><span class="p">(</span><span class="n">pi</span><span class="p">,</span> <span class="n">costheta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the value of the function \Tau, as defined by Maetzler (Maetzler, C. </span>
-<span class="sd">    Matlab functions for Mie scattering and absorption Institute of Applied </span>
-<span class="sd">    Physics, University of Bern, 2002), as a function of the cosine of the</span>
-<span class="sd">    scattering angle (theta) and the \Pi  function:</span>
+<span class="sd">    Returns the value of the function :math:`\\tau`, as defined by </span>
+<span class="sd">    `Maetzler (Maetzler, C. Matlab functions for Mie scattering and absorption </span>
+<span class="sd">    Institute of Applied Physics, University of Bern, 2002) </span>
+<span class="sd">    &lt;http://arrc.ou.edu/~rockee/NRA_2007_website/Mie-scattering-Matlab.pdf&gt;`_, </span>
+<span class="sd">    as a function of the cosine of the</span>
+<span class="sd">    scattering angle (:math:`\\theta`) and the :math:`\\Pi`  function:</span>
 <span class="sd">    </span>
-<span class="sd">    \Tau(n, cos(\theta)) = n cos(\theta) \Pi(n) - (n+1) \Pi(n-1)</span>
+<span class="sd">    :math:`{\\tau}_n, cos(\\theta)) = n cos(\\theta) \\Pi(n) - (n+1) \\Pi(n-1)`</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    pi : numpy.array (n)</span>
-<span class="sd">        An array containing the values of the \Pi function</span>
+<span class="sd">        An array containing the values of the :math:`\\Pi` function</span>
 <span class="sd">    costheta : double</span>
 <span class="sd">        The co-sine of the scattering angle</span>
 <span class="sd">        </span>
@@ -106,7 +122,9 @@
 <span class="sd">    Generates an array with the &quot;header&quot;, i.e. a factor to be used in the Mie</span>
 <span class="sd">    scattering calculations. Its value is:</span>
 <span class="sd">    </span>
-<span class="sd">    header(n) = \over {2n+1} {n(n+1)}</span>
+<span class="sd">    .. math::</span>
+<span class="sd">    </span>
+<span class="sd">        header(n) = {{2n+1} \\over  {n(n+1)}}</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -128,23 +146,32 @@
 <span class="sd">    Mechanical and Aeorospace Engineering, University of Florida, 2009&quot;, which</span>
 <span class="sd">    is:</span>
 <span class="sd">    </span>
-<span class="sd">    \Pi_n(cos \theta) = P_n^{(1)} (cos \theta) / sin(theta)</span>
+<span class="sd">    .. math::</span>
+<span class="sd">    </span>
+<span class="sd">        \\Pi_n(cos \\theta) = {P_n^{(1)} (cos \\theta) \\over sin(\\theta)}</span>
 <span class="sd">    </span>
 <span class="sd">    Where:</span>
 <span class="sd">    </span>
-<span class="sd">    P_n^{(1)} is a Legendre polynomial</span>
+<span class="sd">    .. math::</span>
 <span class="sd">    </span>
-<span class="sd">    Or, in the recursive form, as shown in Maetzler (Maetzler, C. Matlab </span>
-<span class="sd">    functions for Mie scattering and absorption Institute of Applied Physics, </span>
-<span class="sd">    University of Bern, 2002):</span>
+<span class="sd">        P_n^{(1)} </span>
+<span class="sd">        </span>
+<span class="sd">    is a Legendre polynomial</span>
 <span class="sd">    </span>
-<span class="sd">    \Pi_n = \over {2n-1} {n-1} cos(\theta) P_{n-1} - \over n {n-1} \Pi_{n-2}</span>
+<span class="sd">    Or, in the recursive form, as shown in `Maetzler (Maetzler, C. Matlab </span>
+<span class="sd">    functions for Mie scattering and absorption </span>
+<span class="sd">    Institute of Applied Physics, University of Bern, 2002) </span>
+<span class="sd">    &lt;http://arrc.ou.edu/~rockee/NRA_2007_website/Mie-scattering-Matlab.pdf&gt;`_:</span>
+<span class="sd">    </span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \\Pi_n = {{2n-1} \\over {n-1}} cos(\\theta) P_{n-1} - {n \\over {n-1}} \\Pi_{n-2}</span>
 <span class="sd">    </span>
 <span class="sd">    With:</span>
 <span class="sd">    </span>
-<span class="sd">    \Pi_{0} = 0</span>
-<span class="sd">    </span>
-<span class="sd">    \Pi_{1} = 1  </span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \\Pi_{0} = 0</span>
+<span class="sd">        </span>
+<span class="sd">        \\Pi_{1} = 1  </span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -157,8 +184,9 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Pi : generator</span>
-<span class="sd">        A generator capable of creating an (N+1)-sized array with the values</span>
-<span class="sd">        of the \Pi function</span>
+<span class="sd">        A generator capable of creating an :math:`(N+1)`-sized array with the </span>
+<span class="sd">        values</span>
+<span class="sd">        of the :math:`\\Pi` function</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
@@ -175,17 +203,27 @@
         </div>
 <div class="viewcode-block" id="mie_abcd"><a class="viewcode-back" href="../../mie_abcd.html#pyvsim.MieUtils.mie_abcd">[docs]</a><span class="k">def</span> <span class="nf">mie_abcd</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes a matrix of Mie coefficients, a_n, b_n, c_n, d_n, </span>
-<span class="sd">    of orders n=1 to nmax, complex refractive index m=m&#39;+im&quot;, </span>
-<span class="sd">    and size parameter x=k0*r, where k0= wave number </span>
-<span class="sd">    in the ambient medium, r=sphere radius; </span>
-<span class="sd">    p. 100, 477 in Bohren and Huffman (1983) BEWI:TDD122</span>
-<span class="sd">    C. Matzler, June 2002</span>
+<span class="sd">    Computes a matrix of Mie coefficients:</span>
 <span class="sd">    </span>
-<span class="sd">    There is a limitation for the maximum allowable x for this</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        a_n, b_n, c_n, d_n</span>
+<span class="sd">        </span>
+<span class="sd">    of orders :math:`n=1` to :math:`n_{max}`, complex refractive index </span>
+<span class="sd">    :math:`m=m^\\prime + im^{\\prime\\prime}`, </span>
+<span class="sd">    and size parameter </span>
+<span class="sd">    :math:`x=k_0\\cdot r`, </span>
+<span class="sd">    where </span>
+<span class="sd">    :math:`k_0` is the wave number in the ambient medium, </span>
+<span class="sd">    :math:`r` sphere radius; </span>
+<span class="sd">    </span>
+<span class="sd">    Reference: `p. 100, 477 in Bohren and Huffman (1983) BEWI:TDD122</span>
+<span class="sd">    &lt;http://books.google.de/books/about/Absorption_and_scattering_of_light_by_sm.html?id=S1RCZ8BjgN0C&amp;redir_esc=y&gt;`_</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
+<span class="sd">    There is a limitation for the maximum allowable :math:`x` for this</span>
 <span class="sd">    function. I have not yet verified from where it comes from</span>
-<span class="sd">    (limit: x = 180, which yields a maximum particle size of </span>
-<span class="sd">    about 30 microns in air)</span>
+<span class="sd">    (limit: :math:`x = 180`, which yields a maximum particle size of </span>
+<span class="sd">    about :math:`30\\mu m` in air)</span>
 <span class="sd">    </span>
 <span class="sd">    Adapted from Matlab code (Dec 2012)</span>
 <span class="sd">    Vectorized (Apr 2013)</span>
@@ -195,20 +233,23 @@
 <span class="sd">    m : real or complex</span>
 <span class="sd">        The particle refractive index.</span>
 <span class="sd">    x : numpy.array (M)</span>
-<span class="sd">        The Mie parameter, defined as x = k0 * r = 2 * pi * r / lambda (where</span>
-<span class="sd">        r is the particle radius and lambda is the light wavelength)</span>
+<span class="sd">        The Mie parameter, defined as </span>
+<span class="sd">        :math:`x = k_0 r = {{2  \\pi r} \\over \\lambda}`</span>
+<span class="sd">        (where :math:`r` is the particle radius and :math:`\\lambda` is the </span>
+<span class="sd">        light wavelength)</span>
 <span class="sd">        </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    (an, bn) : numpy.array (nmax, M)</span>
-<span class="sd">        The Mie a and b parameters calculated for nmax factors, used to </span>
+<span class="sd">    (an, bn) : numpy.array (:math:`n_{max}`, M)</span>
+<span class="sd">        The Mie :math:`a` and :math:`b` parameters calculated for :math:`n_{max}`</span>
+<span class="sd">        factors, used to </span>
 <span class="sd">        calculate an approximation of the scattered light far field.</span>
 <span class="sd">        </span>
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        If the particle diameter which is being calculated forces the creation</span>
-<span class="sd">        of too big matrices (happens when x is higher than approximately 180)</span>
+<span class="sd">        of too big matrices (happens when :math:`x` is higher than approximately 180)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c">#</span>
     <span class="c"># Parameter calculation</span>
@@ -388,8 +429,8 @@
 <span class="sd">    ------</span>
 <span class="sd">    ValueError</span>
 <span class="sd">        If the particle diameter which is being calculated forces the creation</span>
-<span class="sd">        of too big matrices (happens when the Mie parameter (2*pi*radius / </span>
-<span class="sd">        lightWavelength) is higher than approximately 180)        </span>
+<span class="sd">        of too big matrices (happens when the Mie parameter </span>
+<span class="sd">        (:math:`2\\pi r \\over \\lambda) is higher than approximately 180)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">scs</span> <span class="o">=</span> <span class="n">mieScatteringCrossSections</span><span class="p">(</span><span class="n">refractiveIndex</span>   <span class="o">=</span> <span class="n">refractiveIndex</span><span class="p">,</span>
                                      <span class="n">particleDiameters</span> <span class="o">=</span> <span class="n">diameters</span><span class="p">,</span>
@@ -498,7 +539,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Ricardo Entz.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
