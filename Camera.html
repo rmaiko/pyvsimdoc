@@ -84,11 +84,11 @@ be used for synthetic image generation and displaying.</p>
 <dl class="method">
 <dt id="pyvsim.Toolbox.Camera.mapPoints">
 <tt class="descname">mapPoints</tt><big>(</big><em>pts</em>, <em>skipPupilAngle=False</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Camera.mapPoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Camera.mapPoints" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method determines the position that a set of points x,y,z map on
-the camera sensor.</p>
+<dd><p>This method determines the position that a set of points <span class="math">\(x,y,z\)</span> 
+map on the camera sensor.</p>
 <p>In order to optimize calculation speed, a lot of memory is used, but 
-the method seems to run smoothly up to 2M points in a 5x5 mapping (2GB
-of available RAM)</p>
+the method seems to run smoothly up to <span class="math">\(2\cdot10^6\)</span> points in 
+a <span class="math">\(5      imes 5\)</span> mapping (2GB of available RAM)</p>
 <p>The number of elements in the bottleneck matrix is:</p>
 <div class="math">
 \[N = npts \cdot 3 \cdot mappingResolution[0] \cdot mappingResolution[1]\]</div>
