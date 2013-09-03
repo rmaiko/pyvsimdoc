@@ -90,7 +90,8 @@ the camera sensor.</p>
 the method seems to run smoothly up to 2M points in a 5x5 mapping (2GB
 of available RAM)</p>
 <p>The number of elements in the bottleneck matrix is:</p>
-<p>N = npts * 3 * mappingResolution[0] * mappingResolution[1]</p>
+<div class="math">
+\[N = npts \cdot 3 \cdot mappingResolution[0] \cdot mappingResolution[1]\]</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -121,7 +122,8 @@ DLT matrix</p>
 <blockquote>
 <div><p>The derivatives of the coordinates u,v with respect to x,y,z in the
 following order:
-[du/dx,  du/dy,  du/dz,  dv/dx,  dv/dy,  dv/dz]</p>
+.. math::
+left [{du/dx,  du/dy,  du/dz,  dv/dx,  dv/dy,  dv/dz} right ]</p>
 </div></blockquote>
 <p><strong>lineOfSight</strong> : numpy.array (N,3)</p>
 <blockquote>
