@@ -25,7 +25,6 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -59,9 +58,9 @@
 a rectangle. There are also convenience methods to  make coordinate
 transformation.</p>
 <p>To navigate in the plane, one can use the following coordinate system:
-<span class="math">\(\left[u,v\right]\)</span> , where 
-<span class="math">\(-1 &lt;= u,v &lt;=1\)</span></p>
-<p>As a default, the <span class="math">\(\vec{x}\)</span> vector is the normal for the triangles.</p>
+<img class="math" src="images/math/99fae4b186f6b0b1652c36f037bf87620e9176aa.png" alt="\left[u,v\right]"/> , where 
+<img class="math" src="images/math/9c6e68d0ec8751d5383d5efcdce4fcddf3a79b62.png" alt="-1 &lt;= u,v &lt;=1"/></p>
+<p>As a default, the <img class="math" src="images/math/f5ec636e755349d4409f910e27d381c6da764230.png" alt="\vec{x}"/> vector is the normal for the triangles.</p>
 <p>This class can represent <strong>only</strong> rectangles, so that most of its methods
 are greatly simplified. If you need to represent a parallelogram, you
 would have to implement your own class.</p>
@@ -70,7 +69,56 @@ would have to implement your own class.</p>
 <dt id="pyvsim.Primitives.Plane.parametricToPhysical">
 <tt class="descname">parametricToPhysical</tt><big>(</big><em>coordinates</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Plane.parametricToPhysical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Plane.parametricToPhysical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a 2-component vector in the range -1..1 in sensor coordinates
-<span class="math">\([u,v] \rarrow [x,y,z]\)</span> (global reference frame)</p>
+<div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">[u,v] \rarrow [x,y,z]</tt>)</p>
+latex exited with error:
+[stderr]
+
+[stdout]
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9)
+entering extended mode
+(c:\users\entz_ri\appdata\local\temp\tmpkaoj0n\math.tex
+LaTeX2e &lt;2011/06/27&gt;
+Babel &lt;v3.8m&gt; and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls&#8221;
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size12.clo&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty&#8221;
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ucs\utf8x.def&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ucs\ucs.sty&#8221;
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ucs\uni-global.def&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty&#8221;
+For additional information on amsmath, use the `?&#8217; option.
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty&#8221;
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty&#8221;)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amscls\amsthm.sty&#8221;)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty&#8221;
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\bm.sty&#8221;)
+(c:\users\entz_ri\appdata\local\temp\tmpkaoj0n\math.aux)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ucs\ucsencs.def&#8221;)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd&#8221;)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd&#8221;)
+! Undefined control sequence.
+l.12 $[u,v] \rarrow
+                    [x,y,z]$
+[1] (c:\users\entz_ri\appdata\local\temp\tmpkaoj0n\math.aux) )
+(see the transcript file for additional information)
+Output written on math.dvi (1 page, 276 bytes).
+Transcript written on math.log.
+</div>
+ (global reference frame)</p>
 <p>Vectorization for this method is implemented.</p>
 </dd></dl>
 
@@ -79,7 +127,56 @@ would have to implement your own class.</p>
 <tt class="descname">physicalToParametric</tt><big>(</big><em>coords</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Plane.physicalToParametric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Plane.physicalToParametric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a 3-component coordinates vector to a 2-component vector
 which value falls in the range -1..1 in sensor coordinates
-<span class="math">\([x,y,z] \rarrow [u,v]\)</span></p>
+<div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">[x,y,z] \rarrow [u,v]</tt>)</p>
+latex exited with error:
+[stderr]
+
+[stdout]
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9)
+entering extended mode
+(c:\users\entz_ri\appdata\local\temp\tmpkaoj0n\math.tex
+LaTeX2e &lt;2011/06/27&gt;
+Babel &lt;v3.8m&gt; and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls&#8221;
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size12.clo&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\inputenc.sty&#8221;
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ucs\utf8x.def&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ucs\ucs.sty&#8221;
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ucs\uni-global.def&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty&#8221;
+For additional information on amsmath, use the `?&#8217; option.
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty&#8221;
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty&#8221;)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amscls\amsthm.sty&#8221;)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty&#8221;
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty&#8221;))
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\bm.sty&#8221;)
+(c:\users\entz_ri\appdata\local\temp\tmpkaoj0n\math.aux)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ucs\ucsencs.def&#8221;)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd&#8221;)
+(&#8220;C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd&#8221;)
+! Undefined control sequence.
+l.12 $[x,y,z] \rarrow
+                      [u,v]$
+[1] (c:\users\entz_ri\appdata\local\temp\tmpkaoj0n\math.aux) )
+(see the transcript file for additional information)
+Output written on math.dvi (1 page, 276 bytes).
+Transcript written on math.log.
+</div>
+</p>
 <p>Vectorization for this method is implemented.</p>
 </dd></dl>
 

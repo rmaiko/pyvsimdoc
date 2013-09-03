@@ -25,7 +25,6 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -58,14 +57,18 @@
 <dd><p>Calculates the volume of a tetrahedron. This is simply the unrolled
 determinant:</p>
 <div class="math">
-\[\begin{split}\left [ \begin{array}{ccc}
+<p><img src="images/math/6b3948153ddf47aa606b7f570f8d7017627ef040.png" alt="\left [ \begin{array}{ccc}
 V_{x,1} &amp; V_{y,1} &amp;  V_{z,1} \\
 V_{x,2} &amp; V_{y,2} &amp;  V_{z,2} \\
-V_{x,3} &amp; V_{y,3} &amp;  V_{z,3} \end{array} \right ] \cdot {1 \over 6}\end{split}\]</div>
-<p>With:</p>
+V_{x,3} &amp; V_{y,3} &amp;  V_{z,3} \end{array} \right ] \cdot {1 \over 6}"/></p>
+</div><p>With:</p>
 <div class="math">
-\[\vec{V}_1 = \vec{P}_1 - \vec{P}_4\]\[\vec{V}_2 = \vec{P}_2 - \vec{P}_4\]\[\vec{V}_3 = \vec{P}_3 - \vec{P}_4\]</div>
-<p>This function works only for list of vectors, for performance reasons
+<p><img src="images/math/d3c77388f87cfca72c971764b28534dbeb11db96.png" alt="\vec{V}_1 = \vec{P}_1 - \vec{P}_4
+
+\vec{V}_2 = \vec{P}_2 - \vec{P}_4
+
+\vec{V}_3 = \vec{P}_3 - \vec{P}_4"/></p>
+</div><p>This function works only for list of vectors, for performance reasons
 will not check the inputs, will throw an error instead.</p>
 <p>(This works faster than numpy.linalg.det repeated over the list of
 tetrahedrons)</p>

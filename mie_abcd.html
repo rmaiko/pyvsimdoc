@@ -25,7 +25,6 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -57,19 +56,19 @@
 <tt class="descclassname">pyvsim.MieUtils.</tt><tt class="descname">mie_abcd</tt><big>(</big><em>m</em>, <em>x</em><big>)</big><a class="reference internal" href="modules/pyvsim/MieUtils.html#mie_abcd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.MieUtils.mie_abcd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a matrix of Mie coefficients:</p>
 <div class="math">
-\[a_n, b_n, c_n, d_n\]</div>
-<p>of orders <span class="math">\(n=1\)</span> to <span class="math">\(n_{max}\)</span>, complex refractive index 
-<span class="math">\(m=m^\prime + im^{\prime\prime}\)</span>, 
+<p><img src="images/math/0fbabac0eb3230fe9f3112e1eed86bc66c57c877.png" alt="a_n, b_n, c_n, d_n"/></p>
+</div><p>of orders <img class="math" src="images/math/1d96ecc15129c5631ba4a2c6578e91e3d13e3baf.png" alt="n=1"/> to <img class="math" src="images/math/3aa315b4d53443d05cd09c16001045f0f472fe85.png" alt="n_{max}"/>, complex refractive index 
+<img class="math" src="images/math/9e17693f95745e811ee30468e1f384211a8bf987.png" alt="m=m^\prime + im^{\prime\prime}"/>, 
 and size parameter 
-<span class="math">\(x=k_0\cdot r\)</span>, 
+<img class="math" src="images/math/6fdd76bd6b32581b259ca808386fb233085d265f.png" alt="x=k_0\cdot r"/>, 
 where 
-<span class="math">\(k_0\)</span> is the wave number in the ambient medium, 
-<span class="math">\(r\)</span> sphere radius;</p>
+<img class="math" src="images/math/8a3442cf6fbd24badb75194f50de3d80afaf8f7d.png" alt="k_0"/> is the wave number in the ambient medium, 
+<img class="math" src="images/math/b55ca7a0aa88ab7d58f4fc035317fdac39b17861.png" alt="r"/> sphere radius;</p>
 <p>Reference: <a class="reference external" href="http://books.google.de/books/about/Absorption_and_scattering_of_light_by_sm.html?id=S1RCZ8BjgN0C&amp;redir_esc=y">p. 100, 477 in Bohren and Huffman (1983) BEWI:TDD122</a></p>
-<p>There is a limitation for the maximum allowable <span class="math">\(x\)</span> for this
+<p>There is a limitation for the maximum allowable <img class="math" src="images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> for this
 function. I have not yet verified from where it comes from
-(limit: <span class="math">\(x = 180\)</span>, which yields a maximum particle size of 
-about <span class="math">\(30\mu m\)</span> in air)</p>
+(limit: <img class="math" src="images/math/809ae11f8316ba1e1c0608ff6ba1413b620cf8aa.png" alt="x = 180"/>, which yields a maximum particle size of 
+about <img class="math" src="images/math/0c97ae67bf96e2eb688b86249c5e40174e055002.png" alt="30\mu m"/> in air)</p>
 <p>Adapted from Matlab code (Dec 2012)
 Vectorized (Apr 2013)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -83,15 +82,15 @@ Vectorized (Apr 2013)</p>
 <p><strong>x</strong> : numpy.array (M)</p>
 <blockquote>
 <div><p>The Mie parameter, defined as 
-<span class="math">\(x = k_0 r = {{2  \pi r} \over \lambda}\)</span>
-(where <span class="math">\(r\)</span> is the particle radius and <span class="math">\(\lambda\)</span> is the 
+<img class="math" src="images/math/db97dc1aa9b002c98e5143290538495103507a37.png" alt="x = k_0 r = {{2  \pi r} \over \lambda}"/>
+(where <img class="math" src="images/math/b55ca7a0aa88ab7d58f4fc035317fdac39b17861.png" alt="r"/> is the particle radius and <img class="math" src="images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> is the 
 light wavelength)</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(an, bn)</strong> : numpy.array (<span class="math">\(n_{max}\)</span>, M)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(an, bn)</strong> : numpy.array (<img class="math" src="images/math/3aa315b4d53443d05cd09c16001045f0f472fe85.png" alt="n_{max}"/>, M)</p>
 <blockquote>
-<div><p>The Mie <span class="math">\(a\)</span> and <span class="math">\(b\)</span> parameters calculated for <span class="math">\(n_{max}\)</span>
+<div><p>The Mie <img class="math" src="images/math/c7d457e388298246adb06c587bccd419ea67f7e8.png" alt="a"/> and <img class="math" src="images/math/8136a7ef6a03334a7246df9097e5bcc31ba33fd2.png" alt="b"/> parameters calculated for <img class="math" src="images/math/3aa315b4d53443d05cd09c16001045f0f472fe85.png" alt="n_{max}"/>
 factors, used to 
 calculate an approximation of the scattered light far field.</p>
 </div></blockquote>
@@ -100,7 +99,7 @@ calculate an approximation of the scattered light far field.</p>
 <tr class="field-odd field"><th class="field-name">Raises :</th><td class="field-body"><p class="first"><strong>ValueError</strong> :</p>
 <blockquote class="last">
 <div><p>If the particle diameter which is being calculated forces the creation
-of too big matrices (happens when <span class="math">\(x\)</span> is higher than approximately 180)</p>
+of too big matrices (happens when <img class="math" src="images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> is higher than approximately 180)</p>
 </div></blockquote>
 </td>
 </tr>

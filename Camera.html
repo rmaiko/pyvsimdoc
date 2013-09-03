@@ -25,7 +25,6 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -91,8 +90,8 @@ the method seems to run smoothly up to 2M points in a 5x5 mapping (2GB
 of available RAM)</p>
 <p>The number of elements in the bottleneck matrix is:</p>
 <div class="math">
-\[N = npts \cdot 3 \cdot mappingResolution[0] \cdot mappingResolution[1]\]</div>
-<table class="docutils field-list" frame="void" rules="none">
+<p><img src="images/math/8cd8037b51d282d8b4403872c2ba53e6a20ece35.png" alt="N = npts \cdot 3 \cdot mappingResolution[0] \cdot mappingResolution[1]"/></p>
+</div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -123,8 +122,8 @@ DLT matrix</p>
 <div><p>The derivatives of the coordinates u,v with respect to x,y,z in the
 following order:</p>
 <div class="math">
-\[\left [{du/dx,  du/dy,  du/dz,  dv/dx,  dv/dy,  dv/dz} \right ]\]</div>
-</div></blockquote>
+<p><img src="images/math/cc047e6eaa05d6677d0fbe6570679f5d5c4c9d09.png" alt="\left [{du/dx,  du/dy,  du/dz,  dv/dx,  dv/dy,  dv/dz} \right ]"/></p>
+</div></div></blockquote>
 <p><strong>lineOfSight</strong> : numpy.array (N,3)</p>
 <blockquote>
 <div><p>The line of sight vectors (the direction of the light ray that
