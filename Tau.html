@@ -25,6 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -54,19 +55,19 @@
 <dl class="function">
 <dt id="pyvsim.MieUtils.Tau">
 <tt class="descclassname">pyvsim.MieUtils.</tt><tt class="descname">Tau</tt><big>(</big><em>pi</em>, <em>costheta</em><big>)</big><a class="reference internal" href="modules/pyvsim/MieUtils.html#Tau"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.MieUtils.Tau" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the value of the function <img class="math" src="images/math/1dc1c0119a604b91be9142370dc3159b6a9bbcb9.png" alt="\tau"/>, as defined by 
+<dd><p>Returns the value of the function <span class="math">\(\tau\)</span>, as defined by 
 <a class="reference external" href="http://arrc.ou.edu/~rockee/NRA_2007_website/Mie-scattering-Matlab.pdf">Maetzler (Maetzler, C. Matlab functions for Mie scattering and absorption 
 Institute of Applied Physics, University of Bern, 2002)</a>, 
 as a function of the cosine of the
-scattering angle (<img class="math" src="images/math/52e8ed7a3ba22130ad3984eb2cd413406475a689.png" alt="\theta"/>) and the <img class="math" src="images/math/c3e77f8dac39bd44cff4ca15469c871bab27c02e.png" alt="\Pi"/>  function:</p>
-<p><img class="math" src="images/math/70e541dabcf78f0efe45ec238bd3b729a51caf04.png" alt="{\tau}_n, cos(\theta)) = n cos(\theta) \Pi(n) - (n+1) \Pi(n-1)"/></p>
+scattering angle (<span class="math">\(\theta\)</span>) and the <span class="math">\(\Pi\)</span>  function:</p>
+<p><span class="math">\({\tau}_n, cos(\theta)) = n cos(\theta) \Pi(n) - (n+1) \Pi(n-1)\)</span></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>pi</strong> : numpy.array (n)</p>
 <blockquote>
-<div><p>An array containing the values of the <img class="math" src="images/math/c3e77f8dac39bd44cff4ca15469c871bab27c02e.png" alt="\Pi"/> function</p>
+<div><p>An array containing the values of the <span class="math">\(\Pi\)</span> function</p>
 </div></blockquote>
 <p><strong>costheta</strong> : double</p>
 <blockquote>

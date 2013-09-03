@@ -25,6 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -59,22 +60,20 @@ as defined in &#8220;Hahn, D. W. Light scattering theory Department of
 Mechanical and Aeorospace Engineering, University of Florida, 2009&#8221;, which
 is:</p>
 <div class="math">
-<p><img src="images/math/19ee18c43cffe69e0669891849138de11cfd49cb.png" alt="\Pi_n(cos \theta) = {P_n^{(1)} (cos \theta) \over sin(\theta)}"/></p>
-</div><p>Where:</p>
+\[\Pi_n(cos \theta) = {P_n^{(1)} (cos \theta) \over sin(\theta)}\]</div>
+<p>Where:</p>
 <div class="math">
-<p><img src="images/math/7341a8866f8da9d3db00a340d7e7db31881e9527.png" alt="P_n^{(1)}"/></p>
-</div><p>is a Legendre polynomial</p>
+\[P_n^{(1)} \]</div>
+<p>is a Legendre polynomial</p>
 <p>Or, in the recursive form, as shown in <a class="reference external" href="http://arrc.ou.edu/~rockee/NRA_2007_website/Mie-scattering-Matlab.pdf">Maetzler (Maetzler, C. Matlab 
 functions for Mie scattering and absorption 
 Institute of Applied Physics, University of Bern, 2002)</a>:</p>
 <div class="math">
-<p><img src="images/math/b3d93880d64b91bdc7fd69c70a3e0dc84886eb55.png" alt="\Pi_n = {{2n-1} \over {n-1}} cos(\theta) P_{n-1} - {n \over {n-1}} \Pi_{n-2}"/></p>
-</div><p>With:</p>
+\[\Pi_n = {{2n-1} \over {n-1}} cos(\theta) P_{n-1} - {n \over {n-1}} \Pi_{n-2}\]</div>
+<p>With:</p>
 <div class="math">
-<p><img src="images/math/9446af95e36ff71b616a4f9e6acc0acbaaa3f7c2.png" alt="\Pi_{0} = 0
-
-\Pi_{1} = 1"/></p>
-</div><table class="docutils field-list" frame="void" rules="none">
+\[\Pi_{0} = 0\]\[\Pi_{1} = 1  \]</div>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -90,9 +89,9 @@ Institute of Applied Physics, University of Bern, 2002)</a>:</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>Pi</strong> : generator</p>
 <blockquote class="last">
-<div><p>A generator capable of creating an <img class="math" src="images/math/f7a1d178284ff1610746d7b8039b834e68949b19.png" alt="(N+1)"/>-sized array with the 
+<div><p>A generator capable of creating an <span class="math">\((N+1)\)</span>-sized array with the 
 values
-of the <img class="math" src="images/math/c3e77f8dac39bd44cff4ca15469c871bab27c02e.png" alt="\Pi"/> function</p>
+of the <span class="math">\(\Pi\)</span> function</p>
 </div></blockquote>
 </td>
 </tr>

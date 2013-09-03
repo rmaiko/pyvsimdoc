@@ -25,6 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -132,8 +133,8 @@ v -&gt; sensor.y</p>
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.parametricToSensor">
 <tt class="descname">parametricToSensor</tt><big>(</big><em>param_coords</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.parametricToSensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.parametricToSensor" title="Permalink to this definition">¶</a></dt>
-<dd><p>From the parametric coordinates <img class="math" src="images/math/a7d01e2ba2f640fde0557fd977ed5652c4d4e78f.png" alt="\\overline{U,V}"/>,
-which range is <img class="math" src="images/math/1f083c7eb07f00d3ffaa23b1f99f318e36e06677.png" alt="[-1..1]"/>, calculates the sensor coordinates in
+<dd><p>From the parametric coordinates <span class="math">\(\\overline{U,V}\)</span>,
+which range is <span class="math">\([-1..1]\)</span>, calculates the sensor coordinates in
 meters, so the algorithm is basically multiplying by the sensor size.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -241,9 +242,9 @@ with some mainstream PIV software)</p>
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.sensorToParametric">
 <tt class="descname">sensorToParametric</tt><big>(</big><em>sensor_coords</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.sensorToParametric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.sensorToParametric" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform sensor coordinates <img class="math" src="images/math/f33002c73949e486e6ebf233fb58dc015f018b57.png" alt="(U,V)"/> in meters to parametric 
+<dd><p>Transform sensor coordinates <span class="math">\((U,V)\)</span> in meters to parametric 
 coordinates,
-<img class="math" src="images/math/8ff90eaad5e07c3d9d82ca0266cd8870702b7005.png" alt="(\\overline{U},\\overline{V})"/>.</p>
+<span class="math">\((\\overline{U},\\overline{V})\)</span>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -267,7 +268,7 @@ coordinates,
 <dl class="method">
 <dt id="pyvsim.Toolbox.Sensor.sensorToPhysical">
 <tt class="descname">sensorToPhysical</tt><big>(</big><em>sensor_coords</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Sensor.sensorToPhysical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Sensor.sensorToPhysical" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform sensor coordinates <img class="math" src="images/math/f33002c73949e486e6ebf233fb58dc015f018b57.png" alt="(U,V)"/> in meters to world coordinates</p>
+<dd><p>Transform sensor coordinates <span class="math">\((U,V)\)</span> in meters to world coordinates</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

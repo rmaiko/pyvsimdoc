@@ -25,6 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
   </head>
   <body>
@@ -86,20 +87,20 @@ the third (the homogeneous) coordinate.</p>
 of the UV coordinates with respect to the XYZ coordinates. By 
 multiplying dMdX * M * XYZ1, one gets the derivatives in the following
 order 
-<img class="math" src="images/math/6d84bc8a6fd9ca66c4e053b0b66914045493e550.png" alt="\left [ {\partial u \over \partial x} 
+<span class="math">\(\left [ {\partial u \over \partial x} 
 {\partial u \over \partial y}
 {\partial u \over \partial z}
 {\partial v \over \partial x}
 {\partial v \over \partial y}
-{\partial v \over \partial z} \right ]"/> 
-multiplied by <img class="math" src="images/math/8d4e1e46efbf077b2fa276dad459a6f0840a4dc2.png" alt="w^2"/> (which,
-for the normalized matrix <img class="math" src="images/math/5d1e4485dc90c450e8c76826516c1b2ccb8fce16.png" alt="M"/>, is the depth of the points)</p>
+{\partial v \over \partial z} \right ]\)</span> 
+multiplied by <span class="math">\(w^2\)</span> (which,
+for the normalized matrix <span class="math">\(M\)</span>, is the depth of the points)</p>
 </div></blockquote>
 <p><strong>detM</strong> : scalar</p>
 <blockquote>
 <div><p>The determinant of the matrix formed by the first three columns of 
-<img class="math" src="images/math/5d1e4485dc90c450e8c76826516c1b2ccb8fce16.png" alt="M"/>,
-if <img class="math" src="images/math/da4371717a93da4c7aae216efd00bbea3bb6f60a.png" alt="det(M[:,:3]) &lt; 0"/>, it indicates that the mapping is done from a
+<span class="math">\(M\)</span>,
+if <span class="math">\(det(M[:,:3]) &lt; 0\)</span>, it indicates that the mapping is done from a
 right-handed coordinate system to a left-handed one (or vice versa). 
 This case happens when doing a mapping with a odd number of mirrors
 between camera and mapped region, and some derived quantities must be
@@ -111,16 +112,16 @@ inverted in this case, e.g. the line-of-sight vector.</p>
 is the ratio of the first and the second-last singular value (because
 the last should be zero, if the transform is perfect. According to
 <a class="reference external" href="http://en.wikipedia.org/wiki/Condition_number">Wikipedia</a>, the 
-<img class="math" src="images/math/db12d06f7715736a2eed4bddfe493f8b1cbdfdb7.png" alt="log_{10}"/> of the condition number gives roughly how many digits of 
+<span class="math">\(log_{10}\)</span> of the condition number gives roughly how many digits of 
 accuracy are lost by transforming using the given matrix.</p>
 </div></blockquote>
 <p><strong>last_singular_value: double</strong> :</p>
 <blockquote class="last">
 <div><p>The smallest singular value. The finding of the DLT matrix is a 
 minimization of the problem 
-<img class="math" src="images/math/5f61487bb5f577c5c211ab049af4998d4cbb5b2c.png" alt="\left | Ax \right |"/> with <img class="math" src="images/math/76a76b85ea0a5682214381b5c3baf0f6ded683a3.png" alt="\left | x \right | = 1"/>. 
+<span class="math">\(\left | Ax \right |\)</span> with <span class="math">\(\left | x \right | = 1\)</span>. 
 last_condition_number is exactly abs(A*x), and gives an idea of the
-precision of the matrix found (with <img class="math" src="images/math/bc1f9d9bf8a1b606a4188b5ce9a2af1809e27a89.png" alt="0"/> being perfect)</p>
+precision of the matrix found (with <span class="math">\(0\)</span> being perfect)</p>
 </div></blockquote>
 </td>
 </tr>
