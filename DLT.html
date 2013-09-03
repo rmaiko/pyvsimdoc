@@ -64,24 +64,24 @@ computer vision&#8221; by Hartley and Zisserman.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>uvlist</strong> : numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>uvlist</strong> : numpy.ndarray</p>
 <blockquote>
-<div><p>A (N,2) matrix containing points at the sensor coordinates</p>
+<div><p>A  <span class="math">\((N,2)\)</span> matrix containing points at the sensor coordinates</p>
 </div></blockquote>
-<p><strong>xyzlist: numpy.array</strong> :</p>
+<p><strong>xyzlist: numpy.ndarray</strong> :</p>
 <blockquote>
-<div><p>A (N,3) matrix containing points at the world coordinates</p>
+<div><p>A  <span class="math">\((N,3)\)</span> matrix containing points at the world coordinates</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>M</strong> : numpy.array (3x4)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>M</strong> : numpy.ndarray  <span class="math">\((3,4)\)</span></p>
 <blockquote>
 <div><p>A matrix with the transformation to be used with homogeneous
 coordinates. The matrix M is normalized by the norm of the elements
 M(2,0:3), because then the depth of points is automatically given as
 the third (the homogeneous) coordinate.</p>
 </div></blockquote>
-<p><strong>dMdX</strong> : numpy.array</p>
+<p><strong>dMdX</strong> : numpy.ndarray</p>
 <blockquote>
 <div><p>A matrix containing the factors to calculate the partial derivatives
 of the UV coordinates with respect to the XYZ coordinates. By 

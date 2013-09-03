@@ -64,20 +64,21 @@ and their distance to the origin is in average sqrt(nb. of coordinates).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>pointslist: numpy.array</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>pointslist: numpy.ndarray</strong> :</p>
 <blockquote>
-<div><p>A matrix with the size (N,C) where N is the number of points and C is 
+<div><p>A matrix with the size  <span class="math">\((N,C)\)</span> where  <span class="math">\(N\)</span> is the number of 
+points and  <span class="math">\(C\)</span> is 
 the number of coordinates</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>normalized_points: numpy.array</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>normalized_points: numpy.ndarray</strong> :</p>
 <blockquote>
 <div><p>A matrix with the same size as the input with the normalized coordinates</p>
 </div></blockquote>
 <p><strong>T: numpy.array</strong> :</p>
 <blockquote class="last">
-<div><p>A matrix with the form (C+1, C+1) representing the transformation to be
+<div><p>A matrix with the form  <span class="math">\((C+1, C+1)\)</span> representing the transformation to be
 used with homogeneous coordinates</p>
 </div></blockquote>
 </td>
