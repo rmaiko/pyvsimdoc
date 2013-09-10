@@ -113,7 +113,7 @@ x, y and z by traversing the subcomponents.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>bounds</strong> : numpy.array(2,3)</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>bounds</strong> : numpy.ndarray <span class="math">\((2,3)\)</span></p>
 <blockquote class="last">
 <div><p>An array containing the following elements: 
 [[xmin, ymin, zmin],</p>
@@ -146,7 +146,7 @@ internals.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.array (N x 3)</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.ndarray :math:`(N,3)`</strong> :</p>
 <blockquote>
 <div><p>Coordinates defining N segments by 2 points (each p0, p1 pair), 
 which will be tested for intersection with the polygons defined in 
@@ -207,7 +207,7 @@ redundant, but that makes the function signature uniform with the
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>wavelength</strong> : scalar or numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>wavelength</strong> : scalar or numpy.ndarray <span class="math">\((N)\)</span></p>
 <blockquote>
 <div><p>The wavelength of the incoming light given in <em>meters</em></p>
 </div></blockquote>

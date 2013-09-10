@@ -71,7 +71,7 @@ STL file, that can be exported from a CAD program.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>bounds</strong> : numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>bounds</strong> : numpy.ndarray <span class="math">\((6)\)</span></p>
 <blockquote class="last">
 <div><p>An array with the following data [xmin, xmax, ymin, ymax, zmin,
 zmax]. Defining a box aligned to axis bounding the Part</p>
@@ -112,7 +112,7 @@ it executes expensive search.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.array (N x 3)</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.ndarray :math:`(N,3)`</strong> :</p>
 <blockquote>
 <div><p>Coordinates defining N segments by 2 points (each p0, p1 pair), 
 which will be tested for intersection with the polygons defined in 
@@ -173,7 +173,7 @@ redundant, but that makes the function signature uniform with the
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>wavelength</strong> : scalar or numpy.array</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>wavelength</strong> : scalar or numpy.ndarray</p>
 <blockquote>
 <div><p>The wavelength of the incoming light given in <em>meters</em></p>
 </div></blockquote>
@@ -207,11 +207,11 @@ self.normals not None), these vectors are rotated.</p>
 <blockquote>
 <div><p>Angle : scalar (in radians)</p>
 </div></blockquote>
-<p><strong>axis</strong> : numpy.array (1 x 3)</p>
+<p><strong>axis</strong> : numpy.ndarray <span class="math">\((1,3)\)</span></p>
 <blockquote>
 <div><p>Vector around which the rotation occurs.</p>
 </div></blockquote>
-<p><strong>pivotPoint</strong> : numpy.array (1 x 3)</p>
+<p><strong>pivotPoint</strong> : numpy.ndarray <span class="math">\((1,3)\)</span></p>
 <blockquote class="last">
 <div><p>Point in space around which the rotation occurs. If not given, 
 rotates around origin.</p>
@@ -234,7 +234,7 @@ unlikely, but should not stop the program execution.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.array (1 x 3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.ndarray <span class="math">\((1,3)\)</span></p>
 <blockquote class="last">
 <div><p>Vector to translate the component. An array with x, y and z 
 coordinates</p>

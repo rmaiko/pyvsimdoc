@@ -87,14 +87,14 @@ probably not be used all the time.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x_new, [y_new, z_new]</strong> : numpy.array(1,3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>x_new, [y_new, z_new]</strong> : numpy.ndarray <span class="math">\((1,3)\)</span></p>
 <blockquote>
 <div><p>New vectors defining the orientation of the part. The vectors need
 NOT to be normalized, but MUST be orthogonal.</p>
 <p>Vectors y_new or z_new can be omitted (one at a time) and will be
 implicitly calculated</p>
 </div></blockquote>
-<p><strong>pivotPoint</strong> : numpy.array(1,3)</p>
+<p><strong>pivotPoint</strong> : numpy.ndarray <span class="math">\((1,3)\)</span></p>
 <blockquote>
 <div><p>Point in space around which the rotation occurs. If not given, 
 rotates around local origin.</p>
@@ -152,7 +152,7 @@ intersection is given by the inheriting classes.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.array (N x 3)</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.ndarray :math:` (N, 3)`</strong> :</p>
 <blockquote>
 <div><p>Coordinates defining N segments by 2 points (each p0, p1 pair), 
 which will be tested for intersection with the polygons defined in 
@@ -220,11 +220,11 @@ means of the <tt class="xref py py-meth docutils literal"><span class="pre">rota
 <blockquote>
 <div><p>Angle : scalar (in radians)</p>
 </div></blockquote>
-<p><strong>axis</strong> : numpy.array (1 x 3)</p>
+<p><strong>axis</strong> : numpy.ndarray :math:` (1, 3)`</p>
 <blockquote>
 <div><p>Vector around which the rotation occurs.</p>
 </div></blockquote>
-<p><strong>pivotPoint</strong> : numpy.array (1 x 3)</p>
+<p><strong>pivotPoint</strong> : numpy.ndarray :math:` (1, 3)`</p>
 <blockquote class="last">
 <div><p>Point in space around which the rotation occurs. If not given, 
 rotates around origin.</p>
@@ -245,8 +245,7 @@ update them accordingly using the following code:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">P</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="n">rotatePoints</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">angle</span><span class="p">,</span><span class="n">axis</span><span class="p">,</span><span class="n">pivotPoint</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This is a way of implementing the <cite>Chain of Responsibility 
-&lt;http://http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern&gt;</cite> 
+<p>This is a way of implementing the <a class="reference external" href="http://http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of Responsibility</a> 
 pattern, so that these geometrical operations are executed recursively.</p>
 <p><em>This is a protected method, do not use it unless you are inheriting
 from this class!</em></p>
@@ -258,11 +257,11 @@ from this class!</em></p>
 <blockquote>
 <div><p>Angle : scalar (in radians)</p>
 </div></blockquote>
-<p><strong>axis</strong> : numpy.array (1 x 3)</p>
+<p><strong>axis</strong> : numpy.ndarray <span class="math">\((1,3)\)</span></p>
 <blockquote>
 <div><p>Vector around which the rotation occurs.</p>
 </div></blockquote>
-<p><strong>pivotPoint</strong> : numpy.array (1 x 3)</p>
+<p><strong>pivotPoint</strong> : numpy.ndarray :math:` (1,3)`</p>
 <blockquote>
 <div><p>Point in space around which the rotation occurs. If not given, 
 rotates around origin.</p>
@@ -287,7 +286,7 @@ delegates the responsibility to the inheriting class by means of the
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.array (1 x 3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.ndarray :math:` (1, 3)`</p>
 <blockquote class="last">
 <div><p>Vector to translate the component. An array with x, y and z 
 coordinates</p>
@@ -305,8 +304,7 @@ coordinates</p>
 case a translation affects its internals.</p>
 <p>For example: a class with a vector of points P will probably need to
 update that to P+vector</p>
-<p>This is a way of implementing the <cite>Chain of Responsibility 
-&lt;http://http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern&gt;</cite> 
+<p>This is a way of implementing the <a class="reference external" href="http://http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of Responsibility</a> 
 pattern, so that these geometrical operations are executed recursively.</p>
 <p><em>This is a protected method, do not use it unless you are inheriting
 from this class!</em></p>
@@ -314,7 +312,7 @@ from this class!</em></p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.array (1 x 3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.ndarray :math:` (1, 3)`</p>
 <blockquote>
 <div><p>Vector to translate the component. An array with x, y and z 
 coordinates</p>

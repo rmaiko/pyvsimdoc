@@ -80,13 +80,13 @@ information)</p>
 <dd><p>This is a convienience function to interpolate the data in the &#8221;.data&#8221;
 field of this object. As the field is not under surveillance, it is
 the responsibility of the user to ensure that the field contains a
-numpy.array with the shape (M,8), i.e. one data point for each
+numpy.ndarray  with the shape <span class="math">\((M,8)\)</span>, i.e. one data point for each
 vertex</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p</strong> : numpy.array (N,3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p</strong> : numpy.ndarray <span class="math">\((N,3)\)</span></p>
 <blockquote>
 <div><p>A collection of points</p>
 </div></blockquote>
@@ -97,7 +97,7 @@ edges. If not, the corresponding row of result will be zeroed out</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>result</strong> : numpy.array (N,M)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>result</strong> : numpy.ndarray <span class="math">\((N,M)\)</span></p>
 <blockquote class="last">
 <div><p>An array with the data from the field &#8221;.data&#8221; interpolated</p>
 </div></blockquote>
@@ -135,13 +135,13 @@ implemented in <a class="reference internal" href="Utils.html#module-Utils" titl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p</strong> : numpy.array (N,3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p</strong> : numpy.ndarray <span class="math">\((N,3)\)</span></p>
 <blockquote>
 <div><p>A collection of points</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>result</strong> : numpy.array (N)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>result</strong> : numpy.ndarray <span class="math">\((N)\)</span></p>
 <blockquote class="last">
 <div><p>An array with &#8220;1&#8221; corresponding to points in the hexa or &#8220;0&#8221; 
 otherwise</p>

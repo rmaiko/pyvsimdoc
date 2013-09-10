@@ -68,18 +68,18 @@ of the raytracing procedure.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>initialVector</strong> : numpy.array (N x 3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>initialVector</strong> : numpy.ndarray <span class="math">\((N,3)\)</span></p>
 <blockquote>
 <div><p>if N rays are given, each element is the initial vector for ray
 tracing of each ray</p>
 </div></blockquote>
-<p><strong>initialPosition</strong> : numpy.array (N x 3)</p>
+<p><strong>initialPosition</strong> : numpy.ndarray <span class="math">\((N,3)\)</span></p>
 <blockquote>
 <div><p>if no parameter is passed, rays will depart from the origin of the
 bundle. Otherwise they will depart from the given points. If N
 points were given, a single common starting point can be given</p>
 </div></blockquote>
-<p><strong>wavelength</strong> : numpy.array (N)</p>
+<p><strong>wavelength</strong> : numpy.ndarray <span class="math">\((N)\)</span></p>
 <blockquote class="last">
 <div><p>the wavelength of the rays in meters (this changes the color and
 the behavior of the rays, if any dispersing element is present in
@@ -165,11 +165,11 @@ rays may completely change the light paths.</p>
 <blockquote>
 <div><p>Angle : scalar (in radians)</p>
 </div></blockquote>
-<p><strong>axis</strong> : numpy.array (1 x 3)</p>
+<p><strong>axis</strong> : numpy.ndarray :math:` (1, 3)`</p>
 <blockquote>
 <div><p>Vector around which the rotation occurs.</p>
 </div></blockquote>
-<p><strong>pivotPoint</strong> : numpy.array (1 x 3)</p>
+<p><strong>pivotPoint</strong> : numpy.ndarray :math:` (1, 3)`</p>
 <blockquote class="last">
 <div><p>Point in space around which the rotation occurs. If not given, 
 rotates around origin.</p>
@@ -219,7 +219,7 @@ to delete all ray tracing related information.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>translation</strong> : numpy.array (3)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>translation</strong> : numpy.ndarray :math:` (3)`</p>
 <blockquote class="last">
 <div><p>A [dx, dy, dz] vector</p>
 </div></blockquote>
