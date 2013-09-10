@@ -58,17 +58,18 @@
 <dd><p>The class component is a representation of elements used in the simulation.</p>
 <p>Most of its methods are abstract (throw a NotImplementedError) because the
 really useful classes are its derivatives:</p>
-<div class="highlight-python"><pre>* :class:`~.Core.Assembly`
-* :class:`~.Core.Part`
-* :class:`~.Core.Line`</pre>
-</div>
+<ul class="simple">
+<li>Assembly</li>
+<li>Part</li>
+<li>Line</li>
+</ul>
 <p>However, this class exists to stipulate a common interface for all elements
 in simulation, allowing a tree-like nesting of them.</p>
 <p>Some attributes (x, y, z, origin, id) are not directly changeable (for 
 obvious reasons), only with geometrical transforms, etc, so no setter is
 implemented, and if you try to change them, you will get an error.</p>
 <p>There is also a implementation of the visitor pattern using the 
-<tt class="xref py py-meth docutils literal"><span class="pre">acceptVisitor()</span></tt> method</p>
+acceptVisitor method</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.alignTo">
@@ -79,7 +80,7 @@ implemented, and if you try to change them, you will get an error.</p>
 given. There is an assertion to guarantee that.</p>
 <p>With the new vector base, a rotation matrix M is calculated, and the
 <a class="reference external" href="http://http://en.wikipedia.org/wiki/Rotation_matrix#Conversion_from_and_to_axis-angle">formulation to convert rotation matrix to axis-angle</a>
-is used for convenience (as then the method <tt class="xref py py-meth docutils literal"><span class="pre">rotate()</span></tt>
+is used for convenience (as then the method rotate
 can be directly called).</p>
 <p>Obs: No concerns about code efficiency are made, as this method will
 probably not be used all the time.</p>
@@ -152,7 +153,7 @@ intersection is given by the inheriting classes.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.ndarray :math:` (N, 3)`</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>p0, p1 - numpy.ndarray :math:`(N, 3)`</strong> :</p>
 <blockquote>
 <div><p>Coordinates defining N segments by 2 points (each p0, p1 pair), 
 which will be tested for intersection with the polygons defined in 
@@ -197,7 +198,7 @@ defined with normals at vertices, interpolation is performed).</p>
 <blockquote class="last">
 <div><p>A list with references to this object. This is, in this case, 
 redundant, but that makes the function signature uniform with the
-<cite>:class:~Core.Assembly</cite></p>
+Assembly class</p>
 </div></blockquote>
 </td>
 </tr>
@@ -211,7 +212,7 @@ redundant, but that makes the function signature uniform with the
 <dd><p>This method should be used when there is a change in the component
 position. This method operates only with the origin and the x, y and z
 vectors. It delegates the responsibility to the inheriting class by 
-means of the <tt class="xref py py-meth docutils literal"><span class="pre">rotateImplementation()</span></tt> method.</p>
+means of the rotateImplementation method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -220,11 +221,11 @@ means of the <tt class="xref py py-meth docutils literal"><span class="pre">rota
 <blockquote>
 <div><p>Angle : scalar (in radians)</p>
 </div></blockquote>
-<p><strong>axis</strong> : numpy.ndarray :math:` (1, 3)`</p>
+<p><strong>axis</strong> : numpy.ndarray <span class="math">\((1, 3)\)</span></p>
 <blockquote>
 <div><p>Vector around which the rotation occurs.</p>
 </div></blockquote>
-<p><strong>pivotPoint</strong> : numpy.ndarray :math:` (1, 3)`</p>
+<p><strong>pivotPoint</strong> : numpy.ndarray <span class="math">\((1, 3)\)</span></p>
 <blockquote class="last">
 <div><p>Point in space around which the rotation occurs. If not given, 
 rotates around origin.</p>
@@ -261,7 +262,7 @@ from this class!</em></p>
 <blockquote>
 <div><p>Vector around which the rotation occurs.</p>
 </div></blockquote>
-<p><strong>pivotPoint</strong> : numpy.ndarray :math:` (1,3)`</p>
+<p><strong>pivotPoint</strong> : numpy.ndarray <span class="math">\((1,3)\)</span></p>
 <blockquote>
 <div><p>Point in space around which the rotation occurs. If not given, 
 rotates around origin.</p>
@@ -281,12 +282,12 @@ rotates around origin.</p>
 <dd><p>This method should be used when there is a change in the component
 position. This method operates only with the origin position, and
 delegates the responsibility to the inheriting class by means of the
-<tt class="xref py py-meth docutils literal"><span class="pre">translateImplementation()</span></tt> method.</p>
+translateImplementation method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.ndarray :math:` (1, 3)`</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.ndarray <span class="math">\((1, 3)\)</span></p>
 <blockquote class="last">
 <div><p>Vector to translate the component. An array with x, y and z 
 coordinates</p>
@@ -312,7 +313,7 @@ from this class!</em></p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.ndarray :math:` (1, 3)`</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>vector</strong> : numpy.ndarray <span class="math">\((1, 3)\)</span></p>
 <blockquote>
 <div><p>Vector to translate the component. An array with x, y and z 
 coordinates</p>

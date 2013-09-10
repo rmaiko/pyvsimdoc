@@ -55,18 +55,8 @@
 <dl class="class">
 <dt id="pyvsim.Primitives.Volume">
 <em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Volume</tt><big>(</big><em>dimension=array([1</em>, <em>1</em>, <em>1])</em>, <em>fastInit=False</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class is used to represent a general hexahedron. Even though some
-methods will force it to become a cuboid (where all angles are right), such
-as:</p>
-<div class="highlight-python"><pre>* :meth:`~Core.Volume.width`
-* :meth:`~Core.Volume.depth`
-* :meth:`~Core.Volume.heigth`
-* :meth:`~Core.Volume.dimension`</pre>
-</div>
-<p>These methods can be safely ignored a set of points can be directly given,
-allowing quadrilaterally-faced hexas to be represented (check 
-<a class="reference external" href="http://en.wikipedia.org/wiki/Hexahedron">Wikipedia&#8217;s article</a> for more
-information)</p>
+<dd><p>This class is used to represent a general hexahedron. Most methods, however,
+only work if the faces of the hexa are planar</p>
 <p class="rubric">Methods</p>
 <dl class="method">
 <dt id="pyvsim.Primitives.Volume.expand">
