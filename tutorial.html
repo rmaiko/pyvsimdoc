@@ -98,7 +98,7 @@ these curly braces, and that is all!</p>
 <p>Now we have to populate the environment with simulation elements,
 for example, one can add a camera:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;name&quot;</span>      <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
 <span class="s">&quot;camera1&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -112,7 +112,7 @@ point at the point <span class="math">\((0,0,0)\)</span> pointing at the same di
 to do so, these geometries must be expressed as STL files.</p>
 <p>The syntax of importing geometries is the following:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
 <span class="s">&quot;mySTLFile&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>             <span class="p">:</span> <span class="s">&quot;STL&quot;</span><span class="p">,</span>
              <span class="s">&quot;filename&quot;</span>         <span class="p">:</span> <span class="s">&quot;./mystlfile.stl&quot;</span><span class="p">}</span>
 <span class="p">}</span>
@@ -122,11 +122,11 @@ to do so, these geometries must be expressed as STL files.</p>
 </div>
 <div class="section" id="positioning-components">
 <h2>Positioning components<a class="headerlink" href="#positioning-components" title="Permalink to this headline">¶</a></h2>
-<p>Checking the documentation of the Component class (<a class="reference internal" href="Component.html"><em>Component</em></a>), the
+<p>Checking the documentation of the <a class="reference internal" href="Component.html"><em>Component</em></a> class, the
 following methods can be used for changing the camera position:</p>
 <blockquote>
 <div><ul class="simple">
-<li><tt class="xref doc docutils literal"><span class="pre">Component.alignTo</span></tt></li>
+<li>rotate</li>
 <li>translate</li>
 <li>alignTo</li>
 </ul>
@@ -135,9 +135,20 @@ following methods can be used for changing the camera position:</p>
 one can see that we need a vector with <span class="math">\(\left ( \Delta x, \Delta y, \Delta z \right )\)</span>,
 and that the parameter name is &#8220;vector&#8221;. So we can simply write:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;name&quot;</span>      <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
 <span class="s">&quot;camera1&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">,</span>
                            <span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The name of the parameters and the behavior of the functions can be consulted
+in the <a class="reference internal" href="Component.html"><em>Component</em></a> documentation.</p>
+<p>** Assemblies are also components! <a href="#id1"><span class="problematic" id="id2">**</span></a>, it means that you can move an
+entire assembly at once:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;camera1&quot;</span>     <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">},</span>
+<span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span>
 <span class="p">}</span>
 </pre></div>
 </div>

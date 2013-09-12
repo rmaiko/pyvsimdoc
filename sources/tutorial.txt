@@ -58,7 +58,7 @@ Now we have to populate the environment with simulation elements,
 for example, one can add a camera::
 
 	{
-	"name" : "myEnvironmentName",
+	"name"      : "myEnvironmentName",
 	"camera1"   : {"type"        : "Camera"}
 	}
 	
@@ -75,7 +75,7 @@ to do so, these geometries must be expressed as STL files.
 The syntax of importing geometries is the following::
 
 	{
-	"name" : "myEnvironmentName",
+	"name"        : "myEnvironmentName",
 	"mySTLFile"   : {"type"             : "STL",
                      "filename"         : "./mystlfile.stl"}
 	}
@@ -83,10 +83,10 @@ The syntax of importing geometries is the following::
 Positioning components
 ======================
 
-Checking the documentation of the Component class (:doc:`Component`), the 
+Checking the documentation of the :doc:`Component` class, the 
 following methods can be used for changing the camera position:
 
-	* :doc:`Component.alignTo`
+	* rotate
 	* translate
 	* alignTo
 	
@@ -95,7 +95,20 @@ one can see that we need a vector with :math:`\left ( \Delta x, \Delta y, \Delta
 and that the parameter name is "vector". So we can simply write::
 
 	{
-	"name" : "myEnvironmentName",
+	"name"      : "myEnvironmentName",
 	"camera1"   : {"type"        : "Camera",
 				   "translate"   : {"vector" : [1, 0, 0]}}
 	}
+	
+The name of the parameters and the behavior of the functions can be consulted
+in the :doc:`Component` documentation.
+
+** Assemblies are also components! **, it means that you can move an 
+entire assembly at once::
+
+	{
+	"name"        : "myEnvironmentName",
+	"camera1"     : {"type"        : "Camera"},
+	"translate"   : {"vector" : [1, 0, 0]}
+	}
+	
