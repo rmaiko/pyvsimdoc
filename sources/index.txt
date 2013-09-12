@@ -38,6 +38,10 @@ project.
 
 .. toctree::
 
+Getting started
+===============
+There is a simple tutorial in the :ref:`tutorial` page.
+
 Download
 ========
 

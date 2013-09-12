@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting started with pyvsim &mdash; pyvsim 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pyvsim 1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pyvsim 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started-with-pyvsim">
+<h1>Getting started with pyvsim<a class="headerlink" href="#getting-started-with-pyvsim" title="Permalink to this headline">¶</a></h1>
+<p>In order to do this tutorial, download pyvsim at our
+<a class="reference external" href="http://code.google.com/p/pyvsim/">Google Code page</a>, unpack it (or
+clone the source).</p>
+<div class="section" id="the-interface">
+<h2>The interface<a class="headerlink" href="#the-interface" title="Permalink to this headline">¶</a></h2>
+<p>There are two possible ways of talking to pyvsim. The first is using plain
+python code, as pyvsim behaves just like a module. This allows access to all
+the functionalities of the code, and is also very practical, as it also allows
+the integration with other scripts. Pyvsim can also be used in the python console.</p>
+<p>The second way of interfacing with pyvsim is through environment and instruction
+files. This method will be preferred in the example here. Most functions can be
+accessed with this method, but with that, you lose the power of python.</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>When creating a simulation with pyvsim, one has to keep in mind
+that the simulation elements must be contained in a tree. This is
+essential for performing the simulation, allowing each element to
+be aware of each other.</p>
+<p>Below there is an example of a simulation tree. The user is free to create
+the tree in any possible way. The only limitation is that <em>all the simulation
+elements must be contained in a single tree</em>. This means that we have to add
+everything to the same environment, the depth, however, doesn&#8217;t matter.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/tree_example.png"><img alt="images/tree_example.png" src="images/tree_example.png" style="width: 225.5px; height: 175.5px;" /></a>
+<p class="caption">Example simulation tree.</p>
+</div>
+</div>
+<div class="section" id="creating-an-environment">
+<h2>Creating an environment<a class="headerlink" href="#creating-an-environment" title="Permalink to this headline">¶</a></h2>
+<p>Environments can be specified with the aid of a <a class="reference external" href="http://en.wikipedia.org/wiki/JSON">JSON</a>
+file. The format is very simple and human-readable, and the creation of an environment is
+done simply by:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In order to create a valid pyvsim environment, all elements must be included between
+these curly braces, and that is all!</p>
+</div>
+<div class="section" id="populating-the-environment">
+<h2>Populating the environment<a class="headerlink" href="#populating-the-environment" title="Permalink to this headline">¶</a></h2>
+<p>Now we have to populate the environment with simulation elements,
+for example, one can add a camera:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;camera1&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>All elements in pyvsim are initialized with their reference
+point at the point <span class="math">\((0,0,0)\)</span> pointing at the same direction as the
+<span class="math">\(x\)</span> axis. There are a series of operations if one wants to change that.</p>
+</div>
+<div class="section" id="positioning-components">
+<h2>Positioning components<a class="headerlink" href="#positioning-components" title="Permalink to this headline">¶</a></h2>
+<p>Checking the documentation of the Component class (<em class="xref std std-ref">Component</em>), the
+following methods can be used for changing the camera position:</p>
+<blockquote>
+<div><ul class="simple">
+<li>rotate</li>
+<li>translate</li>
+<li>alignTo</li>
+</ul>
+</div></blockquote>
+<p>Let&#8217;s translate the camera we have created. Checking the documentation page,
+one can see that we need a vector with <span class="math">\(left(\Delta x, \Delta y, \Delta z right)\)</span></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started with pyvsim</a><ul>
+<li><a class="reference internal" href="#the-interface">The interface</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#creating-an-environment">Creating an environment</a></li>
+<li><a class="reference internal" href="#populating-the-environment">Populating the environment</a></li>
+<li><a class="reference internal" href="#positioning-components">Positioning components</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/tutorial.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">pyvsim 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Ricardo Entz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
