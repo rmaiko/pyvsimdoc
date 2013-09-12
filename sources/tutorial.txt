@@ -32,11 +32,11 @@ everything to the same environment, the depth, however, doesn't matter.
 
 
 .. figure:: ./tree_example.png
-	:scale: 50%
-	:align: center
-	
-	Example simulation tree.
-	
+    :scale: 50%
+    :align: center
+    
+    Example simulation tree.
+    
 Creating an environment
 =======================
 
@@ -44,10 +44,10 @@ Environments can be specified with the aid of a `JSON <http://en.wikipedia.org/w
 file. The format is very simple and human-readable, and the creation of an environment is
 done simply by::
 
-	{
-	"name" : "myEnvironmentName"
-	}
-	
+    {
+    "name" : "myEnvironmentName.pyvsim"
+    }
+    
 In order to create a valid pyvsim environment, all elements must be included between
 these curly braces, and that is all!
 
@@ -57,11 +57,11 @@ Populating the environment
 Now we have to populate the environment with simulation elements,
 for example, one can add a camera::
 
-	{
-	"name"      : "myEnvironmentName",
-	"camera1"   : {"type"        : "Camera"}
-	}
-	
+    {
+    "name"      : "myEnvironmentName.pyvsim",
+    "camera1"   : {"type"        : "Camera"}
+    }
+    
 All elements in pyvsim are initialized with their reference
 point at the point :math:`(0,0,0)` pointing at the same direction as the 
 :math:`x` axis. There are a series of operations if one wants to change that.
@@ -74,11 +74,11 @@ to do so, these geometries must be expressed as STL files.
 
 The syntax of importing geometries is the following::
 
-	{
-	"name"        : "myEnvironmentName",
-	"mySTLFile"   : {"type"             : "STL",
+    {
+    "name"        : "myEnvironmentName.pyvsim",
+    "mySTLFile"   : {"type"             : "STL",
                      "filename"         : "./mystlfile.stl"}
-	}
+    }
 
 Positioning components
 ======================
@@ -86,29 +86,29 @@ Positioning components
 Checking the documentation of the :doc:`Component` class, the 
 following methods can be used for changing the camera position:
 
-	* rotate
-	* translate
-	* alignTo
-	
+    * rotate
+    * translate
+    * alignTo
+    
 Let's translate the camera we have created. Checking the documentation page,
 one can see that we need a vector with :math:`\left ( \Delta x, \Delta y, \Delta z \right )`,
 and that the parameter name is "vector". So we can simply write::
 
-	{
-	"name"      : "myEnvironmentName",
-	"camera1"   : {"type"        : "Camera",
-				   "translate"   : {"vector" : [1, 0, 0]}}
-	}
-	
+    {
+    "name"      : "myEnvironmentName.pyvsim",
+    "camera1"   : {"type"        : "Camera",
+                   "translate"   : {"vector" : [1, 0, 0]}}
+    }
+    
 The name of the parameters and the behavior of the functions can be consulted
 in the :doc:`Component` documentation.
 
 **Assemblies are also components!**, it means that you can move an 
 entire assembly at once::
 
-	{
-	"name"        : "myEnvironmentName",
-	"camera1"     : {"type"        : "Camera"},
-	"translate"   : {"vector" : [1, 0, 0]}
-	}
-	
+    {
+    "name"        : "myEnvironmentName.pyvsim",
+    "camera1"     : {"type"        : "Camera"},
+    "translate"   : {"vector" : [1, 0, 0]}
+    }
+    

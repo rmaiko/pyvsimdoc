@@ -86,7 +86,7 @@ everything to the same environment, the depth, however, doesn&#8217;t matter.</p
 file. The format is very simple and human-readable, and the creation of an environment is
 done simply by:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span>
+<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -98,7 +98,7 @@ these curly braces, and that is all!</p>
 <p>Now we have to populate the environment with simulation elements,
 for example, one can add a camera:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-<span class="s">&quot;name&quot;</span>      <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;name&quot;</span>      <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
 <span class="s">&quot;camera1&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -112,9 +112,9 @@ point at the point <span class="math">\((0,0,0)\)</span> pointing at the same di
 to do so, these geometries must be expressed as STL files.</p>
 <p>The syntax of importing geometries is the following:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-<span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
 <span class="s">&quot;mySTLFile&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>             <span class="p">:</span> <span class="s">&quot;STL&quot;</span><span class="p">,</span>
-             <span class="s">&quot;filename&quot;</span>         <span class="p">:</span> <span class="s">&quot;./mystlfile.stl&quot;</span><span class="p">}</span>
+                 <span class="s">&quot;filename&quot;</span>         <span class="p">:</span> <span class="s">&quot;./mystlfile.stl&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -135,9 +135,9 @@ following methods can be used for changing the camera position:</p>
 one can see that we need a vector with <span class="math">\(\left ( \Delta x, \Delta y, \Delta z \right )\)</span>,
 and that the parameter name is &#8220;vector&#8221;. So we can simply write:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-<span class="s">&quot;name&quot;</span>      <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;name&quot;</span>      <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
 <span class="s">&quot;camera1&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">,</span>
-                           <span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}}</span>
+               <span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -146,7 +146,7 @@ in the <a class="reference internal" href="Component.html"><em>Component</em></a
 <p><strong>Assemblies are also components!</strong>, it means that you can move an
 entire assembly at once:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-<span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
 <span class="s">&quot;camera1&quot;</span>     <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">},</span>
 <span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span>
 <span class="p">}</span>
