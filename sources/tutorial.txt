@@ -77,4 +77,4 @@ following methods can be used for changing the camera position:
 	* alignTo
 	
 Let's translate the camera we have created. Checking the documentation page,
-one can see that we need a vector with :math:`left(\Delta x, \Delta y, \Delta z right)`
+one can see that we need a vector with :math:`\left ( \Delta x, \Delta y, \Delta z \right )`
