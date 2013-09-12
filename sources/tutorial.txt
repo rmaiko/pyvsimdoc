@@ -103,7 +103,7 @@ and that the parameter name is "vector". So we can simply write::
 The name of the parameters and the behavior of the functions can be consulted
 in the :doc:`Component` documentation.
 
-** Assemblies are also components! **, it means that you can move an 
+**Assemblies are also components!**, it means that you can move an 
 entire assembly at once::
 
 	{
