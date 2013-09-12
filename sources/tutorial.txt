@@ -69,7 +69,7 @@ point at the point :math:`(0,0,0)` pointing at the same direction as the
 Positioning components
 ======================
 
-Checking the documentation of the Component class (:ref:`Component`), the 
+Checking the documentation of the Component class (:doc:`Component`), the 
 following methods can be used for changing the camera position:
 
 	* rotate

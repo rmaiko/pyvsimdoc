@@ -40,7 +40,7 @@ project.
 
 Getting started
 ===============
-There is a simple tutorial in the :ref:`tutorial` page.
+There is a simple tutorial in the :doc:`tutorial` page.
 
 Download
 ========
