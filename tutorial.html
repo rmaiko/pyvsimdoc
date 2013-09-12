@@ -106,6 +106,19 @@ for example, one can add a camera:</p>
 <p>All elements in pyvsim are initialized with their reference
 point at the point <span class="math">\((0,0,0)\)</span> pointing at the same direction as the
 <span class="math">\(x\)</span> axis. There are a series of operations if one wants to change that.</p>
+<div class="section" id="importing-cad-geometries">
+<h3>Importing CAD geometries<a class="headerlink" href="#importing-cad-geometries" title="Permalink to this headline">¶</a></h3>
+<p>Pyvsim is also capable of importing geometries from CAD models. In order
+to do so, these geometries must be expressed as STL files.</p>
+<p>The syntax of importing geometries is the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;mySTLFile&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>             <span class="p">:</span> <span class="s">&quot;STL&quot;</span><span class="p">,</span>
+             <span class="s">&quot;filename&quot;</span>         <span class="p">:</span> <span class="s">&quot;./mystlfile.stl&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="positioning-components">
 <h2>Positioning components<a class="headerlink" href="#positioning-components" title="Permalink to this headline">¶</a></h2>
@@ -113,13 +126,21 @@ point at the point <span class="math">\((0,0,0)\)</span> pointing at the same di
 following methods can be used for changing the camera position:</p>
 <blockquote>
 <div><ul class="simple">
-<li>rotate</li>
+<li><tt class="xref doc docutils literal"><span class="pre">Component.alignTo</span></tt></li>
 <li>translate</li>
 <li>alignTo</li>
 </ul>
 </div></blockquote>
 <p>Let&#8217;s translate the camera we have created. Checking the documentation page,
-one can see that we need a vector with <span class="math">\(\left ( \Delta x, \Delta y, \Delta z \right )\)</span></p>
+one can see that we need a vector with <span class="math">\(\left ( \Delta x, \Delta y, \Delta z \right )\)</span>,
+and that the parameter name is &#8220;vector&#8221;. So we can simply write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName&quot;</span><span class="p">,</span>
+<span class="s">&quot;camera1&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">,</span>
+                           <span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -138,7 +159,10 @@ one can see that we need a vector with <span class="math">\(\left ( \Delta x, \D
 <li><a class="reference internal" href="#the-interface">The interface</a></li>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#creating-an-environment">Creating an environment</a></li>
-<li><a class="reference internal" href="#populating-the-environment">Populating the environment</a></li>
+<li><a class="reference internal" href="#populating-the-environment">Populating the environment</a><ul>
+<li><a class="reference internal" href="#importing-cad-geometries">Importing CAD geometries</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#positioning-components">Positioning components</a></li>
 </ul>
 </li>

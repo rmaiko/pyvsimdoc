@@ -66,15 +66,36 @@ All elements in pyvsim are initialized with their reference
 point at the point :math:`(0,0,0)` pointing at the same direction as the 
 :math:`x` axis. There are a series of operations if one wants to change that.
 
+Importing CAD geometries
+------------------------
+
+Pyvsim is also capable of importing geometries from CAD models. In order
+to do so, these geometries must be expressed as STL files.
+
+The syntax of importing geometries is the following::
+
+	{
+	"name" : "myEnvironmentName",
+	"mySTLFile"   : {"type"             : "STL",
+                     "filename"         : "./mystlfile.stl"}
+	}
+
 Positioning components
 ======================
 
 Checking the documentation of the Component class (:doc:`Component`), the 
 following methods can be used for changing the camera position:
 
-	* rotate
+	* :doc:`Component.alignTo`
 	* translate
 	* alignTo
 	
 Let's translate the camera we have created. Checking the documentation page,
-one can see that we need a vector with :math:`\left ( \Delta x, \Delta y, \Delta z \right )`
+one can see that we need a vector with :math:`\left ( \Delta x, \Delta y, \Delta z \right )`,
+and that the parameter name is "vector". So we can simply write::
+
+	{
+	"name" : "myEnvironmentName",
+	"camera1"   : {"type"        : "Camera",
+				   "translate"   : {"vector" : [1, 0, 0]}}
+	}
