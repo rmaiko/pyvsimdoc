@@ -177,36 +177,18 @@ take the property &#8220;color&#8221; as a RGB vector:</p>
 that is the batch mode of pyvsim. If issue the following command:</p>
 <p>python pyvrun.py -h</p>
 <p>The usage of the script is printed:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>usage: Executes pyvsim in a command line interface [-h] [&#8211;geometry]</dt>
-<dd>[&#8211;simulation] &#8211;filename
-FILENAME [&#8211;plot {0,1}]</dd>
-<dt>optional arguments:</dt>
-<dd><table class="first docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
-<td>show this help message and exit</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--geometry</span></kbd></td>
-<td>Reads a scenario file and generates a pyvsim scenario
-file</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">--simulation</span></kbd></td>
-<td>Reads a pyvsim command file and execute the simulation</td></tr>
-<tr><td class="option-group" colspan="2">
-<kbd><span class="option">--filename <var>FILENAME</var></span></kbd></td>
-</tr>
-<tr><td>&nbsp;</td><td>Filename</td></tr>
-</tbody>
-</table>
-<p class="last">&#8211;plot {0,1}         Toggle plotting of the scenario</p>
-</dd>
-</dl>
-</div></blockquote>
+<div class="highlight-python"><pre>usage: Executes pyvsim in a command line interface [-h] [--geometry]
+                                                                                                   [--simulation] --filename
+                                                                                                   FILENAME [--plot {0,1}]
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --geometry           Reads a scenario file and generates a pyvsim scenario
+                                           file
+  --simulation         Reads a pyvsim command file and execute the simulation
+  --filename FILENAME  Filename
+  --plot {0,1}         Toggle plotting of the scenario</pre>
+</div>
 <p>So, assuming we save our file in the pyvsim root directory as myenvironment.json,
 we can issue the following command:</p>
 <p>python pyvrun.py &#8211;geometry &#8211;filename ./myenvironment.json &#8211;plot 1</p>

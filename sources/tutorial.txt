@@ -142,7 +142,7 @@ that is the batch mode of pyvsim. If issue the following command::
 
 python pyvrun.py -h
 
-The usage of the script is printed:
+The usage of the script is printed::
 
 	usage: Executes pyvsim in a command line interface [-h] [--geometry]
 													   [--simulation] --filename
