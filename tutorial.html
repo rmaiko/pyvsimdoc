@@ -157,7 +157,17 @@ entire assembly at once:</p>
 <h2>Setting properties<a class="headerlink" href="#setting-properties" title="Permalink to this headline">¶</a></h2>
 <p>Basically all pyvsim objects have many options that can be set,
 tuned and tweaked to represent a wide range of measurement equipment.</p>
-<p>For example,</p>
+<p>For example, the <a class="reference internal" href="Camera.html"><em>Camera</em></a> class has the property &#8220;color&#8221;, that takes
+an RGB vector:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
+<span class="s">&quot;camera1&quot;</span>     <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">,</span>
+                     <span class="s">&quot;color&quot;</span>       <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]},</span>
+<span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then the camera body will be red.</p>
 </div>
 </div>
 
