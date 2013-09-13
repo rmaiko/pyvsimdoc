@@ -1,0 +1,121 @@
+Getting started with pyvsim
++++++++++++++++++++++++++++
+
+In order to do this tutorial, download pyvsim at our
+`Google Code page <http://code.google.com/p/pyvsim/>`_, unpack it (or
+clone the source).
+
+The interface
+=============
+
+There are two possible ways of talking to pyvsim. The first is using plain
+python code, as pyvsim behaves just like a module. This allows access to all
+the functionalities of the code, and is also very practical, as it also allows
+the integration with other scripts. Pyvsim can also be used in the python console.
+
+The second way of interfacing with pyvsim is through environment and instruction
+files. This method will be preferred in the example here. Most functions can be
+accessed with this method, but with that, you lose the power of python.
+
+Introduction
+============
+
+When creating a simulation with pyvsim, one has to keep in mind
+that the simulation elements must be contained in a tree. This is
+essential for performing the simulation, allowing each element to
+be aware of each other.
+
+Below there is an example of a simulation tree. The user is free to create
+the tree in any possible way. The only limitation is that *all the simulation
+elements must be contained in a single tree*. This means that we have to add
+everything to the same environment, the depth, however, doesn't matter.
+
+
+.. figure:: ./tree_example.png
+    :scale: 50%
+    :align: center
+    
+    Example simulation tree.
+    
+Creating an environment
+=======================
+
+Environments can be specified with the aid of a `JSON <http://en.wikipedia.org/wiki/JSON>`_ 
+file. The format is very simple and human-readable, and the creation of an environment is
+done simply by::
+
+    {
+    "name" : "myEnvironmentName.pyvsim"
+    }
+    
+In order to create a valid pyvsim environment, all elements must be included between
+these curly braces, and that is all!
+
+Populating the environment
+==========================
+
+Now we have to populate the environment with simulation elements,
+for example, one can add a camera::
+
+    {
+    "name"      : "myEnvironmentName.pyvsim",
+    "camera1"   : {"type"        : "Camera"}
+    }
+    
+All elements in pyvsim are initialized with their reference
+point at the point :math:`(0,0,0)` pointing at the same direction as the 
+:math:`x` axis. There are a series of operations if one wants to change that.
+
+Importing CAD geometries
+------------------------
+
+Pyvsim is also capable of importing geometries from CAD models. In order
+to do so, these geometries must be expressed as STL files.
+
+The syntax of importing geometries is the following::
+
+    {
+    "name"        : "myEnvironmentName.pyvsim",
+    "mySTLFile"   : {"type"             : "STL",
+                     "filename"         : "./mystlfile.stl"}
+    }
+
+Positioning components
+======================
+
+Checking the documentation of the :doc:`Component` class, the 
+following methods can be used for changing the camera position:
+
+    * rotate
+    * translate
+    * alignTo
+    
+Let's translate the camera we have created. Checking the documentation page,
+one can see that we need a vector with :math:`\left ( \Delta x, \Delta y, \Delta z \right )`,
+and that the parameter name is "vector". So we can simply write::
+
+    {
+    "name"      : "myEnvironmentName.pyvsim",
+    "camera1"   : {"type"        : "Camera",
+                   "translate"   : {"vector" : [1, 0, 0]}}
+    }
+    
+The name of the parameters and the behavior of the functions can be consulted
+in the :doc:`Component` documentation.
+
+**Assemblies are also components!**, it means that you can move an 
+entire assembly at once::
+
+    {
+    "name"        : "myEnvironmentName.pyvsim",
+    "camera1"     : {"type"        : "Camera"},
+    "translate"   : {"vector" : [1, 0, 0]}
+    }
+    
+Setting properties
+==================
+
+Basically all pyvsim objects have many options that can be set,
+tuned and tweaked to represent a wide range of measurement equipment.
+
+For example, 
