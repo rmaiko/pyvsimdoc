@@ -144,7 +144,7 @@ and that the parameter name is &#8220;vector&#8221;. So we can simply write:</p>
 <p>The name of the parameters and the behavior of the functions can be consulted
 in the <a class="reference internal" href="Component.html"><em>Component</em></a> documentation.</p>
 <p><strong>Assemblies are also components!</strong>, it means that you can move an
-entire assembly at once:</p>
+entire assembly at once, <strong>except</strong> the root assembly:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
 <span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
 <span class="s">&quot;camera1&quot;</span>     <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">},</span>
@@ -152,22 +152,72 @@ entire assembly at once:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Is <strong>not</strong> possible.</p>
 </div>
 <div class="section" id="setting-properties">
 <h2>Setting properties<a class="headerlink" href="#setting-properties" title="Permalink to this headline">¶</a></h2>
 <p>Basically all pyvsim objects have many options that can be set,
 tuned and tweaked to represent a wide range of measurement equipment.</p>
-<p>For example, the <a class="reference internal" href="Camera.html"><em>Camera</em></a> class has the property &#8220;color&#8221;, that takes
-an RGB vector:</p>
+<p>For example, the <a class="reference internal" href="Camera.html"><em>Camera</em></a> class has a property &#8220;body&#8221; that can
+take the property &#8220;color&#8221; as a RGB vector:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
 <span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
 <span class="s">&quot;camera1&quot;</span>     <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">,</span>
-                     <span class="s">&quot;color&quot;</span>       <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]},</span>
-<span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span>
+                 <span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]},</span>
+                     <span class="s">&quot;body.color&quot;</span>  <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Then the camera body will be red.</p>
+</div>
+<div class="section" id="executing-pyvsim">
+<h2>Executing pyvsim<a class="headerlink" href="#executing-pyvsim" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a simple scenario set up, we can execute pyvsim.</p>
+<p>At the root of the pyvsim directory, you can find the script <em>pyvrun</em>,
+that is the batch mode of pyvsim. If issue the following command:</p>
+<p>python pyvrun.py -h</p>
+<p>The usage of the script is printed:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>usage: Executes pyvsim in a command line interface [-h] [&#8211;geometry]</dt>
+<dd>[&#8211;simulation] &#8211;filename
+FILENAME [&#8211;plot {0,1}]</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>show this help message and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--geometry</span></kbd></td>
+<td>Reads a scenario file and generates a pyvsim scenario
+file</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--simulation</span></kbd></td>
+<td>Reads a pyvsim command file and execute the simulation</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--filename <var>FILENAME</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Filename</td></tr>
+</tbody>
+</table>
+<p class="last">&#8211;plot {0,1}         Toggle plotting of the scenario</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>So, assuming we save our file in the pyvsim root directory as myenvironment.json,
+we can issue the following command:</p>
+<p>python pyvrun.py &#8211;geometry &#8211;filename ./myenvironment.json &#8211;plot 1</p>
+<p>Will yield the following a scenario as shown in the figure below (if you can&#8217;t
+see anything, try pressing &#8220;R&#8221; for resetting the zoom in the display window):</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/whitecamera.png"><img alt="images/whitecamera.png" src="images/whitecamera.png" style="width: 435.0px; height: 440.0px;" /></a>
+</div>
+</div>
+<div class="section" id="simulating">
+<h2>Simulating<a class="headerlink" href="#simulating" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -192,6 +242,8 @@ an RGB vector:</p>
 </li>
 <li><a class="reference internal" href="#positioning-components">Positioning components</a></li>
 <li><a class="reference internal" href="#setting-properties">Setting properties</a></li>
+<li><a class="reference internal" href="#executing-pyvsim">Executing pyvsim</a></li>
+<li><a class="reference internal" href="#simulating">Simulating</a></li>
 </ul>
 </li>
 </ul>

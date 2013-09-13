@@ -104,13 +104,15 @@ The name of the parameters and the behavior of the functions can be consulted
 in the :doc:`Component` documentation.
 
 **Assemblies are also components!**, it means that you can move an 
-entire assembly at once::
+entire assembly at once, **except** the root assembly::
 
     {
     "name"        : "myEnvironmentName.pyvsim",
     "camera1"     : {"type"        : "Camera"},
     "translate"   : {"vector" : [1, 0, 0]}
     }
+	
+Is **not** possible.
     
 Setting properties
 ==================
@@ -118,15 +120,56 @@ Setting properties
 Basically all pyvsim objects have many options that can be set,
 tuned and tweaked to represent a wide range of measurement equipment.
 
-For example, the :doc:`Camera` class has the property "color", that takes
-an RGB vector::
+For example, the :doc:`Camera` class has a property "body" that can 
+take the property "color" as a RGB vector::
 
     {
     "name"        : "myEnvironmentName.pyvsim",
     "camera1"     : {"type"        : "Camera",
-	                 "color"       : [1,1,1]},
-    "translate"   : {"vector" : [1, 0, 0]}
+                     "translate"   : {"vector" : [1, 0, 0]},
+	                 "body.color"  : [1,1,1]}
     }
 	
 Then the camera body will be red.
+
+Executing pyvsim
+================
+
+Now that we have a simple scenario set up, we can execute pyvsim.
+
+At the root of the pyvsim directory, you can find the script *pyvrun*,
+that is the batch mode of pyvsim. If issue the following command::
+
+python pyvrun.py -h
+
+The usage of the script is printed:
+
+	usage: Executes pyvsim in a command line interface [-h] [--geometry]
+													   [--simulation] --filename
+													   FILENAME [--plot {0,1}]
+
+	optional arguments:
+	  -h, --help           show this help message and exit
+	  --geometry           Reads a scenario file and generates a pyvsim scenario
+						   file
+	  --simulation         Reads a pyvsim command file and execute the simulation
+	  --filename FILENAME  Filename
+	  --plot {0,1}         Toggle plotting of the scenario
+	  
+So, assuming we save our file in the pyvsim root directory as myenvironment.json,
+we can issue the following command::
+
+python pyvrun.py --geometry --filename ./myenvironment.json --plot 1
+
+Will yield the following a scenario as shown in the figure below (if you can't 
+see anything, try pressing "R" for resetting the zoom in the display window):
+
+.. figure:: ./whitecamera.png
+    :scale: 100%
+    :align: center
+	
+	The rendered scenario
+	
+Simulating
+==========
 
