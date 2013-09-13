@@ -164,7 +164,7 @@ take the property &#8220;color&#8221; as a RGB vector:</p>
 <span class="s">&quot;name&quot;</span>        <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
 <span class="s">&quot;camera1&quot;</span>     <span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span>        <span class="p">:</span> <span class="s">&quot;Camera&quot;</span><span class="p">,</span>
                  <span class="s">&quot;translate&quot;</span>   <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]},</span>
-                     <span class="s">&quot;body.color&quot;</span>  <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]}</span>
+                 <span class="s">&quot;body.color&quot;</span>  <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -175,27 +175,30 @@ take the property &#8220;color&#8221; as a RGB vector:</p>
 <p>Now that we have a simple scenario set up, we can execute pyvsim.</p>
 <p>At the root of the pyvsim directory, you can find the script <em>pyvrun</em>,
 that is the batch mode of pyvsim. If issue the following command:</p>
-<p>python pyvrun.py -h</p>
+<div class="highlight-python"><pre>python pyvrun.py -h</pre>
+</div>
 <p>The usage of the script is printed:</p>
 <div class="highlight-python"><pre>usage: Executes pyvsim in a command line interface [-h] [--geometry]
-                                                                                                   [--simulation] --filename
-                                                                                                   FILENAME [--plot {0,1}]
+                                                   [--simulation] --filename
+                                                   FILENAME [--plot {0,1}]
 
 optional arguments:
   -h, --help           show this help message and exit
   --geometry           Reads a scenario file and generates a pyvsim scenario
-                                           file
+                       file
   --simulation         Reads a pyvsim command file and execute the simulation
   --filename FILENAME  Filename
   --plot {0,1}         Toggle plotting of the scenario</pre>
 </div>
 <p>So, assuming we save our file in the pyvsim root directory as myenvironment.json,
 we can issue the following command:</p>
-<p>python pyvrun.py &#8211;geometry &#8211;filename ./myenvironment.json &#8211;plot 1</p>
+<div class="highlight-python"><pre>python pyvrun.py --geometry --filename ./myenvironment.json --plot 1</pre>
+</div>
 <p>Will yield the following a scenario as shown in the figure below (if you can&#8217;t
 see anything, try pressing &#8220;R&#8221; for resetting the zoom in the display window):</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="images/whitecamera.png"><img alt="images/whitecamera.png" src="images/whitecamera.png" style="width: 435.0px; height: 440.0px;" /></a>
+<p class="caption">The rendered scenario</p>
 </div>
 </div>
 <div class="section" id="simulating">
