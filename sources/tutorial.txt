@@ -235,3 +235,30 @@ Which yields the following result:
     :scale: 100%
     :align: center
 
+A more complicated series of commands can also be easily issued. For example,
+imagine  we are to translate the camera before executing its initialization. 
+
+First, we have to check the translate documentation in the :doc:`Component`
+page. From that we know that the method takes a parameter named "vector".
+
+Then, the commands file becomes::
+
+	{
+	"scenario" : "myEnvironmentName.pyvsim",
+	"commands" : [["camera1", {"translate"  : {"vector" : [1, 0, 0]}}],
+                  ["camera1", {"initialize" : {}                    }]]
+	}
+	
+Which is completely different from::
+
+	{
+	"scenario" : "myEnvironmentName.pyvsim",
+	"commands" : [["camera1", {"initialize" : {}                    }],
+	              ["camera1", {"translate"  : {"vector" : [1, 0, 0]}}]]
+	}
+	
+When executing these files, think about the following problem: when you have
+a mapping from world coordinates to sensor coordinates, what happens if you
+move the camera?
+
+This concludes this quick launch guide of pyvsim.

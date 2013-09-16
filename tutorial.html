@@ -254,6 +254,30 @@ mycommands.json and issue the following command:</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="images/fov.png"><img alt="images/fov.png" src="images/fov.png" style="width: 492.0px; height: 501.0px;" /></a>
 </div>
+<p>A more complicated series of commands can also be easily issued. For example,
+imagine  we are to translate the camera before executing its initialization.</p>
+<p>First, we have to check the translate documentation in the <a class="reference internal" href="Component.html"><em>Component</em></a>
+page. From that we know that the method takes a parameter named &#8220;vector&#8221;.</p>
+<p>Then, the commands file becomes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;scenario&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
+<span class="s">&quot;commands&quot;</span> <span class="p">:</span> <span class="p">[[</span><span class="s">&quot;camera1&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;translate&quot;</span>  <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}}],</span>
+          <span class="p">[</span><span class="s">&quot;camera1&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;initialize&quot;</span> <span class="p">:</span> <span class="p">{}</span>                    <span class="p">}]]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Which is completely different from:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;scenario&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
+<span class="s">&quot;commands&quot;</span> <span class="p">:</span> <span class="p">[[</span><span class="s">&quot;camera1&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;initialize&quot;</span> <span class="p">:</span> <span class="p">{}</span>                    <span class="p">}],</span>
+              <span class="p">[</span><span class="s">&quot;camera1&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;translate&quot;</span>  <span class="p">:</span> <span class="p">{</span><span class="s">&quot;vector&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}}]]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When executing these files, think about the following problem: when you have
+a mapping from world coordinates to sensor coordinates, what happens if you
+move the camera?</p>
+<p>This concludes this quick launch guide of pyvsim.</p>
 </div>
 </div>
 
