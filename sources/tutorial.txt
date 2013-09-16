@@ -169,7 +169,69 @@ see anything, try pressing "R" for resetting the zoom in the display window):
     :align: center
     
     The rendered scenario
+	
+The scenario will be saved to a file with the name specified in the "name" field,
+for our example, it will be *myEnvironmentName.pyvsim*.
     
 Simulating
 ==========
+
+Now that we have a working scenario, a simulation case can be executed. This is
+done through another file.
+
+**Why using two files?**
+
+Apart from the obvious situation, when one wants to execute several different analysis
+using a single scenario, there is an important difference that has to be kept in mind:
+
+**Commands in the scenario file are not executed in a specified order**
+
+So, the command file we are going to create is important in the sense that we
+can specify how the simulation is going to be executed.
+
+As usual in pyvsim, a command file is a JSON file. There are only two fields
+that are recognized:
+
+	* **scenario** - the pyvsim file containing the scenario
+	* **commands** - the commands to be executed
+	
+So, a command file will look like this::
+
+	{
+	"scenario" : "myEnvironmentName.pyvsim",
+	"commands" : []
+	}
+	
+Note that the commands will stay in square braces. This guarantees that they
+are going to be executed in the correct order.
+
+One command we can issue is the "initialize" method of the camera. This is used
+for calculating the camera mapping (world to sensor coordinates), its field and
+depth of view. In order to issue a command, we just have to indicate the object
+name and the name of the command (that we can find in the :doc:`Camera` 
+documentation)::
+
+	{
+	"scenario" : "myEnvironmentName.pyvsim",
+	"commands" : [["camera1", {"initialize" : {}}]]
+	}	
+	
+The structure of a command is important, so let's explain it.
+
+The first part is the name of the object, in our case, "camera1".
+
+The command name shall come in curly braces, as we can use that
+to pass parameters. As the method "initialize" takes no parameters,
+the parameters will be empty for now.
+
+Then, the procedure is known. We will save the commands file as
+mycommands.json and issue the following command::
+
+	python pyvrun.py --simulation --filename ./mycommands.json --plot 1
+	
+Which yields the following result:
+
+.. figure:: ./fov.png
+    :scale: 100%
+    :align: center
 

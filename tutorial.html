@@ -200,9 +200,60 @@ see anything, try pressing &#8220;R&#8221; for resetting the zoom in the display
 <a class="reference internal image-reference" href="images/whitecamera.png"><img alt="images/whitecamera.png" src="images/whitecamera.png" style="width: 435.0px; height: 440.0px;" /></a>
 <p class="caption">The rendered scenario</p>
 </div>
+<p>The scenario will be saved to a file with the name specified in the &#8220;name&#8221; field,
+for our example, it will be <em>myEnvironmentName.pyvsim</em>.</p>
 </div>
 <div class="section" id="simulating">
 <h2>Simulating<a class="headerlink" href="#simulating" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a working scenario, a simulation case can be executed. This is
+done through another file.</p>
+<p><strong>Why using two files?</strong></p>
+<p>Apart from the obvious situation, when one wants to execute several different analysis
+using a single scenario, there is an important difference that has to be kept in mind:</p>
+<p><strong>Commands in the scenario file are not executed in a specified order</strong></p>
+<p>So, the command file we are going to create is important in the sense that we
+can specify how the simulation is going to be executed.</p>
+<p>As usual in pyvsim, a command file is a JSON file. There are only two fields
+that are recognized:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>scenario</strong> - the pyvsim file containing the scenario</li>
+<li><strong>commands</strong> - the commands to be executed</li>
+</ul>
+</div></blockquote>
+<p>So, a command file will look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;scenario&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
+<span class="s">&quot;commands&quot;</span> <span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that the commands will stay in square braces. This guarantees that they
+are going to be executed in the correct order.</p>
+<p>One command we can issue is the &#8220;initialize&#8221; method of the camera. This is used
+for calculating the camera mapping (world to sensor coordinates), its field and
+depth of view. In order to issue a command, we just have to indicate the object
+name and the name of the command (that we can find in the <a class="reference internal" href="Camera.html"><em>Camera</em></a>
+documentation):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&quot;scenario&quot;</span> <span class="p">:</span> <span class="s">&quot;myEnvironmentName.pyvsim&quot;</span><span class="p">,</span>
+<span class="s">&quot;commands&quot;</span> <span class="p">:</span> <span class="p">[[</span><span class="s">&quot;camera1&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;initialize&quot;</span> <span class="p">:</span> <span class="p">{}}]]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The structure of a command is important, so let&#8217;s explain it.</p>
+<p>The first part is the name of the object, in our case, &#8220;camera1&#8221;.</p>
+<p>The command name shall come in curly braces, as we can use that
+to pass parameters. As the method &#8220;initialize&#8221; takes no parameters,
+the parameters will be empty for now.</p>
+<p>Then, the procedure is known. We will save the commands file as
+mycommands.json and issue the following command:</p>
+<div class="highlight-python"><pre>python pyvrun.py --simulation --filename ./mycommands.json --plot 1</pre>
+</div>
+<p>Which yields the following result:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/fov.png"><img alt="images/fov.png" src="images/fov.png" style="width: 492.0px; height: 501.0px;" /></a>
+</div>
 </div>
 </div>
 
