@@ -270,11 +270,11 @@ the behavior of any of the particles.</p>
 is the classical (as used in Snell&#8217;s law) and the complex is related
 to light absorption</p>
 </div></blockquote>
-<p><strong>particleDiameters</strong> : numpy.array (N)</p>
+<p><strong>particleDiameters</strong> : numpy.ndarray (N)</p>
 <blockquote>
 <div><p>A list of particle diameters to be calculated</p>
 </div></blockquote>
-<p><strong>percentage</strong> : numpy.array (N)</p>
+<p><strong>percentage</strong> : numpy.ndarray (N)</p>
 <blockquote>
 <div><p>The value of the cumulative distribution function (CDF) of the particle
 diameter distribution sampled at the points given in the
@@ -284,18 +284,18 @@ particleDiameter array</p>
 <blockquote>
 <div><p>The wavelength of the light source</p>
 </div></blockquote>
-<p><strong>theta</strong> : numpy.array (M), radians</p>
+<p><strong>theta</strong> : numpy.ndarray (M), radians</p>
 <blockquote>
 <div><p>A list of scattering angles to be calculated. If not given, defaults
 to a 501-element array from 0 to 180deg</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(sigma1, sigma2)</strong> : tuple of numpy.array (M)</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(sigma1, sigma2)</strong> : tuple of numpy.ndarray (M)</p>
 <blockquote>
 <div><p>The differential scattering cross sections for the given distribution. 
-Sigma1 stands for light that is polarized perpendicular to the 
-propagation plane, and sigma2 for light polarized parallel to the 
+<span class="math">\(\sigma_1\)</span> stands for light that is polarized perpendicular to the 
+propagation plane, and <span class="math">\(\sigma_2\)</span> for light polarized parallel to the 
 propagation plane</p>
 </div></blockquote>
 </td>
