@@ -72,6 +72,41 @@ controlled by the parameter mappingResolution).</p>
 made to intersect rays with the camera</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.circleOfConfusionDiameter">
+<tt class="descname">circleOfConfusionDiameter</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.circleOfConfusionDiameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allowable circle of confusion diameter used for depth of field calculation</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.color">
+<tt class="descname">color</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Camera body color (for plotting only)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.detmapping">
+<tt class="descname">detmapping</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.detmapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determinant of the mapping matrices (used to verify if the
+<span class="math">\(\\left ( x,y,z \\right ) \\mapsto \\left ( u,v \\right )\)</span>
+mapping
+mapping goes from a right handed coordinate system to another
+right handed, or there is a flip</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.dimension">
+<tt class="descname">dimension</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Camera body dimensions (for plotting only)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.dmapping">
+<tt class="descname">dmapping</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.dmapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derivative of the <span class="math">\(\\left ( x,y,z \\right ) \\mapsto \\left ( u,v \\right )\)</span>
+mapping</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Toolbox.Camera.initialize">
 <tt class="descname">initialize</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Camera.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Camera.initialize" title="Permalink to this definition">¶</a></dt>
@@ -79,6 +114,12 @@ made to intersect rays with the camera</p>
 functions to relate world coordinates to sensor coordinates. This
 should be called whenever the ambient is set up, so the camera can 
 be used for synthetic image generation and displaying.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.lens">
+<tt class="descname">lens</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.lens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Camera lens</p>
 </dd></dl>
 
 <dl class="method">
@@ -147,6 +188,51 @@ If flag skipPupilAngle is true, returns None</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.mapping">
+<tt class="descname">mapping</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>2D vector of 4x3 matrices that perform the <span class="math">\(\\left ( x,y,z \\right ) \\mapsto \\left ( u,v \\right )\)</span>
+mapping</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.mappingResolution">
+<tt class="descname">mappingResolution</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.mappingResolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of rays to be cast in <span class="math">\(y\)</span> and <span class="math">\(z`directions for
+creation of the :math:\)</span>\left ( x,y,z \right ) \mapsto \left ( u,v \right )`
+mapping</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.physicalSamplingCenters">
+<tt class="descname">physicalSamplingCenters</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.physicalSamplingCenters" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each mapping subregion, this stores their center in world coordinates</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.referenceWavelength">
+<tt class="descname">referenceWavelength</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.referenceWavelength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wavelength used for creation of the mapping</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.sensor">
+<tt class="descname">sensor</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.sensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Camera sensor</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.sensorPosition">
+<tt class="descname">sensorPosition</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.sensorPosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Distance between camera flange and sensor (+ to front)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.sensorSamplingCenters">
+<tt class="descname">sensorSamplingCenters</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.sensorSamplingCenters" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each mapping subregion, this stores their center in the sensor plane</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Toolbox.Camera.setScheimpflugAngle">
 <tt class="descname">setScheimpflugAngle</tt><big>(</big><em>angle</em>, <em>axis</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Camera.setScheimpflugAngle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Camera.setScheimpflugAngle" title="Permalink to this definition">¶</a></dt>
@@ -169,6 +255,14 @@ the sensor center).</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Camera.virtualApertureArea">
+<tt class="descname">virtualApertureArea</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.virtualApertureArea" title="Permalink to this definition">¶</a></dt>
+<dd><p>If there are optical elements between mapping region and camera,
+a &#8220;virtual aperture&#8221; area is calculated for light intensity
+measurements</p>
 </dd></dl>
 
 <dl class="method">

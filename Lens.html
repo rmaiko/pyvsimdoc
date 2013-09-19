@@ -65,12 +65,48 @@ lens (i.e. from the sensor to the lens), as the rays are assumed straight
 between these two points. This can be a problem when modelling stacked lenses,
 that have to be substituted by an equivalent one.</p>
 <p class="rubric">Methods</p>
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.F">
+<tt class="descname">F</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.F" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lens <a class="reference external" href="http://en.wikipedia.org/wiki/Focal_length">focal length</a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.PinholeAft">
+<tt class="descname">PinholeAft</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.PinholeAft" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8220;Virtual pinhole&#8221; position (to meet the center of projection)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.PinholeFore">
+<tt class="descname">PinholeFore</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.PinholeFore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Center of projection position</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.aperture">
+<tt class="descname">aperture</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.aperture" title="Permalink to this definition">¶</a></dt>
+<dd><p>f-stop</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Toolbox.Lens.clearData">
 <tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.clearData" title="Permalink to this definition">¶</a></dt>
 <dd><p>As the data from the Primitives.Part class that has to be cleaned is 
 used only for ray tracing, the parent method is not called.</p>
 <p>The notable points, however, are recalculated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.color">
+<tt class="descname">color</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lens body color (for display only)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.diameter">
+<tt class="descname">diameter</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.diameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lens body diameter (for display only)</p>
 </dd></dl>
 
 <dl class="method">
@@ -82,10 +118,42 @@ is intended for debugging purposes, or better understanding how the
 lens work.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.distortionParameters">
+<tt class="descname">distortionParameters</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.distortionParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Radial distortion parameters</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.flangeFocalDistance">
+<tt class="descname">flangeFocalDistance</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.flangeFocalDistance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lens <a class="reference external" href="http://en.wikipedia.org/wiki/Flange_focal_distance">flange focal distance</a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.focusingOffset">
+<tt class="descname">focusingOffset</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.focusingOffset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assuming a lens with no floating elements, this is the displacement
+needed to allow focusing at a certain position</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.length">
+<tt class="descname">length</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lens body length (for display only)</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Toolbox.Lens.lensDistortion">
 <tt class="descname">lensDistortion</tt><big>(</big><em>vectors</em><big>)</big><a class="reference internal" href="modules/pyvsim/Toolbox.html#Lens.lensDistortion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Lens.lensDistortion" title="Permalink to this definition">¶</a></dt>
 <dd><p>TODO - Implementation of radial distortion model</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Toolbox.Lens.macro">
+<tt class="descname">macro</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Lens.macro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects between normal and macro mode (allows objects to be nearer the
+lens than the sensor)</p>
 </dd></dl>
 
 <dl class="method">
