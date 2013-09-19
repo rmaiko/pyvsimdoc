@@ -88,7 +88,7 @@ made to intersect rays with the camera</p>
 <dt id="pyvsim.Toolbox.Camera.detmapping">
 <tt class="descname">detmapping</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.detmapping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determinant of the mapping matrices (used to verify if the
-<span class="math">\((x,y,z) \\mapsto (u,v)\)</span> mapping
+<span class="math">\((x,y,z)-(u,v)\)</span> mapping
 mapping goes from a right handed coordinate system to another
 right handed, or there is a flip</p>
 </dd></dl>
@@ -102,7 +102,7 @@ right handed, or there is a flip</p>
 <dl class="attribute">
 <dt id="pyvsim.Toolbox.Camera.dmapping">
 <tt class="descname">dmapping</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.dmapping" title="Permalink to this definition">¶</a></dt>
-<dd><p>Derivative of the <span class="math">\((x,y,z)-&gt;(u,v)\)</span> mapping</p>
+<dd><p>Derivative of the <span class="math">\((x,y,z)-(u,v)\)</span> mapping</p>
 </dd></dl>
 
 <dl class="method">
@@ -189,14 +189,14 @@ If flag skipPupilAngle is true, returns None</p>
 <dl class="attribute">
 <dt id="pyvsim.Toolbox.Camera.mapping">
 <tt class="descname">mapping</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.mapping" title="Permalink to this definition">¶</a></dt>
-<dd><p>2D vector of 4x3 matrices that perform the <span class="math">\((x,y,z) \\mapsto (u,v)\)</span> mapping</p>
+<dd><p>2D vector of 4x3 matrices that perform the <span class="math">\((x,y,z)-(u,v)\)</span> mapping</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyvsim.Toolbox.Camera.mappingResolution">
 <tt class="descname">mappingResolution</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Camera.mappingResolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number of rays to be cast in <span class="math">\(y\)</span> and <span class="math">\(z`directions for
-creation of the :math:`(x,y,z) \\mapsto (u,v)\)</span> mapping</p>
+creation of the :math:`(x,y,z)-(u,v)\)</span> mapping</p>
 </dd></dl>
 
 <dl class="attribute">
