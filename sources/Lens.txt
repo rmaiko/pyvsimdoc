@@ -6,3 +6,4 @@ Lens
 
 .. autoclass:: pyvsim.Toolbox.Lens
     :members: 
+.. autoattribute:: pyvsim.Toolbox.Lens

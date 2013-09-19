@@ -6,3 +6,4 @@ RayBundle
 
 .. autoclass:: pyvsim.Primitives.RayBundle
     :members: 
+.. autoattribute:: pyvsim.Primitives.RayBundle

@@ -6,3 +6,4 @@ Laser
 
 .. autoclass:: pyvsim.Toolbox.Laser
     :members: 
+.. autoattribute:: pyvsim.Toolbox.Laser

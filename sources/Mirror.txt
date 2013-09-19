@@ -6,3 +6,4 @@ Mirror
 
 .. autoclass:: pyvsim.Toolbox.Mirror
     :members: 
+.. autoattribute:: pyvsim.Toolbox.Mirror

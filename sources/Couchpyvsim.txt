@@ -6,3 +6,4 @@ Couchpyvsim
 
 .. autoclass:: pyvsim.DBFacade.Couchpyvsim
     :members: 
+.. autoattribute:: pyvsim.DBFacade.Couchpyvsim

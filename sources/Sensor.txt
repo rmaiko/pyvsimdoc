@@ -6,3 +6,4 @@ Sensor
 
 .. autoclass:: pyvsim.Toolbox.Sensor
     :members: 
+.. autoattribute:: pyvsim.Toolbox.Sensor

@@ -6,3 +6,4 @@ pyvsimJSONDecoder
 
 .. autoclass:: pyvsim.System.pyvsimJSONDecoder
     :members: 
+.. autoattribute:: pyvsim.System.pyvsimJSONDecoder

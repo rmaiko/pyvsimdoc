@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyvsim &mdash; pyvsim 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pyvsim 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">pyvsim 1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for pyvsim</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module :: __init__</span>
+<span class="sd">    :platform: Unix, Windows</span>
+<span class="sd">    :synopsis: Initialization of pyvsim</span>
+<span class="sd">    </span>
+<span class="sd">This file lists the objects to be used in a normal execution of pyvsim. This</span>
+<span class="sd">way, the user does not have to know the internal distribution of classes (which</span>
+<span class="sd">may look somewhat arbitrary, e.g. Volume is in Primitives, not in Toolbox)</span>
+
+<span class="sd">The idea is to implement a factory, so that all component registration and</span>
+<span class="sd">deregistration is done automatically in the future.</span>
+<span class="sd">    </span>
+<span class="sd">.. moduleauthor :: Ricardo Entz &lt;maiko at thebigheads.net&gt;</span>
+
+<span class="sd">.. license::</span>
+<span class="sd">    PyVSim v.1</span>
+<span class="sd">    Copyright 2013 Ricardo Entz</span>
+<span class="sd">    </span>
+<span class="sd">    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="sd">    you may not use this file except in compliance with the License.</span>
+<span class="sd">    You may obtain a copy of the License at</span>
+<span class="sd">    </span>
+<span class="sd">        http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="sd">    </span>
+<span class="sd">    Unless required by applicable law or agreed to in writing, software</span>
+<span class="sd">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="sd">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="sd">    See the License for the specific language governing permissions and</span>
+<span class="sd">    limitations under the License.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">Core</span>
+<span class="kn">import</span> <span class="nn">Primitives</span>
+<span class="kn">import</span> <span class="nn">Toolbox</span>
+<span class="kn">import</span> <span class="nn">Utils</span>
+<span class="kn">import</span> <span class="nn">System</span>
+<span class="kn">import</span> <span class="nn">Library</span>
+
+<span class="c"># class Pyvsim(object):</span>
+<span class="c">#     def __init__(self):</span>
+<span class="c">#         self.scenario = Primitives.Assembly()</span>
+<span class="c">#         </span>
+<span class="c">#     def __getitem__(self, k):</span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         &quot;&quot;&quot;        </span>
+<span class="c">#         if type(k) is str:</span>
+<span class="c">#             for item in self.scenario._items:</span>
+<span class="c">#                 if item.name == k:</span>
+<span class="c">#                     return item</span>
+<span class="c">#         else:</span>
+<span class="c">#             return self.scenario._items[k]</span>
+<span class="c">#     </span>
+<span class="c">#     def __setitem__(self, k, value):     </span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         &quot;&quot;&quot;        </span>
+<span class="c">#         self.scenario.append(value, k)      </span>
+<span class="c">#         </span>
+<span class="c">#     def __delitem__(self,k):      </span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         &quot;&quot;&quot;        </span>
+<span class="c">#         self.scenario.remove(k)</span>
+<span class="c">#         </span>
+<span class="c">#     def __len__(self):</span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         &quot;&quot;&quot;        </span>
+<span class="c">#         return len(self.scenario._items)</span>
+<span class="c">#     </span>
+<span class="c">#     def __contains__(self, other):</span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         if type(other) is str:</span>
+<span class="c">#             for item in self.scenario._items:</span>
+<span class="c">#                 if item.name == other:</span>
+<span class="c">#                     return True</span>
+<span class="c">#             return False</span>
+<span class="c">#         return other in self._items</span>
+<span class="c">#                 </span>
+<span class="c">#     def importgeometry(self, filename):</span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         Reads a STL file and adds it to the pyvsim scenario</span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         part                    = Utils.readSTL(filename)</span>
+<span class="c">#         self.scenario          += part</span>
+<span class="c">#         self.objects[part.name] = part</span>
+<span class="c">#         </span>
+<span class="c">#     def save(self, filename, mode = &quot;pickle&quot;):</span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         &quot;&quot;&quot;        </span>
+<span class="c">#         System.save(self.scenario, filename, mode)</span>
+<span class="c">#         </span>
+<span class="c">#     def load(self, filename, overwrite = False):</span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         </span>
+<span class="c">#         &quot;&quot;&quot;</span>
+<span class="c">#         if not overwrite and len(self.scenario) &gt; 0:</span>
+<span class="c">#             ans = raw_input(&quot;Current scenario is not empty, overwrite? (y/n)&quot;)</span>
+<span class="c">#             if ans.upper() != &quot;Y&quot;:</span>
+<span class="c">#                 print &quot;Aborted readind file &quot;, filename</span>
+<span class="c">#                 return</span>
+<span class="c">#         self.scenario = System.load(filename)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Initialization of pyvsim</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c"># print &quot;Loading pyvsim&quot;</span>
+<span class="c"># pyvsim = Pyvsim()</span>
+<span class="c"># print &quot;done!&quot;</span>
+<span class="c"># readscenario(&quot;../examples/test340.json&quot;)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../static/logo.png" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">pyvsim 1.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Ricardo Entz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

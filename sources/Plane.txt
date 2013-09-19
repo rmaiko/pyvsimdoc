@@ -6,3 +6,4 @@ Plane
 
 .. autoclass:: pyvsim.Primitives.Plane
     :members: 
+.. autoattribute:: pyvsim.Primitives.Plane

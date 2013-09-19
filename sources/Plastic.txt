@@ -6,3 +6,4 @@ Plastic
 
 .. autoclass:: pyvsim.Library.Plastic
     :members: 
+.. autoattribute:: pyvsim.Library.Plastic

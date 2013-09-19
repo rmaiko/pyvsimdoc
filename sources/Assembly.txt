@@ -6,3 +6,4 @@ Assembly
 
 .. autoclass:: pyvsim.Primitives.Assembly
     :members: 
+.. autoattribute:: pyvsim.Primitives.Assembly
