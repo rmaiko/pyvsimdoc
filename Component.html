@@ -206,6 +206,15 @@ Assembly class</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Component.parent">
+<tt class="descname">parent</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Component.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to the component parent. Ideally this should be a weak
+reference to avoid memory leaks. As python does not provide a clean
+implementation of weakref, one must use always the remove method of
+<a class="reference internal" href="Assembly.html"><em>Assembly</em></a> to clear this field and avoid leaks</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.rotate">
 <tt class="descname">rotate</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint=None</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.rotate" title="Permalink to this definition">¶</a></dt>
