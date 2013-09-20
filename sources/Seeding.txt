@@ -6,4 +6,3 @@ Seeding
 
 .. autoclass:: pyvsim.Toolbox.Seeding
     :members: 
-.. autoattribute:: pyvsim.Toolbox.Seeding

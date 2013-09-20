@@ -6,4 +6,3 @@ Material
 
 .. autoclass:: pyvsim.Library.Material
     :members: 
-.. autoattribute:: pyvsim.Library.Material

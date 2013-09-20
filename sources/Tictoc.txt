@@ -6,4 +6,3 @@ Tictoc
 
 .. autoclass:: pyvsim.Utils.Tictoc
     :members: 
-.. autoattribute:: pyvsim.Utils.Tictoc

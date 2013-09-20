@@ -6,4 +6,3 @@ pyvsimJSONEncoder
 
 .. autoclass:: pyvsim.System.pyvsimJSONEncoder
     :members: 
-.. autoattribute:: pyvsim.System.pyvsimJSONEncoder

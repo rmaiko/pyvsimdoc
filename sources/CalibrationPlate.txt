@@ -6,4 +6,3 @@ CalibrationPlate
 
 .. autoclass:: pyvsim.Toolbox.CalibrationPlate
     :members: 
-.. autoattribute:: pyvsim.Toolbox.CalibrationPlate

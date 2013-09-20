@@ -6,4 +6,3 @@ Component
 
 .. autoclass:: pyvsim.Primitives.Component
     :members: 
-.. autoattribute:: pyvsim.Primitives.Component

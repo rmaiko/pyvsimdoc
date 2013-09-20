@@ -6,4 +6,3 @@ Camera
 
 .. autoclass:: pyvsim.Toolbox.Camera
     :members: 
-.. autoattribute:: pyvsim.Toolbox.Camera

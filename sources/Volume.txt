@@ -6,4 +6,3 @@ Volume
 
 .. autoclass:: pyvsim.Primitives.Volume
     :members: 
-.. autoattribute:: pyvsim.Primitives.Volume

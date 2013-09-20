@@ -6,4 +6,3 @@ Line
 
 .. autoclass:: pyvsim.Primitives.Line
     :members: 
-.. autoattribute:: pyvsim.Primitives.Line

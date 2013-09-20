@@ -6,4 +6,3 @@ Dump
 
 .. autoclass:: pyvsim.Toolbox.Dump
     :members: 
-.. autoattribute:: pyvsim.Toolbox.Dump

@@ -6,4 +6,3 @@ VTKPlotter
 
 .. autoclass:: pyvsim.System.VTKPlotter
     :members: 
-.. autoattribute:: pyvsim.System.VTKPlotter

@@ -6,4 +6,3 @@ Glass
 
 .. autoclass:: pyvsim.Library.Glass
     :members: 
-.. autoattribute:: pyvsim.Library.Glass

@@ -6,4 +6,3 @@ PyvsimDatabasable
 
 .. autoclass:: pyvsim.Core.PyvsimDatabasable
     :members: 
-.. autoattribute:: pyvsim.Core.PyvsimDatabasable

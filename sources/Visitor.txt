@@ -6,4 +6,3 @@ Visitor
 
 .. autoclass:: pyvsim.System.Visitor
     :members: 
-.. autoattribute:: pyvsim.System.Visitor

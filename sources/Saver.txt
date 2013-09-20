@@ -6,4 +6,3 @@ Saver
 
 .. autoclass:: pyvsim.System.Saver
     :members: 
-.. autoattribute:: pyvsim.System.Saver

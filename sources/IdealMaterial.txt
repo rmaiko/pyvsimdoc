@@ -6,4 +6,3 @@ IdealMaterial
 
 .. autoclass:: pyvsim.Library.IdealMaterial
     :members: 
-.. autoattribute:: pyvsim.Library.IdealMaterial

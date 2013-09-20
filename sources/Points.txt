@@ -6,4 +6,3 @@ Points
 
 .. autoclass:: pyvsim.Primitives.Points
     :members: 
-.. autoattribute:: pyvsim.Primitives.Points

@@ -6,4 +6,3 @@ PyvsimObject
 
 .. autoclass:: pyvsim.Core.PyvsimObject
     :members: 
-.. autoattribute:: pyvsim.Core.PyvsimObject

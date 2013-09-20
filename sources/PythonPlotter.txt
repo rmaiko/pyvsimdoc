@@ -6,4 +6,3 @@ PythonPlotter
 
 .. autoclass:: pyvsim.System.PythonPlotter
     :members: 
-.. autoattribute:: pyvsim.System.PythonPlotter
