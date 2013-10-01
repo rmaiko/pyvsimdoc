@@ -124,6 +124,19 @@ a right-handed coordinate system to a left-handed and vice-versa.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Component.bounds">
+<tt class="descname">bounds</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the extremities of the aligned to axis bounding box of the
+component in the format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">zmin</span><span class="p">],</span>
+<span class="p">[</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmax</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>If the component is not visible by ray tracing rays, the function
+shall return None</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Primitives.Component.clearData">
 <tt class="descname">clearData</tt><big>(</big><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.clearData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.clearData" title="Permalink to this definition">¶</a></dt>
@@ -204,6 +217,12 @@ Assembly class</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Component.origin">
+<tt class="descname">origin</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.origin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local origin of the component</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -334,6 +353,27 @@ coordinates</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Component.x">
+<tt class="descname">x</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local x coordinate of the component. This functionality is
+unaware of the inheriting components, but this coordinate is chosen as
+the optical axis of all elements in Toolbox (e.g. <a class="reference internal" href="Camera.html"><em>Camera</em></a> optical
+axis, <a class="reference internal" href="Laser.html"><em>Laser</em></a> beam direction, <a class="reference internal" href="Mirror.html"><em>Mirror</em></a> normal to the surface).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Component.y">
+<tt class="descname">y</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local y coordinate of the component</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Component.z">
+<tt class="descname">z</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Component.z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Component.z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Local z coordinate of the component</p>
 </dd></dl>
 
 </dd></dl>

@@ -91,6 +91,26 @@ features that are calculated from their interaction with the ambient
 transformations</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.color">
+<tt class="descname">color</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Part color</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.connectivity">
+<tt class="descname">connectivity</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.connectivity" title="Permalink to this definition">¶</a></dt>
+<dd><p>The connections between points defining triangles. Given as an
+<span class="math">\((N,3)\)</span> array of indexes of points. The order of definition
+affects the direction of the triangle normal</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.data">
+<tt class="descname">data</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Field for storing extra data about the part</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Primitives.Part.intersections">
 <tt class="descname">intersections</tt><big>(</big><em>p0</em>, <em>p1</em>, <em>tol=1e-08</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.intersections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.intersections" title="Permalink to this definition">¶</a></dt>
@@ -164,6 +184,30 @@ Assembly class</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.material">
+<tt class="descname">material</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.material" title="Permalink to this definition">¶</a></dt>
+<dd><p>Material of the part (initialized as IdealMaterial(1))</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.normals">
+<tt class="descname">normals</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.normals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores each triangle normal vector in a <span class="math">\((N,3)\)</span> array</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.opacity">
+<tt class="descname">opacity</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.opacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Part opacity</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.points">
+<tt class="descname">points</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.points" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <span class="math">\((N,3)\)</span> array containing the coordinates of the part points</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Primitives.Part.refractiveIndex">
 <tt class="descname">refractiveIndex</tt><big>(</big><em>wavelength=5.32e-07</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.refractiveIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.refractiveIndex" title="Permalink to this definition">¶</a></dt>
@@ -222,6 +266,12 @@ rotates around origin.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.surfaceProperty">
+<tt class="descname">surfaceProperty</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.surfaceProperty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Surface property (initialized as Component.OPAQUE)</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Primitives.Part.translateImplementation">
 <tt class="descname">translateImplementation</tt><big>(</big><em>vector</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Part.translateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part.translateImplementation" title="Permalink to this definition">¶</a></dt>
@@ -243,6 +293,12 @@ coordinates</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Part.visible">
+<tt class="descname">visible</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Part.visible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggles visibility</p>
 </dd></dl>
 
 </dd></dl>

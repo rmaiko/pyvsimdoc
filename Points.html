@@ -68,6 +68,24 @@ that this class does not take part in ray tracing activities</p>
 deleted when a geometrical operation is executed</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Points.color">
+<tt class="descname">color</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Points.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>The color of the points on display</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Points.connectivity">
+<tt class="descname">connectivity</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Points.connectivity" title="Permalink to this definition">¶</a></dt>
+<dd><p>None as default, as points are not connected</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Points.points">
+<tt class="descname">points</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Points.points" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <span class="math">\((N,3)\)</span> numpy.ndarray representing the points position</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyvsim.Primitives.Points.rotateImplementation">
 <tt class="descname">rotateImplementation</tt><big>(</big><em>angle</em>, <em>axis</em>, <em>pivotPoint</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Points.rotateImplementation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Points.rotateImplementation" title="Permalink to this definition">¶</a></dt>
@@ -86,6 +104,12 @@ unlikely, but should not stop the program execution.</p>
 <p>There is an exception handling because there is the possibility that 
 the line is translated before the points are defined. This is extremely
 unlikely, but should not stop the program execution.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvsim.Primitives.Points.visible">
+<tt class="descname">visible</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Primitives.Points.visible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggles between visibility of each point or only their bounding box</p>
 </dd></dl>
 
 </dd></dl>
