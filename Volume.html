@@ -57,7 +57,8 @@
 <em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Volume</tt><big>(</big><em>dimension=array([1</em>, <em>1</em>, <em>1])</em>, <em>fastInit=False</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is another convenience class an hexahedron. Most methods, however,
 only work if the faces of the hexa are planar</p>
-<p>The point numbering convention is:</p>
+<p>The point numbering convention and orientation is given in the figure
+below:</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="images/volume_points.png"><img alt="images/volume_points.png" src="images/volume_points.png" style="width: 190.0px; height: 238.0px;" /></a>
 </div>
@@ -65,7 +66,27 @@ only work if the faces of the hexa are planar</p>
 <dl class="method">
 <dt id="pyvsim.Primitives.Volume.expand">
 <tt class="descname">expand</tt><big>(</big><em>factor</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume.expand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.expand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inflates the volume by &#8220;factor&#8221;</p>
+<dd><p>Offsets each point of the volume by a multiplicative &#8220;factor&#8221; in the
+direction of the centerpoint.</p>
+<p>The procedure is shown in the figure below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/inflate.png"><img alt="images/inflate.png" src="images/inflate.png" style="width: 191.0px; height: 131.0px;" /></a>
+</div>
+<p>The original vector (<span class="math">\(V_o\)</span>) and the resulting vector (<span class="math">\(V_r\)</span>)
+are related by the factor <span class="math">\(f\)</span> as:</p>
+<p><span class="math">\(V_r = V_o \cdot f\)</span></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>factor</strong> : float</p>
+<blockquote class="last">
+<div><p>The offset factor</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -106,8 +127,11 @@ edges. If not, the corresponding row of result will be zeroed out</p>
 <tt class="descname">parametricToPhysical</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume.parametricToPhysical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.parametricToPhysical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a vector or a list of vectors in parametric coordinates with
 the following properties:</p>
-<p>[x,y,z] (global) -&gt; [x&#8217;,y&#8217;,z&#8217;] (parametrical)</p>
-<p>0 &lt;= x&#8217;,y&#8217;,z&#8217; &lt;= 1 if [x,y,z] lies inside the volume</p>
+<p><span class="math">\(\left( x,y,z \right) \mapsto \left(u,v,w \right)\)</span></p>
+<p>Where <span class="math">\(x,y,z\)</span> are world coordinates and <span class="math">\(u,v,w\)</span> are 
+parametric coordinates defined so that:</p>
+<p><span class="math">\(0 \leq u,v,w \leq 1\)</span></p>
+<p>represents a point inside the volume.</p>
 </dd></dl>
 
 <dl class="method">
@@ -115,8 +139,11 @@ the following properties:</p>
 <tt class="descname">physicalToParametric</tt><big>(</big><em>c</em><big>)</big><a class="reference internal" href="modules/pyvsim/Primitives.html#Volume.physicalToParametric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Volume.physicalToParametric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a vector or a list of vectors in parametric coordinates with
 the following properties:</p>
-<p>[x,y,z] (global) -&gt; [x&#8217;,y&#8217;,z&#8217;] (parametrical)</p>
-<p>0 &lt;= x&#8217;,y&#8217;,z&#8217; &lt;= 1 if [x,y,z] lies inside the volume</p>
+<p><span class="math">\(\left( x,y,z \right) \mapsto \left(u,v,w \right)\)</span></p>
+<p>Where <span class="math">\(x,y,z\)</span> are world coordinates and <span class="math">\(u,v,w\)</span> are 
+parametric coordinates defined so that:</p>
+<p><span class="math">\(0 \leq u,v,w \leq 1\)</span></p>
+<p>represents a point inside the volume.</p>
 </dd></dl>
 
 <dl class="method">
