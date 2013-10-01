@@ -57,11 +57,20 @@
 <em class="property">class </em><tt class="descclassname">pyvsim.Primitives.</tt><tt class="descname">Part</tt><a class="reference internal" href="modules/pyvsim/Primitives.html#Part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Primitives.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>This implementation of the Component class is the representation of a surface
 using triangle elements.</p>
-<p>This is supposed to be the standard element in np.piVSim, as raytracing with
+<p>This is supposed to be the standard element in pyvsim, as raytracing with
 such surfaces is relatively easy and plotting is also made easy by using 
 libraries such as VTK, Matplotlib and OpenGL.</p>
 <p>Another benefit is the possibility of directly reading this topology from a
 STL file, that can be exported from a CAD program.</p>
+<p>It is important to notice that the triangle definition defines a series of 
+behaviors within pyvsim, such as defining whether a ray is entering or 
+leaving a body.</p>
+<p>The definition of a triangle is given in the figure below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/triangle_points.png"><img alt="images/triangle_points.png" src="images/triangle_points.png" style="width: 190.0px; height: 153.0px;" /></a>
+</div>
+<p>And it is important to remember that in a closed surface, the normal always
+points outwards.</p>
 <p class="rubric">Methods</p>
 <dl class="attribute">
 <dt id="pyvsim.Primitives.Part.bounds">
