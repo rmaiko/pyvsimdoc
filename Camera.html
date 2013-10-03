@@ -64,6 +64,25 @@ initialize) instead of using a complicated series of internal functions.</p>
 by using direct linear transformations (a pinhole model). Lens imperfections
 and ambient influence can be modeled by using several DLTs (which is 
 controlled by the parameter mappingResolution).</p>
+<p>The reference points and origin of used in the development of this class
+are shown in the figure below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/camera_points.png"><img alt="images/camera_points.png" src="images/camera_points.png" style="width: 190.0px; height: 224.0px;" /></a>
+</div>
+<p>The following points are noteworthy:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>The camera points at the <span class="math">\(x\)</span> direction. <span class="math">\(y\)</span> is pointing up and</dt>
+<dd><p class="first last"><span class="math">\(z\)</span> points to the right.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">The origin of the camera is the center of its flange (the connection with
+its lens)</p>
+</li>
+<li><p class="first">The sensor is positioned at a negative <span class="math">\(x\)</span> position</p>
+</li>
+</ul>
 <p class="rubric">Methods</p>
 <dl class="attribute">
 <dt id="pyvsim.Toolbox.Camera.bounds">
