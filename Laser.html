@@ -55,7 +55,63 @@
 <dl class="class">
 <dt id="pyvsim.Toolbox.Laser">
 <em class="property">class </em><tt class="descclassname">pyvsim.Toolbox.</tt><tt class="descname">Laser</tt><a class="reference internal" href="modules/pyvsim/Toolbox.html#Laser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyvsim.Toolbox.Laser" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Methods</p>
+<dd><p>This class is used to represent a laser light source with the associated optics
+for sheet formation. This is a simplification that saves a lot of computing 
+power (instead of adding lenses).</p>
+<p>There are two main methods in this class, that are:</p>
+<ul class="simple">
+<li>trace</li>
+<li>traceReflections</li>
+</ul>
+<p>The first (<strong>trace</strong>) is used to determine the laser path until the measurement 
+area. This
+also leaves interpolating volumes, that are used for determining how much
+power a point in it receives. The method <strong>trace</strong> can be thought of an 
+initialization for the method <strong>illuminate</strong>.</p>
+<p>An important parameter for the <strong>trace</strong> method is the <strong>usefulLength</strong>. This
+establishes the starting and the ending point of the measurement area, and is
+given as a list. For example - <span class="math">\([1,2]\)</span> determines that the measurement
+area starts :math:<a href="#id1"><span class="problematic" id="id2">`</span></a>1`m from the laser output and goes up to :math:<a href="#id3"><span class="problematic" id="id4">`</span></a>2`m.</p>
+<p>The measurement area will be discretized with elements which length is 
+specified in the property <strong>usefulLengthDiscretization</strong>. For example, if this
+parameter is set to :math:<a href="#id5"><span class="problematic" id="id6">`</span></a>0.5`m, the measurement region described above will
+be composed of two interpolating volumes.</p>
+<p>A pictographic description of this scenario is shown below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/trace.png"><img alt="images/trace.png" src="images/trace.png" style="width: 396.0px; height: 175.0px;" /></a>
+<p class="caption">The origin and the orientation of the object are shown in this figure. 
+The beam exits pointing at the <span class="math">\(x\)</span> direction. The origin is the
+laser beam starting point.</p>
+</div>
+<p>The number of interpolating volumes should be kept as low as possible when
+creating synthetic images (as it is a bottleneck in the calculation). In
+the ideal case there should be only one.</p>
+<p>The method <strong>traceReflections</strong> is used to trace the laser path (and its
+reflections) for determining a laser safety area. The calculation is very 
+simple and is based on the concept of luminous energy per unit of area as
+shown below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/laser_density_1.png"><img alt="images/laser_density_1.png" src="images/laser_density_1.png" style="width: 353.0px; height: 878.0px;" /></a>
+</div>
+<p>The simulation does not take into account energy losses during propagation,
+so the estimation is very conservative.</p>
+<p>For the evaluation of complex geometries, the laser beam can be divided in
+several regions. Each region is then calculated independently, as shown in
+the figure below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/laser_density_2.png"><img alt="images/laser_density_2.png" src="images/laser_density_2.png" style="width: 339.0px; height: 648.0px;" /></a>
+</div>
+<p>The discretization is determined by the parameter <strong>safetyTracingRays</strong>, which
+is a 2-element list which determines how many <strong>rays</strong> (not areas) will be
+created in the laser <span class="math">\(y\)</span> and <span class="math">\(z\)</span> directions.</p>
+<p>It is important to consider that reflections in irregular areas will need a
+multitude of rays for proper execution. This can be computationally expensive.</p>
+<p>Finally, when plotting the result of the <strong>traceReflections</strong> method, the
+energy density will be represented by the ray colors. The scale is logarithmic,
+and regions below the density specified in the <strong>safeEnergyDensity</strong>
+parameter will be depicted with white rays (for better contrast with deep
+blue rays, that represent low but still dangerous power)</p>
+<p class="rubric">Methods</p>
 <dl class="attribute">
 <dt id="pyvsim.Toolbox.Laser.body">
 <tt class="descname">body</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Laser.body" title="Permalink to this definition">¶</a></dt>
