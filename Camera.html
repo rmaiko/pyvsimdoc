@@ -132,6 +132,37 @@ right handed, or there is a flip</p>
 functions to relate world coordinates to sensor coordinates. This
 should be called whenever the ambient is set up, so the camera can 
 be used for synthetic image generation and displaying.</p>
+<p>The procedure is capable of estimating the focusing region by using a
+hybrid ray tracing procedure. This is needed because the conjugation
+equation ( <span class="math">\(f^{-1} = p^{-1} + {p^{\prime}}^{-1}\)</span> ) is not
+capable of representing the cases where there is a refraction between
+the measurement area and the camera.</p>
+<p>The approach consists then on taking the theoretical focusing points
+(as calulated by the conjugation equation) and using them to calculate
+initial vectors (departing from the exit pupil) for a ray tracing. The
+focusing point is then the intersection between the rays. The procedure
+is shown in the figure below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/focal_calc.png"><img alt="images/focal_calc.png" src="images/focal_calc.png" style="width: 659.0px; height: 389.0px;" /></a>
+</div>
+<p>The program implements 4 rays per point (departing from directions
+<span class="math">\(y,z,-y,-z\)</span> in the camera reference). This is sufficient for most
+cases, and is just an approximation in the case the refracting surface
+is not perpendicular to the camera axis (except the case when it&#8217;s
+inclined in the cameras <span class="math">\(y\)</span> or <span class="math">\(z\)</span> axes only), because in
+this case astigmatism is present.</p>
+<p>The line intersection is performed between the rays starting from 
+<span class="math">\(y,-y\)</span> and <span class="math">\(z,-z\)</span> separately, which generate the 
+points denominated VV anh VH. When these points do not coincide, the system is
+astigmatic.</p>
+<p>This approach is in fact adapted to consider the depth of field. The 
+extension is natural and involves calculating the theoretical forward
+and aft tolerances for focusing (this is a funcion of the parameter
+<strong>circleOfConfusionDiameter</strong>). The procedure is shown in the figure 
+below:</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="images/focal_calc_2.png"><img alt="images/focal_calc_2.png" src="images/focal_calc_2.png" style="width: 659.0px; height: 389.0px;" /></a>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -295,7 +326,8 @@ camera.</p>
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>centeronly</strong> : boolean</p>
 <blockquote>
 <div><p>If the camera mapping resolution has created more than a single 
-mapping matrix (&gt;2), setting this value to True makes the routine
+mapping matrix (parameter set &gt; 2), setting this value to True makes 
+the routine
 create only one camera (for the center mapping). Otherwise it will
 create as many cameras as mapping matrices.</p>
 </div></blockquote>
