@@ -71,10 +71,10 @@ initialization for the method <strong>illuminate</strong>.</p>
 <p>An important parameter for the <strong>trace</strong> method is the <strong>usefulLength</strong>. This
 establishes the starting and the ending point of the measurement area, and is
 given as a list. For example - <span class="math">\([1,2]\)</span> determines that the measurement
-area starts :math:<a href="#id1"><span class="problematic" id="id2">`</span></a>1`m from the laser output and goes up to :math:<a href="#id3"><span class="problematic" id="id4">`</span></a>2`m.</p>
+area starts <span class="math">\(1m\)</span> from the laser output and goes up to <span class="math">\(2m\)</span>.</p>
 <p>The measurement area will be discretized with elements which length is 
 specified in the property <strong>usefulLengthDiscretization</strong>. For example, if this
-parameter is set to :math:<a href="#id5"><span class="problematic" id="id6">`</span></a>0.5`m, the measurement region described above will
+parameter is set to <span class="math">\(0.5m\)</span>, the measurement region described above will
 be composed of two interpolating volumes.</p>
 <p>A pictographic description of this scenario is shown below:</p>
 <div class="figure align-center">
@@ -191,8 +191,8 @@ is a list of lists. The internal lists have two elements, the first is
 the maximum tracing distance (measured from the beginning of the tracing)
 and the second is the resolution (how long the tracing steps are).
 The outer list are the different tracing regions. For example:
-[[1,1],[10,0.1]] will trace 1 meter with 1 meter step and then up to
-10 meters with 0.1m steps.</p>
+<span class="math">\([[1,1],[10,0.1]]\)</span> will trace <span class="math">\(1m\)</span> with <span class="math">\(1m\)</span> step
+and then up to <span class="math">\(10m\)</span> with <span class="math">\(0.1m\)</span> steps.</p>
 </dd></dl>
 
 <dl class="method">
