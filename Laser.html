@@ -172,8 +172,8 @@ the direction that the light emanating from the laser is</p>
 <dl class="attribute">
 <dt id="pyvsim.Toolbox.Laser.safeEnergyDensity">
 <tt class="descname">safeEnergyDensity</tt><em class="property"> = None</em><a class="headerlink" href="#pyvsim.Toolbox.Laser.safeEnergyDensity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Laser safe energy (in Joules/m^2), this is a value deemed safe for
-double-pulsed YAG lasers (5e-3)</p>
+<dd><p>Laser safe energy (in <span class="math">\(J/{m^2}\)</span>), this is a value deemed safe for
+double-pulsed YAG lasers (<span class="math">\(5 \cdot 10^{-3}J/m^2\)</span>)</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -192,7 +192,8 @@ the maximum tracing distance (measured from the beginning of the tracing)
 and the second is the resolution (how long the tracing steps are).
 The outer list are the different tracing regions. For example:
 <span class="math">\([[1,1],[10,0.1]]\)</span> will trace <span class="math">\(1m\)</span> with <span class="math">\(1m\)</span> step
-and then up to <span class="math">\(10m\)</span> with <span class="math">\(0.1m\)</span> steps.</p>
+and then up to <span class="math">\(10m\)</span> with <span class="math">\(0.1m\)</span> steps. The strategy can
+be composed of an arbitrary number of steps.</p>
 </dd></dl>
 
 <dl class="method">
